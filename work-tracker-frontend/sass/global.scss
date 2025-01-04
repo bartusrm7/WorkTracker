@@ -1,0 +1,17 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+$text: "";
+$background: "";
+$font: "Anta", serif;
+
+body {
+	font-family: $font;
+}
+html {
+}
