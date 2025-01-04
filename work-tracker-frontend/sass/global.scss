@@ -6,12 +6,45 @@
 	margin: 0;
 }
 
-$text: "";
-$background: "";
+$text: #dfdcf9;
+$background: #070416;
+$primary: #8e8ced;
+$secondary: #5c1891;
+$accent: #b83adf;
 $font: "Anta", serif;
 
+// LIGHT MODE COLORS
+// $text: #090623;
+// $background: #ece9fb;
+// $primary: #141273;
+// $secondary: #b36ee7;
+// $accent: #9f20c5;
+
 body {
+	background-color: $background;
+	color: $text;
 	font-family: $font;
 }
-html {
+
+.title {
+	font-size: 1rem;
+}
+.header {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.text {
+	font-size: 1rem;
+}
+.btn {
+	background-color: $secondary;
+	border: 1px solid $secondary;
+	&:hover {
+		background-color: $accent;
+		border: 1px solid $accent;
+	}
+	&:active {
+		background-color: $accent !important;
+		border: 1px solid $accent !important;
+	}
 }
