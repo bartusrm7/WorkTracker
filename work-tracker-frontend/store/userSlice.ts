@@ -10,11 +10,13 @@ interface User {
 interface UserState {
 	user: User[];
 	loading: boolean;
+	status: string;
 }
 
 const initialState: UserState = {
 	user: [],
 	loading: false,
+	status: "",
 };
 
 export const UserRegister = createAsyncThunk<User, User>(
@@ -52,6 +54,7 @@ const userSlice = createSlice({
 			.addCase(UserRegister.fulfilled, (state, action: PayloadAction<User>) => {
 				state.loading = false;
 				state.user.push(action.payload);
+				state.status = "success";
 			})
 			.addCase(UserRegister.rejected, state => {
 				state.loading = false;
