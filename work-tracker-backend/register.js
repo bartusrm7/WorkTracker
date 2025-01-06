@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
 			return res.status(400).send("All fields are required!");
 		}
 
-		const [existingUser] = await db.promise().query(`SELECT * FROM userData WHERE email = ?`);
+		const [existingUser] = await db.promise().query(`SELECT * FROM userData WHERE email = ?`, [email]);
 		if (existingUser.length > 0) return res.status(400).send("User with this email is already exists!");
 
 		const hashedPassword = await bcrypt.hash(password, 8);
