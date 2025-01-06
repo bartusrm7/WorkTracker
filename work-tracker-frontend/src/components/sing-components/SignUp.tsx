@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
 	return (
@@ -27,7 +28,9 @@ export default function SignUp() {
 							</Form.Group>
 						</Form>
 						<Button className='btn w-100 mt-4 mb-4'>Register</Button>
-						<Button className='btn w-100 mt-4'>Sign in your account</Button>
+						<Link to='/login'>
+							<Button className='btn w-100 mt-4'>Sign in your account</Button>
+						</Link>
 					</Col>
 				</Row>
 			</Container>

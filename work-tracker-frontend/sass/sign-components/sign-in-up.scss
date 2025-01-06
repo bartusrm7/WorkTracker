@@ -1,4 +1,10 @@
 @use "../global";
 
-.sign-in-up {
+.sign-up-in {
+	&__enter-sentence {
+		max-width: 300px;
+	}
+	&__start-btn {
+		width: 100%;
+	}
 }
