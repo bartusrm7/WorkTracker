@@ -4,7 +4,7 @@ const db = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "monkeyking",
-	database: "work-tracker",
+	database: "work_tracker",
 });
 
 db.query(`CREATE TABLE IF NOT EXISTS userData (
