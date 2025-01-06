@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
 	firstName: string;
@@ -19,14 +19,22 @@ const initialState: UserState = {
 
 export const UserRegister = createAsyncThunk("user/user-register", async userData => {
 	try {
-		const response = await fetch("", {
+		const response = await fetch("http://localhost:5174/register", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
 			},
 			body: JSON.stringify(userData),
+			credentials: "include",
 		});
-	} catch (error) {}
+		if (!response.ok) {
+			throw new Error(`Error ${response.status}: ${response.text}`);
+		}
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error("Error during registration:", error);
+	}
 });
 
 const userSlice = createSlice({
@@ -35,11 +43,12 @@ const userSlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder
-			.addCase(UserRegister.prototype, state => {
+			.addCase(UserRegister.pending, state => {
 				state.loading = true;
 			})
-			.addCase(UserRegister.fulfilled, (state, action) => {
+			.addCase(UserRegister.fulfilled, (state, action: PayloadAction<User>) => {
 				state.loading = false;
+				state.user.push(action.payload);
 			})
 			.addCase(UserRegister.rejected, state => {
 				state.loading = false;
