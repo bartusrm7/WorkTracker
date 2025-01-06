@@ -17,25 +17,28 @@ const initialState: UserState = {
 	loading: false,
 };
 
-export const UserRegister = createAsyncThunk("user/user-register", async userData => {
-	try {
-		const response = await fetch("http://localhost:5174/register", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(userData),
-			credentials: "include",
-		});
-		if (!response.ok) {
-			throw new Error(`Error ${response.status}: ${response.text}`);
+export const UserRegister = createAsyncThunk<User, User>(
+	"user/user-register",
+	async (userData, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/register", {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify(userData),
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(`Error ${response.status}: ${response.text}`);
+			}
+			const data = await response.json();
+			return { firstName: data.firstName, lastName: data.lastName, email: data.email, password: data.password };
+		} catch (error) {
+			return rejectWithValue("Error during registration:");
 		}
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error("Error during registration:", error);
 	}
-});
+);
 
 const userSlice = createSlice({
 	name: "user",

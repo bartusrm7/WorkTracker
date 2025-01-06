@@ -7,9 +7,14 @@ const app = express();
 const port = 5174;
 
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		origin: "http://localhost:5173",
+		credentials: true,
+	})
+);
 
-app.use("/register", registerRoutes);
+app.use("/", registerRoutes);
 
 app.listen(port, () => {
 	console.log(`Server working at: http://localhost:${port}`);

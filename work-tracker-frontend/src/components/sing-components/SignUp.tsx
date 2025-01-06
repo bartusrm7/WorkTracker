@@ -24,7 +24,7 @@ export default function SignUp() {
 	};
 
 	const handleAcceptUserRegister = () => {
-		dispatch(UserRegister());
+		dispatch(UserRegister(userData));
 	};
 
 	return (
