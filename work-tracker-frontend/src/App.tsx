@@ -5,12 +5,12 @@ import SignIn from "./components/sing-components/SignIn";
 export default function App() {
 	return (
 		<>
-			<Router>
-				<Routes>
-					<Route path='/register' element={<SignUp />} />
-					<Route path='/login' element={<SignIn />} />
-				</Routes>
-			</Router>
+			{/* <Router> */}
+			<Routes>
+				<Route path='/register' element={<SignUp />} />
+				<Route path='/login' element={<SignIn />} />
+			</Routes>
+			{/* </Router> */}
 		</>
 	);
 }
