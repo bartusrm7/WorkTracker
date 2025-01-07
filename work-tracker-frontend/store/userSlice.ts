@@ -42,25 +42,6 @@ export const UserRegister = createAsyncThunk<User, User>(
 	}
 );
 
-export const UserLogin = createAsyncThunk("user/user-login", async (userData: { email: string; password: string }) => {
-	try {
-		const response = await fetch("http://localhost:5174/login", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(userData),
-		});
-		if (!response.ok) {
-			throw new Error(`Error ${response.status}: ${response.text}`);
-		}
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error("Error during registration", error);
-	}
-});
-
 const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -76,16 +57,6 @@ const userSlice = createSlice({
 				state.status = "success";
 			})
 			.addCase(UserRegister.rejected, state => {
-				state.loading = false;
-			})
-
-			.addCase(UserLogin.pending, state => {
-				state.loading = true;
-			})
-			.addCase(UserLogin.fulfilled, (state, action: PayloadAction) => {
-				state.loading = false;
-			})
-			.addCase(UserLogin.rejected, state => {
 				state.loading = false;
 			});
 	},

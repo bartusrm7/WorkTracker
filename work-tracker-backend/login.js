@@ -14,14 +14,14 @@ function authenticateToken(req, res, next) {
 
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
 		if (err) {
-			return res.status(403);
+			return res.status(403).send({ message: "Invalid token!" });
 		}
 		req.user = user;
 		next();
 	});
 }
 
-router.post("/authorization", authenticateToken, (res, req) => {
+router.post("/authorization", authenticateToken, (req, res) => {
 	res.status(200).json({ message: "Authorization successful!", user: req.user });
 });
 
@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
 			return res.status(400).send("All fields are required!");
 		}
 
-		const [result] = await db.promise().query(`SELECT * FROM userData WHERE email = ?`, [result]);
+		const [result] = await db.promise().query(`SELECT * FROM userData WHERE email = ?`, [email]);
 		if (result.length === 0) {
 			return res.status(401).send("Invalid email or password!");
 		}
