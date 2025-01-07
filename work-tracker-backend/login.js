@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -61,8 +62,9 @@ router.post("/login", async (req, res) => {
 			sameSite: "Lax",
 		});
 
-		return res.status(200).json({ message: "User logged successfully!", result });
+		return res.status(200).json({ message: "User logged successfully!" });
 	} catch (error) {
+		console.error("Error during login:", error);
 		return res.status(500).send("Interval server error!");
 	}
 });
