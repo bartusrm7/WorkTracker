@@ -4,6 +4,27 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const db = require("./database");
 
+function authenticateToken(req, res, next) {
+	const authHeader = req.headers["authorization"];
+	const token = authHeader && authHeader.split(" ")[1];
+
+	if (!token) {
+		return res.status(401).send({ message: "No token provided!" });
+	}
+
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+		if (err) {
+			return res.status(403);
+		}
+		req.user = user;
+		next();
+	});
+}
+
+router.post("/authorization", authenticateToken, (res, req) => {
+	res.status(200).json({ message: "Authorization successful!", user: req.user });
+});
+
 router.post("/login", async (req, res) => {
 	try {
 		const { email, password } = req.body;
