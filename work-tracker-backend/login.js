@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
 
 		return res.status(200).json({ message: "User logged successfully!", result });
 	} catch (error) {
-		return res.status(500).send("Intevnal server error!");
+		return res.status(500).send("Interval server error!");
 	}
 });
 

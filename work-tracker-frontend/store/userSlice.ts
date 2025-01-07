@@ -37,7 +37,7 @@ export const UserRegister = createAsyncThunk<User, User>(
 			const data = await response.json();
 			return { firstName: data.firstName, lastName: data.lastName, email: data.email, password: data.password };
 		} catch (error) {
-			return rejectWithValue("Error during registration:");
+			return rejectWithValue("Error during registration");
 		}
 	}
 );
@@ -57,7 +57,7 @@ export const UserLogin = createAsyncThunk("user/user-login", async (userData: { 
 		const data = await response.json();
 		return data;
 	} catch (error) {
-		console.error("", error);
+		console.error("Error during registration", error);
 	}
 });
 
