@@ -32,7 +32,8 @@ export const UserRegister = createAsyncThunk<User, User>(
 				credentials: "include",
 			});
 			if (!response.ok) {
-				throw new Error(`Error ${response.status}: ${response.text}`);
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
 			}
 			const data = await response.json();
 			return { firstName: data.firstName, lastName: data.lastName, email: data.email, password: data.password };

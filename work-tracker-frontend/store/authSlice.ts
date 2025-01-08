@@ -23,7 +23,8 @@ export const UserLogin = createAsyncThunk<{ email: string; password: string }, {
 				credentials: "include",
 			});
 			if (!response.ok) {
-				throw new Error(`Error ${response.status}: ${response.text}`);
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
 			}
 			const data = await response.json();
 			return data;
@@ -33,21 +34,22 @@ export const UserLogin = createAsyncThunk<{ email: string; password: string }, {
 	}
 );
 
-export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
+export const UserLogout = createAsyncThunk<{ isLogged: boolean }, { isLogged: boolean }>(
 	"user/user-logout",
-	async (isUserLogged: { isLogged: boolean }, { rejectWithValue }) => {
+	async () => {
 		try {
 			const response = await fetch("http://localhost:5174/logout", {
 				method: "POST",
 				headers: { "Content-type": "application/json" },
 			});
 			if (!response.ok) {
-				throw new Error(`Error ${response.status}: ${response.text}`);
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
 			}
 			const data = await response.json();
 			return data;
 		} catch (error) {
-			return rejectWithValue("Something went wrong!");
+			console.error("User cannot be logout!", error);
 		}
 	}
 );
