@@ -36,15 +36,18 @@ body {
 .text {
 	font-size: 1rem;
 }
-.btn {
+.custom-btn {
 	background-color: $secondary;
+	color: $text;
 	border: 1px solid $secondary;
 	&:hover {
 		background-color: $accent;
+		color: $background;
 		border: 1px solid $accent;
 	}
 	&:active {
 		background-color: $accent !important;
+		color: $background !important;
 		border: 1px solid $accent !important;
 	}
 }

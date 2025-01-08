@@ -63,11 +63,11 @@ export default function SignIn() {
 									/>
 								</Form.Group>
 							</Form>
-							<Button className='btn w-100 mt-4 mb-4' onClick={handleAcceptUserLogin}>
+							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserLogin}>
 								Login
 							</Button>
 							<Link to='/register'>
-								<Button className='btn w-100 mt-4'>Create new account</Button>
+								<Button className='custom-btn w-100 mt-4'>Create new account</Button>
 							</Link>
 						</Col>
 					)}

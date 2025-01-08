@@ -1,0 +1,41 @@
+@import "../global.scss";
+
+.navigation {
+	max-width: 300px;
+	.hamburger-react {
+		display: none;
+	}
+	&__main-container {
+		height: 100%;
+		background-color: $primary;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	&__nav-container {
+		height: 100%;
+	}
+	&__nav-btn {
+		margin: 0 auto;
+		width: 100%;
+		max-width: 200px;
+		background-color: $secondary;
+		border: 1px solid $secondary;
+		&:hover {
+			background-color: $accent;
+			color: $background;
+			border: 1px solid $accent;
+		}
+		&:active {
+			background-color: $accent !important;
+			color: $background !important;
+			border: 1px solid $accent !important;
+		}
+		a {
+			color: $text;
+			text-decoration: none;
+		}
+	}
+	p {
+		height: 300px;
+	}
+}
