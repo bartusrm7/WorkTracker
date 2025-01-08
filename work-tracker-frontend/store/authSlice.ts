@@ -20,6 +20,26 @@ export const UserLogin = createAsyncThunk<{ email: string; password: string }, {
 					"Content-type": "application/json",
 				},
 				body: JSON.stringify(userData),
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(`Error ${response.status}: ${response.text}`);
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue("Error during login!");
+		}
+	}
+);
+
+export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
+	"user/user-logout",
+	async (isUserLogged: { isLogged: boolean }, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/logout", {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
 			});
 			if (!response.ok) {
 				throw new Error(`Error ${response.status}: ${response.text}`);
@@ -38,14 +58,22 @@ const authSlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder
-			.addCase(UserLogin.pending, state => {
-				state.loading = true;
-			})
 			.addCase(UserLogin.fulfilled, state => {
 				state.isLogged = true;
 				state.loading = false;
 			})
 			.addCase(UserLogin.rejected, state => {
+				state.loading = false;
+			})
+
+			.addCase(UserLogout.pending, state => {
+				state.loading = true;
+			})
+			.addCase(UserLogout.fulfilled, state => {
+				state.isLogged = false;
+				state.loading = false;
+			})
+			.addCase(UserLogout.rejected, state => {
 				state.loading = false;
 			});
 	},

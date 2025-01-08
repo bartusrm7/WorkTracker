@@ -37,7 +37,7 @@ export const UserRegister = createAsyncThunk<User, User>(
 			const data = await response.json();
 			return { firstName: data.firstName, lastName: data.lastName, email: data.email, password: data.password };
 		} catch (error) {
-			return rejectWithValue("Error during registration");
+			return rejectWithValue("Error during registration!");
 		}
 	}
 );
@@ -48,9 +48,6 @@ const userSlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder
-			.addCase(UserRegister.pending, state => {
-				state.loading = true;
-			})
 			.addCase(UserRegister.fulfilled, (state, action: PayloadAction<User>) => {
 				state.loading = false;
 				state.user.push(action.payload);
