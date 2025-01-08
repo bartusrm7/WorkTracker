@@ -1,10 +1,12 @@
 @use "../global";
 
-.sign-up-in {
+.sign-in-up {
 	&__enter-sentence {
 		max-width: 300px;
 	}
 	&__start-btn {
 		width: 100%;
+	}
+	&__spinner {
 	}
 }
