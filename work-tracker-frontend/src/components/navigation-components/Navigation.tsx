@@ -15,7 +15,7 @@ export default function Navigation() {
 	];
 
 	return (
-		<div className='navigation vh-100'>
+		<div className='navigation'>
 			<Hamburger toggled={isMenuOpened} toggle={() => setIsMenuOpened(!isMenuOpened)} />
 
 			<nav

@@ -2,19 +2,22 @@
 @import "../mixins";
 
 .navigation {
-	position: relative;
+	top: 0;
 	.hamburger-react {
-		position: absolute !important;
+		position: fixed !important;
+		top: 0;
 		right: 0;
+		margin: 0 0.25em;
 		display: none;
 		color: $secondary;
-		z-index: 1;
+		border-radius: 5px;
+		z-index: 10;
 		@include rwd-max-width(992px) {
 			display: flex;
 		}
 	}
 	&__main-container {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		width: 250px;
 		height: 100%;

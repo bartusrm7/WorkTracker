@@ -1,4 +1,25 @@
 @import "../global.scss";
+@import "../mixins.scss";
 
 .dashboard {
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+		div {
+			&:nth-child(2) {
+				order: 3;
+			}
+		}
+	}
+	&__account-info {
+		margin-right: 0.25em;
+	}
+	&__search-info {
+		input {
+		}
+	}
 }
