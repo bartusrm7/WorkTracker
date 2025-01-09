@@ -19,12 +19,14 @@ export default function Navigation() {
 			<Hamburger toggled={isMenuOpened} toggle={() => setIsMenuOpened(!isMenuOpened)} />
 
 			<nav className='navigation__main-container d-flex flex-column justify-content-between'>
-				<div className='navigation__nav-container mt-5 text-center d-flex flex-column justify-content-between'>
-					{navLocation.map((item, index) => (
-						<Link to={item.location} key={index}>
-							<Button className='navigation__nav-btn'>{item.label}</Button>
-						</Link>
-					))}
+				<div className='navigation__nav-container mt-5 text-center'>
+					<div className='h-100 d-flex flex-column justify-content-between'>
+						{navLocation.map((item, index) => (
+							<Link to={item.location} key={index}>
+								<Button className='navigation__nav-btn'>{item.label}</Button>
+							</Link>
+						))}
+					</div>
 				</div>
 
 				<p></p>
