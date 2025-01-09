@@ -18,17 +18,14 @@ export default function Navigation() {
 		<div className='navigation vh-100'>
 			<Hamburger toggled={isMenuOpened} toggle={() => setIsMenuOpened(!isMenuOpened)} />
 
-			<nav className='navigation__main-container d-flex flex-column justify-content-between'>
-				<div className='navigation__nav-container mt-5 text-center'>
-					<div className='h-100 d-flex flex-column justify-content-between'>
-						{navLocation.map((item, index) => (
-							<Link to={item.location} key={index}>
-								<Button className='navigation__nav-btn'>{item.label}</Button>
-							</Link>
-						))}
-					</div>
+			<nav className='navigation__main-container d-flex flex-column'>
+				<div className='navigation__nav-container mt-5 text-center d-flex flex-column justify-content-between'>
+					{navLocation.map((item, index) => (
+						<Link to={item.location} key={index}>
+							<Button className='navigation__nav-btn mb-3 mb-lg-0'>{item.label}</Button>
+						</Link>
+					))}
 				</div>
-
 				<p></p>
 				<div className='navigation__logout-container mb-5 d-flex'>
 					<Button className='navigation__nav-btn'>Logout</Button>
