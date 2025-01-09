@@ -4,13 +4,13 @@
 .navigation {
 	position: relative;
 	.hamburger-react {
-		position: absolute;
-		top: 0;
+		position: absolute !important;
 		right: 0;
-		display: flex;
+		display: none;
+		color: $secondary;
 		z-index: 1;
-		@include rwd-min-width(992px) {
-			display: none;
+		@include rwd-max-width(992px) {
+			display: flex;
 		}
 	}
 	&__main-container {
@@ -19,8 +19,13 @@
 		width: 250px;
 		height: 100%;
 		background-color: $primary;
-		border-top-right-radius: 10px;
-		border-bottom-right-radius: 10px;
+		@include rwd-min-width(992px) {
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		@include rwd-max-width(992px) {
+			width: 100%;
+		}
 	}
 	&__nav-container {
 		margin: 0 auto;
@@ -28,12 +33,18 @@
 	}
 	a {
 		width: 200px;
+		@include rwd-min-max-width(576px, 992px) {
+			width: 300px;
+		}
 	}
 	&__nav-btn {
 		margin: 0 auto;
 		width: 200px;
 		background-color: $secondary;
 		border: 1px solid $secondary;
+		@include rwd-min-max-width(576px, 992px) {
+			width: 300px;
+		}
 		&:hover {
 			background-color: $accent;
 			color: $background;
@@ -51,5 +62,8 @@
 	}
 	p {
 		height: 100%;
+		@include rwd-max-width(992px) {
+			display: none;
+		}
 	}
 }

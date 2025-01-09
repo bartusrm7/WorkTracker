@@ -8,3 +8,8 @@
 		@content;
 	}
 }
+@mixin rwd-min-max-width($min-width, $max-width) {
+	@media (min-width: $min-width) and (max-width: $max-width) {
+		@content;
+	}
+}
