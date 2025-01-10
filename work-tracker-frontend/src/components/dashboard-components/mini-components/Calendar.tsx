@@ -4,7 +4,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 export default function Calendar() {
 	return (
-		<div>
+		<div className='calendar'>
 			<LocalizationProvider dateAdapter={AdapterDayjs}>
 				<DateCalendar />
 			</LocalizationProvider>

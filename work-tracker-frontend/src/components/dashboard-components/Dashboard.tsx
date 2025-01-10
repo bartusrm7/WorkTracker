@@ -5,7 +5,7 @@ import Calendar from "./mini-components/Calendar";
 export default function Dashboard() {
 	return (
 		<div className='dashboard m-2'>
-			<div className='dashboard__main-container account-info-container p-2 mb-2 d-lg-flex justify-content-between'>
+			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-lg-flex justify-content-between'>
 				<div></div>
 
 				<div className='dashboard__account-info-container d-flex justify-content-center align-items-center'>
@@ -47,9 +47,9 @@ export default function Dashboard() {
 					<Calendar />
 				</div>
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
-					<div className='dashboard__notes-container'>
-						<div className='dashboard__calendar-label label'>Notes</div>
-						<div className='dashboard__task-wrapper'></div>
+					<div className='dashboard__motivation-quotes-container'>
+						<div className='dashboard__motivation-quotes-label label'>Motivation quotes</div>
+						<div className='dashboard__motivation-quotes-wrapper'></div>
 					</div>
 				</div>
 			</div>

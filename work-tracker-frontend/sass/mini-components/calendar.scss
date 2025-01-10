@@ -1,0 +1,36 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.calendar {
+	.css-5wchs2-MuiDateCalendar-root {
+		width: 280px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	button {
+		color: $background;
+	}
+	.css-1nxbkmn-MuiPickersCalendarHeader-root,
+	.css-hwynws-MuiPickersFadeTransitionGroup-root-MuiDateCalendar-viewTransitionContainer {
+		padding: 0;
+		width: 280px;
+	}
+	.css-17nrfho-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button,
+	.css-z4ns9w-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
+		margin: 0 0.1em;
+	}
+	.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+	.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected {
+		background-color: $secondary !important;
+	}
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected),
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover,
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root {
+		background-color: $primary !important;
+		color: $text;
+		font-weight: bold;
+		border: none;
+	}
+}
