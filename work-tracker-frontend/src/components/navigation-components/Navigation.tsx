@@ -8,6 +8,7 @@ export default function Navigation() {
 
 	const navLocation = [
 		{ location: "/dashboard", label: "Dashboard" },
+		{ location: "/my-tasks", label: "My Tasks" },
 		{ location: "/statistics", label: "Statistics" },
 		{ location: "/calendar", label: "Calendar" },
 		{ location: "/notifications", label: "Notifications" },
