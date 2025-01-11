@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface LogoutUser {
 	isLogged: boolean;
@@ -34,13 +34,14 @@ export const UserLogin = createAsyncThunk<{ email: string; password: string }, {
 	}
 );
 
-export const UserLogout = createAsyncThunk<{ isLogged: boolean }, { isLogged: boolean }>(
+export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
 	"user/user-logout",
-	async () => {
+	async (_, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/logout", {
 				method: "POST",
 				headers: { "Content-type": "application/json" },
+				credentials: "include",
 			});
 			if (!response.ok) {
 				const errorText = await response.text();
@@ -49,7 +50,7 @@ export const UserLogout = createAsyncThunk<{ isLogged: boolean }, { isLogged: bo
 			const data = await response.json();
 			return data;
 		} catch (error) {
-			console.error("User cannot be logout!", error);
+			return rejectWithValue("Error during logout!");
 		}
 	}
 );
@@ -71,8 +72,8 @@ const authSlice = createSlice({
 			.addCase(UserLogout.pending, state => {
 				state.loading = true;
 			})
-			.addCase(UserLogout.fulfilled, state => {
-				state.isLogged = false;
+			.addCase(UserLogout.fulfilled, (state, action: PayloadAction<{ isLogged: boolean }>) => {
+				state.isLogged = action.payload.isLogged;
 				state.loading = false;
 			})
 			.addCase(UserLogout.rejected, state => {
