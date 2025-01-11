@@ -21,12 +21,13 @@
 		margin: 0 0.1em;
 	}
 	.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
-	.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected {
+	.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected,
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover,
+	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
 		background-color: $secondary !important;
+		font-weight: bold;
 	}
 	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected),
-	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover,
-	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
 	.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root {
 		background-color: $primary !important;
 		color: $text;

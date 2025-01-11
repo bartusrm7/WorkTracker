@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Squash as Hamburger } from "hamburger-react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import { UserLogout } from "../../../store/authSlice";
+import SignOut from "../sing-components/SignOut";
 
 export default function Navigation() {
 	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+	const dispatch = useDispatch<AppDispatch>();
+	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
+	const navigation = useNavigate();
 
 	const navLocation = [
 		{ location: "/dashboard", label: "Dashboard" },
@@ -14,6 +21,13 @@ export default function Navigation() {
 		{ location: "/notifications", label: "Notifications" },
 		{ location: "/settings", label: "Settings" },
 	];
+
+	const handleUserAccountLogout = () => {
+		dispatch(UserLogout());
+		if (isUserLogged === false) {
+			navigation("/");
+		}
+	};
 
 	return (
 		<div className='navigation'>
@@ -31,8 +45,8 @@ export default function Navigation() {
 					))}
 				</div>
 				<p></p>
-				<div className='navigation__logout-container mb-5 d-flex'>
-					<Button className='navigation__nav-btn'>Logout</Button>
+				<div className='navigation__logout-container mb-5 d-flex justify-content-center'>
+					<SignOut extraClass='navigation__nav-btn' userAccountLogout={handleUserAccountLogout} />
 				</div>
 			</nav>
 		</div>

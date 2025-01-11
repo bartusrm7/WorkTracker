@@ -28,7 +28,7 @@ export default function SignIn() {
 		dispatch(UserLogin(userData));
 		setIsLoadingPage(!isLoadingPage);
 
-		setInterval(() => {
+		setTimeout(() => {
 			navigate("/dashboard");
 		}, 2000);
 	};
