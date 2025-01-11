@@ -3,10 +3,6 @@ const router = express.Router();
 
 router.post("/logout", async (req, res) => {
 	try {
-		const { email } = req.body;
-		if (!email) {
-			return res.status(400).send("User with this email not exists!");
-		}
 		res.clearCookie("accessToken");
 		res.clearCookie("refreshToken");
 
