@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
 
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
-			return res.status(403).send("Invalid email or password!");
+			return res.status(401).send("Invalid email or password!");
 		}
 
 		const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
 		return res.status(200).json({ message: "User logged successfully!" });
 	} catch (error) {
 		console.error("Error during login:", error);
-		return res.status(500).send("Interval server error!");
+		return res.status(500).send("Internal server error!");
 	}
 });
 
