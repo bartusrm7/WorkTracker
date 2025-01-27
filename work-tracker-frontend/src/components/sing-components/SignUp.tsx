@@ -46,7 +46,7 @@ export default function SignUp() {
 								<p className='mb-0'>You registered successfully</p>
 							</div>
 							<Link to='/login'>
-								<Button className='btn w-100 mt-4'>Sign in your account</Button>
+								<Button className='custom-btn w-100 mt-4'>Sign in your account</Button>
 							</Link>
 						</Col>
 					) : (
@@ -82,11 +82,11 @@ export default function SignUp() {
 									/>
 								</Form.Group>
 							</Form>
-							<Button className='btn w-100 mt-4 mb-4' onClick={handleAcceptUserRegister}>
+							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserRegister}>
 								Register
 							</Button>
 							<Link to='/login'>
-								<Button className='btn w-100 mt-4'>Sign in your account</Button>
+								<Button className='custom-btn w-100 mt-4'>Sign in your account</Button>
 							</Link>
 						</Col>
 					)}

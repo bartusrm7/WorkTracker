@@ -1,0 +1,112 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.dashboard {
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+		div {
+			&:nth-child(2) {
+				order: 3;
+			}
+		}
+	}
+	.account-info-big-container {
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__account-info {
+		margin-right: 0.25em;
+	}
+	.label {
+		width: 100%;
+		border-bottom: 1px solid $background;
+	}
+	.big-container {
+		display: grid;
+		@include rwd-min-width(768px) {
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(10, 1fr);
+		}
+		@include rwd-max-width(768px) {
+			grid-template-columns: repeat(1, 1fr);
+			grid-template-rows: repeat(10, 1fr);
+		}
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+		@include rwd-min-width(1200px) {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
+	.big-separate-container {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		@include rwd-min-width(768px) {
+		}
+		&:nth-child(1) {
+			@include rwd-min-width(768px) {
+				grid-column: 1/2;
+				grid-row: 1/6;
+			}
+			@include rwd-min-width(1200px) {
+				grid-column: 1/4;
+			}
+			@include rwd-max-width(768px) {
+				grid-column: 1/1;
+				grid-row: 1/6;
+				min-height: 30vh;
+			}
+		}
+		&:nth-child(2) {
+			@include rwd-min-width(768px) {
+				grid-column: 1/2;
+				grid-row: 6/11;
+				order: 3;
+			}
+			@include rwd-min-width(1200px) {
+				grid-column: 1/4;
+			}
+			@include rwd-max-width(768px) {
+				grid-column: 1/1;
+				grid-row: 6/11;
+				min-height: 30vh;
+			}
+		}
+		&:nth-child(3) {
+			@include rwd-min-width(768px) {
+				margin-left: 0.5em;
+				grid-column: 2/3;
+				grid-row: 1/7;
+			}
+			@include rwd-min-width(1200px) {
+				grid-column: 4/6;
+			}
+			@include rwd-max-width(768px) {
+				grid-column: 1/1;
+				grid-row: 11/16;
+			}
+		}
+		&:nth-child(4) {
+			@include rwd-min-width(768px) {
+				margin-left: 0.5em;
+				grid-column: 2/3;
+				grid-row: 7/11;
+			}
+			@include rwd-min-width(1200px) {
+				grid-column: 4/6;
+			}
+			@include rwd-max-width(768px) {
+				grid-column: 1/1;
+				grid-row: 16/21;
+				min-height: 20vh;
+			}
+		}
+	}
+	&__task-wrapper {
+	}
+	&__tracking-wrapper {
+	}
+}

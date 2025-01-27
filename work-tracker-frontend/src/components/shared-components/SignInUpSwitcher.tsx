@@ -7,7 +7,7 @@ export default function SignInUpSwitcher() {
 			<div className='text-center p-3 pb-0'>
 				<p className='sign-up-in__enter-sentence'>Join to our community if you want follow your progress!</p>
 				<Link to='/login'>
-					<Button className='sign-up-in__start-btn btn'>Let's get started</Button>
+					<Button className='sign-up-in__start-btn custom-btn'>Let's get started</Button>
 				</Link>
 			</div>
 		</div>

@@ -1,2 +1,6 @@
 @use "./global.scss";
+@use "./mixins";
 @use "./sign-components/sign-in-up.scss";
+@use "./navigation-components/navigation.scss";
+@use "./dashboard-components/dashboard.scss";
+@use "./mini-components/calendar.scss";
