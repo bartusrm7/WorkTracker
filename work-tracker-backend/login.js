@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
 			sameSite: "Lax",
 		});
 
-		return res.status(200).json({ message: "User logged successfully!" });
+		return res.status(200).json({ message: "User logged successfully!", isLogged: true });
 	} catch (error) {
 		console.error("Error during login:", error);
 		return res.status(500).send("Internal server error!");
