@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
 import { UserLogin } from "../../../store/authSlice";
 import Spinner from "react-bootstrap/Spinner";
 
 interface UserLoginData {
 	email: string;
 	password: string;
+	isLogged: boolean;
 }
 
 export default function SignIn() {
 	const dispatch = useDispatch<AppDispatch>();
-	const [userData, setUserData] = useState<UserLoginData>({ email: "", password: "" });
+	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
+	const [userData, setUserData] = useState<UserLoginData>({ email: "", password: "", isLogged: false });
 	const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
 	const navigate = useNavigate();
 
@@ -26,12 +28,16 @@ export default function SignIn() {
 
 	const handleAcceptUserLogin = () => {
 		dispatch(UserLogin(userData));
-		setIsLoadingPage(!isLoadingPage);
-
-		setTimeout(() => {
-			navigate("/dashboard");
-		}, 2000);
 	};
+
+	useEffect(() => {
+		if (isUserLogged) {
+			setIsLoadingPage(!isLoadingPage);
+			setTimeout(() => {
+				navigate("/dashboard");
+			}, 2000);
+		}
+	}, [isUserLogged]);
 
 	return (
 		<div className='sign-in-up vh-100 d-flex justify-content-center align-items-center'>
@@ -53,6 +59,7 @@ export default function SignIn() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
 										value={userData.email}
+										type='email'
 									/>
 								</Form.Group>
 								<Form.Group>
@@ -60,6 +67,7 @@ export default function SignIn() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("password", e.target.value)}
 										value={userData.password}
+										type='password'
 									/>
 								</Form.Group>
 							</Form>

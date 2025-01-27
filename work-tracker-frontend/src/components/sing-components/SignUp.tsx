@@ -58,6 +58,7 @@ export default function SignUp() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("firstName", e.target.value)}
 										value={userData.firstName}
+										type='text'
 									/>
 								</Form.Group>
 								<Form.Group>
@@ -65,6 +66,7 @@ export default function SignUp() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("lastName", e.target.value)}
 										value={userData.lastName}
+										type='text'
 									/>
 								</Form.Group>
 								<Form.Group>
@@ -72,6 +74,7 @@ export default function SignUp() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
 										value={userData.email}
+										type='email'
 									/>
 								</Form.Group>
 								<Form.Group>
@@ -79,6 +82,7 @@ export default function SignUp() {
 									<Form.Control
 										onChange={e => handleInputOnChangeData("password", e.target.value)}
 										value={userData.password}
+										type='password'
 									/>
 								</Form.Group>
 							</Form>

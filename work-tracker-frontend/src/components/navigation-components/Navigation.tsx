@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Squash as Hamburger } from "hamburger-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -24,10 +24,13 @@ export default function Navigation() {
 
 	const handleUserAccountLogout = () => {
 		dispatch(UserLogout());
+	};
+
+	useEffect(() => {
 		if (isUserLogged === false) {
 			navigation("/");
 		}
-	};
+	}, [isUserLogged]);
 
 	return (
 		<div className='navigation'>
