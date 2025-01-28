@@ -17,6 +17,10 @@ export default function SignIn() {
 	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
 	const [userData, setUserData] = useState<UserLoginData>({ email: "", password: "", isLogged: false });
 	const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
+	const [validationError, setValidationError] = useState<{ email?: string; password?: string }>({
+		email: "",
+		password: "",
+	});
 	const navigate = useNavigate();
 
 	const handleInputOnChangeData = (key: string, value: string) => {
@@ -26,8 +30,29 @@ export default function SignIn() {
 		}));
 	};
 
+	const handleValidationForm = () => {
+		const errors: { email?: string; password?: string } = {};
+
+		if (!userData.email) {
+			errors.email = "Email is required!";
+		} else if (!/\S+@\S+\.\S+/.test(userData.email)) {
+			errors.email = "Invalid email format!";
+		}
+
+		if (!userData.password) {
+			errors.password = "Password is required!";
+		} else if (userData.password.length < 8) {
+			errors.password = "Password must be at least 8 characters";
+		}
+
+		setValidationError(errors);
+		return Object.keys(errors).length === 0;
+	};
+
 	const handleAcceptUserLogin = () => {
-		dispatch(UserLogin(userData));
+		if (handleValidationForm()) {
+			dispatch(UserLogin(userData));
+		}
 	};
 
 	useEffect(() => {
@@ -53,22 +78,28 @@ export default function SignIn() {
 					) : (
 						<Col className='text m-auto' xs={10} md={8} lg={6} xl={5}>
 							<div className='header mb-4 text-center'>LOGIN</div>
-							<Form>
+							<Form noValidate>
 								<Form.Group>
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
+										isInvalid={!!validationError.email}
 										value={userData.email}
 										type='email'
+										required
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("password", e.target.value)}
+										isInvalid={!!validationError.password}
 										value={userData.password}
 										type='password'
+										required
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.password}</Form.Control.Feedback>
 								</Form.Group>
 							</Form>
 							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserLogin}>
