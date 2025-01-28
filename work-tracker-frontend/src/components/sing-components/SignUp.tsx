@@ -17,6 +17,17 @@ export default function SignUp() {
 	const registrationStatus = useSelector((state: RootState) => state.user.status);
 	const [userData, setUserData] = useState<UserRegisterData>({ firstName: "", lastName: "", email: "", password: "" });
 	const [isUserRegistered, setIsUserRegistered] = useState<boolean>(false);
+	const [validationError, setValidationError] = useState<{
+		firstName?: string;
+		lastName?: string;
+		email?: string;
+		password?: string;
+	}>({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: "",
+	});
 
 	const handleInputOnChangeData = (key: string, value: string) => {
 		setUserData(prevState => ({
@@ -25,8 +36,37 @@ export default function SignUp() {
 		}));
 	};
 
+	const handleValidationForm = () => {
+		const errors: { firstName?: string; lastName?: string; email?: string; password?: string } = {};
+
+		if (!userData.firstName) {
+			errors.firstName = "First name is required!";
+		}
+
+		if (!userData.lastName) {
+			errors.lastName = "Last name is required!";
+		}
+
+		if (!userData.email) {
+			errors.email = "Email is required!";
+		} else if (userData.email) {
+			errors.email = "Invalid email format!";
+		}
+
+		if (!userData.password) {
+			errors.password = "Password is required!";
+		} else if (userData.password) {
+			errors.password = "Password must be at least 8 characters";
+		}
+
+		setValidationError(errors);
+		return Object.keys(errors).length === 0;
+	};
+
 	const handleAcceptUserRegister = () => {
-		dispatch(UserRegister(userData));
+		if (handleValidationForm()) {
+			dispatch(UserRegister(userData));
+		}
 	};
 
 	useEffect(() => {
@@ -52,38 +92,46 @@ export default function SignUp() {
 					) : (
 						<Col className='text m-auto' xs={10} md={8} lg={6} xl={5}>
 							<div className='header mb-4 text-center'>REGISTER</div>
-							<Form>
+							<Form noValidate>
 								<Form.Group>
 									<Form.Label>First Name</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("firstName", e.target.value)}
+										isInvalid={!!validationError.firstName}
 										value={userData.firstName}
 										type='text'
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Last Name</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("lastName", e.target.value)}
+										isInvalid={!!validationError.lastName}
 										value={userData.lastName}
 										type='text'
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.lastName}</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
+										isInvalid={!!validationError.email}
 										value={userData.email}
 										type='email'
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("password", e.target.value)}
+										isInvalid={!!validationError.password}
 										value={userData.password}
 										type='password'
 									/>
+									<Form.Control.Feedback type='invalid'>{validationError.password}</Form.Control.Feedback>
 								</Form.Group>
 							</Form>
 							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserRegister}>
