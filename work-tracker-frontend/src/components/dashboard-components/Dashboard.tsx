@@ -1,8 +1,22 @@
 import { InputGroup, Form, Button, Col } from "react-bootstrap";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Calendar from "./mini-components/Calendar";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
+import { useState } from "react";
+import { UserDataFromAccessToken } from "../../../store/authSlice";
 
 export default function Dashboard() {
+	const dispatch = useDispatch<AppDispatch>();
+	// const [userDataFromCookies, setUserDataFromCookies] = useState<{ firstName: string; lastName: string }>({
+	// 	firstName: "",
+	// 	lastName: "",
+	// });
+
+	// const handleGetUserDataFromCookies = () => {
+	// 	dispatch(UserDataFromAccessToken())
+	// }
+
 	return (
 		<div className='dashboard m-2'>
 			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-lg-flex justify-content-between'>

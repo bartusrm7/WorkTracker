@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { UserLogout } from "../../../store/authSlice";
 import SignOut from "../sing-components/SignOut";
+import Cookies from "js-cookie";
 
 export default function Navigation() {
 	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 	const dispatch = useDispatch<AppDispatch>();
 	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
-	const navigation = useNavigate();
+	const navigate = useNavigate();
 
 	const navLocation = [
 		{ location: "/dashboard", label: "Dashboard" },
@@ -27,10 +28,12 @@ export default function Navigation() {
 	};
 
 	useEffect(() => {
+		const token = Cookies.get("accessToken");
+		console.log(token);
 		if (isUserLogged === false) {
-			navigation("/");
+			navigate("/");
 		}
-	}, [isUserLogged]);
+	}, [isUserLogged, navigate]);
 
 	return (
 		<div className='navigation'>

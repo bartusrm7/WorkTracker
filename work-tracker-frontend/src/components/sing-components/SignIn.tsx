@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../store/store";
 import { UserLogin } from "../../../store/authSlice";
 import Spinner from "react-bootstrap/Spinner";
+import Cookies from "js-cookie";
 
 interface UserLoginData {
 	email: string;
@@ -56,6 +57,8 @@ export default function SignIn() {
 	};
 
 	useEffect(() => {
+		const token = Cookies.get("accessToken");
+		console.log(token);
 		if (isUserLogged) {
 			setIsLoadingPage(!isLoadingPage);
 			setTimeout(() => {

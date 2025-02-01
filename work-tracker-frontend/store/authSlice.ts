@@ -35,6 +35,7 @@ export const UserLogin = createAsyncThunk<
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
+
 		return data;
 	} catch (error) {
 		return rejectWithValue("Error during login!");
