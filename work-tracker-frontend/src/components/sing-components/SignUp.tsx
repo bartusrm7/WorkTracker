@@ -49,13 +49,13 @@ export default function SignUp() {
 
 		if (!userData.email) {
 			errors.email = "Email is required!";
-		} else if (userData.email) {
+		} else if (!/\S+@\S+\.\S+/.test(userData.email)) {
 			errors.email = "Invalid email format!";
 		}
 
 		if (!userData.password) {
 			errors.password = "Password is required!";
-		} else if (userData.password) {
+		} else if (userData.password.length < 8) {
 			errors.password = "Password must be at least 8 characters";
 		}
 
