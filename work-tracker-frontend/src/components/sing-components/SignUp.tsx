@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../store/store";
-import { UserRegister } from "../../../store/userSlice";
+import { resetRegistrationStatus, UserRegister } from "../../../store/userSlice";
 
 interface UserRegisterData {
 	firstName: string;
@@ -69,7 +69,12 @@ export default function SignUp() {
 		}
 	};
 
-	
+	const handleResetRegisterStatus = () => {
+		if (isUserRegistered) {
+			dispatch(resetRegistrationStatus());
+			setIsUserRegistered(false);
+		}
+	};
 
 	useEffect(() => {
 		if (registrationStatus === "success") {
@@ -88,7 +93,9 @@ export default function SignUp() {
 								<p className='mb-0'>You registered successfully</p>
 							</div>
 							<Link to='/login'>
-								<Button className='custom-btn w-100 mt-4'>Sign in your account</Button>
+								<Button className='custom-btn w-100 mt-4' onClick={handleResetRegisterStatus}>
+									Sign in your account
+								</Button>
 							</Link>
 						</Col>
 					) : (
