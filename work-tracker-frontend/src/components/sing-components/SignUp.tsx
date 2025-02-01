@@ -69,6 +69,8 @@ export default function SignUp() {
 		}
 	};
 
+	
+
 	useEffect(() => {
 		if (registrationStatus === "success") {
 			setIsUserRegistered(true);
