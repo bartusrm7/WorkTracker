@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
 		}
 
 		const checkUserQuery = `SELECT * FROM userData WHERE email = ?`;
-		db.query(checkUserQuery, [email], (err, data) => {
+		db.query(checkUserQuery, [email], async (err, data) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
 			}
 
 			const user = data[0];
-			const isPasswordValid = bcrypt.compare(password, user.password);
+			const isPasswordValid = await bcrypt.compare(password, user.password);
 			if (!isPasswordValid) {
 				return res.status(401).json({ error: "Password is not correct!" });
 			}
@@ -55,14 +55,16 @@ router.post("/login", async (req, res) => {
 				maxAge: 15 * 60 * 1000,
 				secure: process.env.NODE_ENV === "production",
 				httpOnly: true,
-				sameSite: "Lax",
+				sameSite: "none",
+				secure: true,
 			});
 
 			res.cookie("refreshToken", refreshToken, {
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 				secure: process.env.NODE_ENV === "production",
 				httpOnly: true,
-				sameSite: "Lax",
+				sameSite: "none",
+				secure: true,
 			});
 
 			res.status(200).json({ message: "User logged successfully!", isLogged: true });

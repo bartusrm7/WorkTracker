@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../store/store";
-import { UserDataFromAccessToken, UserLogin } from "../../../store/authSlice";
+import { UserLogin } from "../../../store/authSlice";
 import Spinner from "react-bootstrap/Spinner";
 
 interface UserLoginData {
@@ -53,12 +53,11 @@ export default function SignIn() {
 		if (handleValidationForm()) {
 			dispatch(UserLogin(userData));
 		}
-		localStorage.setItem("userLoggedName", userData.email);
 	};
 
 	useEffect(() => {
 		if (isUserLogged) {
-			localStorage.getItem("userLoggedName");
+			console.log(isUserLogged);
 			setIsLoadingPage(!isLoadingPage);
 			setTimeout(() => {
 				navigate("/dashboard");

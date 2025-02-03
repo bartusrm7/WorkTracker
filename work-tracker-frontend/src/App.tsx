@@ -4,6 +4,7 @@ import SignUp from "./components/sing-components/SignUp";
 import SignIn from "./components/sing-components/SignIn";
 import MainContainer from "./components/dashboard-components/MainContainer";
 import ProtectedRoute from "./components/sing-components/ProtectedRoute";
+import MyTasks from "./components/dashboard-components/MyTasks";
 
 export default function App() {
 	return (
@@ -17,6 +18,14 @@ export default function App() {
 					element={
 						<ProtectedRoute>
 							<MainContainer />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/my-tasks'
+					element={
+						<ProtectedRoute>
+							<MyTasks />
 						</ProtectedRoute>
 					}
 				/>

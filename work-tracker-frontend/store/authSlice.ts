@@ -3,18 +3,11 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface LogUserData {
 	isLogged: boolean;
 	loading: boolean;
-	userData: {
-		firstName: string;
-		lastName: string;
-		email: string;
-		password: string;
-	};
 }
 
 const initialState: LogUserData = {
 	isLogged: false,
 	loading: false,
-	userData: { firstName: "", lastName: "", email: "", password: "" },
 };
 
 export const UserLogin = createAsyncThunk<
@@ -35,34 +28,11 @@ export const UserLogin = createAsyncThunk<
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
-
 		return data;
 	} catch (error) {
 		return rejectWithValue("Error during login!");
 	}
 });
-
-export const UserDataFromAccessToken = createAsyncThunk<{ user: LogUserData }, { accessToken: string }>(
-	"user/user-authorization",
-	async (accessToken, { rejectWithValue }) => {
-		try {
-			const response = await fetch("http://localhost:5174/authorization", {
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Error ${response.status}: ${errorText}`);
-			}
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			return rejectWithValue("Error get user data!");
-		}
-	}
-);
 
 export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
 	"user/user-logout",
@@ -99,14 +69,6 @@ const authSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(UserLogin.rejected, state => {
-				state.loading = false;
-			})
-
-			.addCase(UserDataFromAccessToken.fulfilled, (state, action: PayloadAction<{ user: any }>) => {
-				state.userData = action.payload.user;
-				state.loading = false;
-			})
-			.addCase(UserDataFromAccessToken.rejected, state => {
 				state.loading = false;
 			})
 
