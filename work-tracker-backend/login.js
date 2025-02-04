@@ -55,19 +55,17 @@ router.post("/login", async (req, res) => {
 				maxAge: 15 * 60 * 1000,
 				secure: process.env.NODE_ENV === "production",
 				httpOnly: true,
-				sameSite: "none",
-				secure: true,
+				sameSite: "Lax",
 			});
 
 			res.cookie("refreshToken", refreshToken, {
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 				secure: process.env.NODE_ENV === "production",
 				httpOnly: true,
-				sameSite: "none",
-				secure: true,
+				sameSite: "Lax",
 			});
 
-			res.status(200).json({ message: "User logged successfully!", isLogged: true });
+			res.status(200).json({ message: "User logged successfully!", isLogged: true, accessToken });
 		});
 	} catch (error) {
 		console.error("Error during user login:", error);

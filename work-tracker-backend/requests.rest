@@ -1,3 +1,9 @@
+POST http://localhost:5174/authorization
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhQGJhLmJhMSIsImlhdCI6MTczODY3MTMxNCwiZXhwIjoxNzM4NjcyMjE0fQ.Wa3rliuqbkulid9hJJM9kNwaRLiltAL20mnfv7iVLlE
+
+###
+
 POST http://localhost:5174/login
 
 Content-Type: application/json
