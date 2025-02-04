@@ -45,6 +45,7 @@ export const UserAuthorization = createAsyncThunk<{ accessToken: string }, strin
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
 				},
+				credentials: "include",
 			});
 			if (!response.ok) {
 				const errorText = await response.text();
