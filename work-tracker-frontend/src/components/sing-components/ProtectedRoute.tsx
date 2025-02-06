@@ -1,17 +1,15 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface ProtectRoute {
 	children: JSX.Element;
 }
 
 export default function ProtectedRoute({ children }: ProtectRoute) {
-	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
+	const token = Cookies.get("accessToken");
 
-	if (!isUserLogged) {
+	if (!token) {
 		return <Navigate to='/' replace />;
 	}
-
 	return children;
 }
