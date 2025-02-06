@@ -1,18 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Squash as Hamburger } from "hamburger-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
 import { UserLogout } from "../../../store/authSlice";
 import SignOut from "../sing-components/SignOut";
-import Cookies from "js-cookie";
 
 export default function Navigation() {
-	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 	const dispatch = useDispatch<AppDispatch>();
-	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
-	const navigate = useNavigate();
+	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
 	const navLocation = [
 		{ location: "/dashboard", label: "Dashboard" },
@@ -27,18 +24,9 @@ export default function Navigation() {
 		dispatch(UserLogout());
 	};
 
-	useEffect(() => {
-		const token = Cookies.get("accessToken");
-		console.log(token);
-		if (isUserLogged === false) {
-			navigate("/");
-		}
-	}, [isUserLogged, navigate]);
-
 	return (
 		<div className='navigation'>
 			<Hamburger toggled={isMenuOpened} toggle={() => setIsMenuOpened(!isMenuOpened)} />
-
 			<nav
 				className={`navigation__main-container d-flex flex-column justify-content-between justify-content-lg-center ${
 					isMenuOpened ? "d-flex" : "d-none d-lg-flex"
