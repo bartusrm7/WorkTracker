@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Squash as Hamburger } from "hamburger-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
@@ -10,6 +10,7 @@ import SignOut from "../sing-components/SignOut";
 export default function Navigation() {
 	const dispatch = useDispatch<AppDispatch>();
 	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+	const navigate = useNavigate();
 
 	const navLocation = [
 		{ location: "/dashboard", label: "Dashboard" },
@@ -22,6 +23,7 @@ export default function Navigation() {
 
 	const handleUserAccountLogout = () => {
 		dispatch(UserLogout());
+		navigate("/");
 	};
 
 	return (
