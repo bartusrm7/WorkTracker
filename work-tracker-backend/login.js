@@ -48,8 +48,12 @@ router.post("/login", async (req, res) => {
 				return res.status(401).json({ error: "Password is not correct!" });
 			}
 
-			const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
-			const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "30d" });
+			const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+				expiresIn: "15m",
+			});
+			const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
+				expiresIn: "30d",
+			});
 
 			res.cookie("accessToken", accessToken, {
 				maxAge: 15 * 60 * 1000,
@@ -65,7 +69,14 @@ router.post("/login", async (req, res) => {
 				sameSite: "Lax",
 			});
 
-			res.status(200).json({ message: "User logged successfully!", isLogged: true, accessToken });
+			console.log(accessToken);
+
+			res.status(200).json({
+				message: "User logged successfully!",
+				isLogged: true,
+				firstName: user.firstName,
+				lastName: user.lastName,
+			});
 		});
 	} catch (error) {
 		console.error("Error during user login:", error);
