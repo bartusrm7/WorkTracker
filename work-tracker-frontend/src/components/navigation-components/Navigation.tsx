@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Squash as Hamburger } from "hamburger-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
