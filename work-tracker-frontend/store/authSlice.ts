@@ -59,6 +59,29 @@ export const UserAuthorization = createAsyncThunk<{ accessToken: string }, strin
 	}
 );
 
+export const RefreshAccessTokenAfterExpired = createAsyncThunk<{ accessToken: string }, string>(
+	"user/refresh-token",
+	async (accessToken, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/refresh-token", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
+			}
+			const data = await response.json();
+			return { accessToken: data.accessToken };
+		} catch (error) {
+			return rejectWithValue("Error during refresh access token!");
+		}
+	}
+);
+
 export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
 	"user/user-logout",
 	async (_, { rejectWithValue }) => {
@@ -104,6 +127,14 @@ const authSlice = createSlice({
 			})
 			.addCase(UserAuthorization.rejected, state => {
 				state.isLogged = false;
+				state.loading = false;
+			})
+
+			.addCase(RefreshAccessTokenAfterExpired.fulfilled, (state, action) => {
+				state.accessToken = action.payload.accessToken;
+				state.loading = false;
+			})
+			.addCase(RefreshAccessTokenAfterExpired.rejected, state => {
 				state.loading = false;
 			})
 
