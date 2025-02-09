@@ -84,6 +84,14 @@ router.post("/login", async (req, res) => {
 	}
 });
 
+router.get("/user-names", authenticateToken, (req, res) => {
+	const user = req.body.email;
+	if (!user) {
+		return res.status(404).json({ error: "User not found!" });
+	}
+	return res.status(200).json({ firstName: user.firstName, lastName: user.lastName });
+});
+
 router.post("/refresh-token", (req, res) => {
 	const refreshToken = req.body.refreshToken;
 
