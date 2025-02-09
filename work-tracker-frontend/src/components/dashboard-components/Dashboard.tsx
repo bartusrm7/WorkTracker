@@ -1,8 +1,19 @@
 import { InputGroup, Form, Button, Col } from "react-bootstrap";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Calendar from "./mini-components/Calendar";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import { UserNamesGetFromBackend } from "../../../store/authSlice";
 
 export default function Dashboard() {
+	const dispatch = useDispatch<AppDispatch>();
+	const firstName = useSelector((state: RootState) => state.auth.firstName);
+
+	useEffect(() => {
+		dispatch(UserNamesGetFromBackend(firstName));
+	}, [firstName]);
+
 	return (
 		<div className='dashboard m-2'>
 			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-lg-flex justify-content-between'>
