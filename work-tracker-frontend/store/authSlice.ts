@@ -4,12 +4,16 @@ interface LogUserData {
 	isLogged: boolean;
 	loading: boolean;
 	accessToken: string;
+	firstName: string;
+	lastName: string;
 }
 
 const initialState: LogUserData = {
 	isLogged: false,
 	loading: false,
 	accessToken: "",
+	firstName: "",
+	lastName: "",
 };
 
 export const UserLogin = createAsyncThunk<
@@ -59,6 +63,29 @@ export const UserAuthorization = createAsyncThunk<{ accessToken: string }, strin
 	}
 );
 
+export const UserNamesGetFromBackend = createAsyncThunk<{ firstName: string; lastName: string }, string>(
+	"user/user-names",
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/user-names", {
+				method: "GET",
+				headers: {
+					"Content-type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue("Error during getting user first name and last name!");
+		}
+	}
+);
+
 export const RefreshAccessTokenAfterExpired = createAsyncThunk<{ accessToken: string }, string>(
 	"user/refresh-token",
 	async (accessToken, { rejectWithValue }) => {
@@ -88,7 +115,9 @@ export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
 		try {
 			const response = await fetch("http://localhost:5174/logout", {
 				method: "POST",
-				headers: { "Content-type": "application/json" },
+				headers: {
+					"Content-type": "application/json",
+				},
 				credentials: "include",
 			});
 			if (!response.ok) {
@@ -127,6 +156,18 @@ const authSlice = createSlice({
 			})
 			.addCase(UserAuthorization.rejected, state => {
 				state.isLogged = false;
+				state.loading = false;
+			})
+
+			.addCase(
+				UserNamesGetFromBackend.fulfilled,
+				(state, action: PayloadAction<{ firstName: string; lastName: string }>) => {
+					state.firstName = action.payload.firstName;
+					state.lastName = action.payload.lastName;
+					state.loading = false;
+				}
+			)
+			.addCase(UserNamesGetFromBackend.rejected, state => {
 				state.loading = false;
 			})
 

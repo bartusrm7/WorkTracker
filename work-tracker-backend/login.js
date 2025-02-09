@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/user-names", authenticateToken, (req, res) => {
-	const user = req.body.email;
+	const user = req.user;
 	if (!user) {
 		return res.status(404).json({ error: "User not found!" });
 	}
