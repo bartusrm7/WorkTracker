@@ -1,0 +1,18 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.my-tasks {
+	&__big-main-container {
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+	}
+	.tasks-container {
+		min-height: 300px;
+	}
+}

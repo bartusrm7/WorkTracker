@@ -1,0 +1,65 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.tasks-creator {
+	position: relative;
+	&__main-container {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+	&__close-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 0.25em;
+		margin: 0.75em;
+	}
+	&__task-creator-container {
+		position: relative;
+		width: 90vw;
+		height: 450px;
+		border-radius: 8px;
+		background-color: $primary;
+		span {
+			color: $secondary;
+		}
+		@include rwd-min-width(576px) {
+			width: 80vw;
+			max-width: 600px;
+		}
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__task-wrapper {
+		padding: 0 1em;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.css-10o2lyd-MuiStack-root {
+	flex-direction: column !important;
+}
+
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected {
+	background-color: $secondary !important;
+	font-weight: bold;
+}
+
+.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected),
+.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root {
+	background-color: $accent !important;
+	color: $text;
+	font-weight: bold;
+	border: none;
+}
+
+.css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input,
+.css-113d811-MuiFormLabel-root-MuiInputLabel-root {
+	color: $secondary !important;
+}
