@@ -69,13 +69,12 @@ router.post("/login", async (req, res) => {
 				sameSite: "Lax",
 			});
 
-			console.log(accessToken);
-
 			res.status(200).json({
 				message: "User logged successfully!",
 				isLogged: true,
 				firstName: user.firstName,
 				lastName: user.lastName,
+				accessToken,
 			});
 		});
 	} catch (error) {
