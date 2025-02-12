@@ -15,6 +15,14 @@ db.query(`CREATE TABLE IF NOT EXISTS userData (
 	password varchar(255)
 )`);
 
+db.query(`CREATE TABLE IF NOT EXISTS tasksData (
+	ID int PRIMARY KEY AUTO_INCREMENT,
+	email varchar (255) UNIQUE,
+	taskName varchar(255),
+	taskData varchar(255),
+	taskDescription varchar(255),
+)`);
+
 db.connect(error => {
 	if (error) {
 		console.error("Error connect: ", error.stack);
