@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface Tasks {
 	email: string;
 	taskName: string;
-	taskData: Date;
+	taskDate: Date;
 	taskDescription: string;
 }
 

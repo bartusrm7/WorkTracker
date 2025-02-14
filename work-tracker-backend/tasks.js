@@ -7,7 +7,7 @@ router.post("/create-task", async (req, res) => {
 	try {
 		const { accessToken, taskName, taskDate, taskDescription } = req.body;
 
-		if (!accessToken || !taskName || !taskDate || !taskDescription) {
+		if (!taskName || !taskDate || !taskDescription) {
 			return res.status(400).json({ error: "All fields are required!" });
 		}
 
