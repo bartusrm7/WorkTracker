@@ -57,7 +57,6 @@ export default function SignIn() {
 
 	useEffect(() => {
 		if (isUserLogged) {
-			console.log(isUserLogged);
 			setIsLoadingPage(!isLoadingPage);
 			setTimeout(() => {
 				navigate("/dashboard");

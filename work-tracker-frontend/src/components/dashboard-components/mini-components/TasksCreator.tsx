@@ -42,7 +42,6 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 		if (!taskData.taskName) {
 			return;
 		}
-		console.log(taskData);
 		dispatch(CreateTask(taskData));
 	};
 

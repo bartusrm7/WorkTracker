@@ -52,7 +52,7 @@ export const GetTask = createAsyncThunk<Tasks[]>("tasks/get-task", async (_, { r
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
-		return data;
+		return data.tasks;
 	} catch (error) {
 		return rejectWithValue("Error during getting tasks!");
 	}

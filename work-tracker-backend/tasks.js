@@ -53,7 +53,7 @@ router.get("/get-task", async (req, res) => {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
 
-				return res.status(200).json({ message: "Task gotten successfully!" }, { tasks: results });
+				return res.status(200).json({ message: "Task gotten successfully!", tasks: results });
 			});
 		});
 	} catch (error) {
