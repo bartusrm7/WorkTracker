@@ -9,12 +9,19 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
+import dayjs from "dayjs";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
 	const [toggleCreatorContainer, setToggleCreatorContainer] = useState<boolean>(false);
+	const [selectedDate, setSelectedDate] = useState(dayjs());
+
 	const date = new Date().toLocaleDateString();
+
+	const filteredTaskData = selectedDate
+		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
+		: tasksData;
 
 	useEffect(() => {
 		dispatch(GetTask());
@@ -38,7 +45,12 @@ export default function MyTasks() {
 						<div>Choose date</div>
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<DemoContainer components={["DatePicker"]}>
-								<DatePicker label={date} />
+								<DatePicker
+									label={date}
+									format='DD.MM.YYYY'
+									value={selectedDate}
+									onChange={newDate => setSelectedDate(newDate || dayjs())}
+								/>
 							</DemoContainer>
 						</LocalizationProvider>
 					</div>
@@ -50,13 +62,15 @@ export default function MyTasks() {
 							<div className='my-tasks__task-category'>Action</div>
 						</div>
 
-						{tasksData.map((task, index) => (
+						{filteredTaskData.map((task, index) => (
 							<div className='my-tasks__tasks-container tasks-grid-sets' key={index}>
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>
 								<div className='my-tasks__task-item'></div>
 							</div>
 						))}
+
+						{filteredTaskData.length === 0 && <div className='p-2'>No tasks found for the selected date.</div>}
 					</div>
 				</div>
 			</div>
