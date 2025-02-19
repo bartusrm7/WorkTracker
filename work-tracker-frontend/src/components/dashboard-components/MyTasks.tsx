@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
 import dayjs from "dayjs";
+import TasksActions from "./mini-components/TasksActions";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
@@ -66,7 +67,9 @@ export default function MyTasks() {
 							<div className='my-tasks__tasks-container tasks-grid-sets' key={index}>
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>
-								<div className='my-tasks__task-item'></div>
+								<div className='my-tasks__task-item'>
+									<TasksActions />
+								</div>
 							</div>
 						))}
 
