@@ -1,0 +1,16 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.tasks-actions {
+	position: relative;
+	&__main-container {
+		position: absolute;
+		right: 0;
+	}
+	&__replacement-field {
+		padding: 0 0.35em;
+	}
+	&__action-btn {
+		padding: 0;
+	}
+}
