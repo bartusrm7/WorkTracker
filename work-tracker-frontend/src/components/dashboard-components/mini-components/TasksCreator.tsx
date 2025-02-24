@@ -16,6 +16,7 @@ interface toggleContainerProps {
 }
 
 interface UserTaskData {
+	id: number;
 	email: string;
 	taskName: string;
 	taskDate: Date;
@@ -25,6 +26,7 @@ interface UserTaskData {
 export default function TasksCreator({ toggleContainer }: toggleContainerProps) {
 	const dispatch = useDispatch<AppDispatch>();
 	const [taskData, setTaskData] = useState<UserTaskData>({
+		id: Date.now(),
 		email: "",
 		taskName: "",
 		taskDate: new Date(),
