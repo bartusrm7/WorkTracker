@@ -15,7 +15,6 @@ function authenticateUser(req, res, next) {
 				return res.status(403).json({ error: "Invalid token!" });
 			}
 			req.email = decoded.email;
-
 			next();
 		});
 	} catch (error) {
@@ -109,15 +108,15 @@ router.post("/edit-task", authenticateUser, async (req, res) => {
 
 router.post("/remove-task", authenticateUser, async (req, res) => {
 	try {
-		const { taskId } = req.body;
+		const { ID } = req.body;
 		const email = req.email;
 
-		if (!taskId) {
+		if (!ID) {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
 		const removeTaskQuery = `DELETE FROM tasksData WHERE ID = ? AND email = ?`;
-		db.query(removeTaskQuery, [taskId, email], (err, results) => {
+		db.query(removeTaskQuery, [ID, email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}

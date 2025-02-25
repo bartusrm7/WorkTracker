@@ -11,18 +11,24 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
 import dayjs from "dayjs";
 import TasksActions from "./mini-components/TasksActions";
+import { RemoveTaskAction } from "../../../store/tasksActionsSlice";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
 	const [toggleCreatorContainer, setToggleCreatorContainer] = useState<boolean>(false);
 	const [selectedDate, setSelectedDate] = useState(dayjs());
-
 	const date = new Date().toLocaleDateString();
 
 	const filteredTaskData = selectedDate
 		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
 		: tasksData;
+
+	const handleRemoveTask = (ID: number, email: string) => {
+		if (email) {
+			dispatch(RemoveTaskAction({ ID, email }));
+		}
+	};
 
 	useEffect(() => {
 		dispatch(GetTask());
@@ -68,7 +74,7 @@ export default function MyTasks() {
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>
 								<div className='my-tasks__task-item'>
-									<TasksActions />
+									<TasksActions removeTask={() => handleRemoveTask(task.ID, task.email)} taskId={task.ID} />
 								</div>
 							</div>
 						))}

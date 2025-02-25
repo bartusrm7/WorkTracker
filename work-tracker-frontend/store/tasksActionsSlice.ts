@@ -59,16 +59,16 @@ const initialState: TasksState = {
 // 	}
 // });
 
-export const RemoveTaskAction = createAsyncThunk<{ taskId: number }>(
+export const RemoveTaskAction = createAsyncThunk<{ ID: number; email: string }, { ID: number; email: string }>(
 	"tasksAction/remove-task",
-	async (taskId, { rejectWithValue }) => {
+	async (userData: { ID: number; email: string }, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/remove-task", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",
 				},
-				body: JSON.stringify({ id: taskId }),
+				body: JSON.stringify(userData),
 				credentials: "include",
 			});
 			if (!response.ok) {
@@ -94,8 +94,8 @@ const tasksActionSlice = createSlice({
 				state.loading = false;
 			})
 
-			.addCase(RemoveTaskAction.fulfilled, (state, action: PayloadAction<{ taskId: number }>) => {
-				state.tasks = state.tasks.filter(task => task.ID !== action.payload.taskId);
+			.addCase(RemoveTaskAction.fulfilled, (state, action: PayloadAction<{ ID: number }>) => {
+				state.tasks = state.tasks.filter(task => task.ID !== action.payload.ID);
 			});
 	},
 });

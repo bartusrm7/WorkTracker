@@ -3,17 +3,14 @@ import DoneIcon from "@mui/icons-material/Done";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../store/store";
-import { RemoveTaskAction } from "../../../../store/tasksActionsSlice";
 
-export default function TasksActions() {
-	const dispatch = useDispatch<AppDispatch>();
+interface TasksActionsProps {
+	removeTask: (taskId: number) => void;
+	taskId: number;
+}
+
+export default function TasksActions({ removeTask, taskId }: TasksActionsProps) {
 	const [isTasksOpened, setIsTasksOpened] = useState<boolean>(false);
-
-	const handleRemoveTask = () => {
-		dispatch(RemoveTaskAction());
-	};
 
 	return (
 		<div className='tasks-actions'>
@@ -26,7 +23,7 @@ export default function TasksActions() {
 						<Button className='tasks-actions__action-btn custom-btn'>
 							<ModeEditIcon />
 						</Button>
-						<Button className='tasks-actions__action-btn custom-btn' onClick={() => handleRemoveTask()}>
+						<Button className='tasks-actions__action-btn custom-btn' onClick={() => removeTask(taskId)}>
 							<DeleteIcon />
 						</Button>
 					</div>
