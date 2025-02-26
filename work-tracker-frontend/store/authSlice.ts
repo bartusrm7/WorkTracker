@@ -63,7 +63,7 @@ export const UserAuthorization = createAsyncThunk<{ accessToken: string }, strin
 	}
 );
 
-export const UserNamesGetFromBackend = createAsyncThunk<{ firstName: string; lastName: string }, string>(
+export const UserNamesGetFromBackend = createAsyncThunk<{ firstName: string; lastName: string }>(
 	"user/user-names",
 	async (_, { rejectWithValue }) => {
 		try {
