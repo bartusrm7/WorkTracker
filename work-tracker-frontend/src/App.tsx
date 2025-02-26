@@ -15,12 +15,13 @@ import Statistics from "./components/dashboard-components/Statistics";
 export default function App() {
 	const dispatch = useDispatch<AppDispatch>();
 	const refreshToken = Cookies.get("refreshToken");
+	const accessToken = Cookies.get("accessToken");
 
 	useEffect(() => {
-		if (refreshToken) {
+		if (refreshToken && !accessToken) {
 			dispatch(RefreshAccessTokenAfterExpired(refreshToken));
 		}
-	}, [refreshToken]);
+	}, [refreshToken, accessToken]);
 
 	return (
 		<BrowserRouter>

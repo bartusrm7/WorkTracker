@@ -129,7 +129,7 @@ router.get("/user-names", authenticateUser, async (req, res) => {
 
 router.post("/refresh-token", async (req, res) => {
 	try {
-		const refreshToken = req.body.refreshToken;
+		const refreshToken = req.cookies.refreshToken;
 
 		if (!refreshToken) {
 			return res.status(401).json({ error: "Invalid refresh token" });
