@@ -8,7 +8,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../store/store";
 import { useState } from "react";
-import { CreateTask } from "../../../../store/tasksSlice";
+import { CreateTask, GetTask } from "../../../../store/tasksSlice";
 import dayjs from "dayjs";
 
 interface toggleContainerProps {
@@ -16,7 +16,7 @@ interface toggleContainerProps {
 }
 
 interface UserTaskData {
-	id: number;
+	ID: number;
 	email: string;
 	taskName: string;
 	taskDate: Date;
@@ -26,7 +26,7 @@ interface UserTaskData {
 export default function TasksCreator({ toggleContainer }: toggleContainerProps) {
 	const dispatch = useDispatch<AppDispatch>();
 	const [taskData, setTaskData] = useState<UserTaskData>({
-		id: Date.now(),
+		ID: Date.now(),
 		email: "",
 		taskName: "",
 		taskDate: new Date(),
@@ -45,6 +45,8 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 			return;
 		}
 		dispatch(CreateTask(taskData));
+		dispatch(GetTask());
+		toggleContainer();
 	};
 
 	return (
