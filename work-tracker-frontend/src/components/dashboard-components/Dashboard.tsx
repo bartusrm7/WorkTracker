@@ -9,9 +9,10 @@ import { UserNamesGetFromBackend } from "../../../store/authSlice";
 export default function Dashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const firstName = useSelector((state: RootState) => state.auth.firstName);
+	const lastName = useSelector((state: RootState) => state.auth.lastName);
 
 	useEffect(() => {
-		dispatch(UserNamesGetFromBackend(firstName));
+		dispatch(UserNamesGetFromBackend());
 	}, [firstName]);
 
 	return (
@@ -20,7 +21,9 @@ export default function Dashboard() {
 				<div></div>
 
 				<div className='dashboard__account-info-container d-flex justify-content-center align-items-center'>
-					<div className='dashboard__account-info'>Bartosz</div>
+					<div className='dashboard__account-info'>
+						{firstName} {lastName}
+					</div>
 					<div className='dashboard__account-photo'>
 						<AccountCircleOutlinedIcon />
 					</div>
