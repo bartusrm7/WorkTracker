@@ -21,7 +21,7 @@ export default function App() {
 		if (refreshToken && !accessToken) {
 			dispatch(RefreshAccessTokenAfterExpired(refreshToken));
 		}
-	}, [refreshToken, accessToken]);
+	}, [dispatch, refreshToken, accessToken]);
 
 	return (
 		<BrowserRouter>

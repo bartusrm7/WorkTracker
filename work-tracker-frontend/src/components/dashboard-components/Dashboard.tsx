@@ -1,26 +1,36 @@
 import { InputGroup, Form, Button, Col } from "react-bootstrap";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Calendar from "./mini-components/Calendar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { UserNamesGetFromBackend } from "../../../store/authSlice";
+import dayjs from "dayjs";
+import { GetTask } from "../../../store/tasksSlice";
 
 export default function Dashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const firstName = useSelector((state: RootState) => state.auth.firstName);
 	const lastName = useSelector((state: RootState) => state.auth.lastName);
+	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
+
+	const [selectedDate, setSelectedDate] = useState(dayjs());
+
+	const filteredTasksData = selectedDate
+		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
+		: tasksData;
 
 	useEffect(() => {
 		dispatch(UserNamesGetFromBackend());
-	}, [firstName]);
+		dispatch(GetTask());
+	}, [dispatch, firstName]);
 
 	return (
 		<div className='dashboard m-2'>
 			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-lg-flex justify-content-between'>
 				<div></div>
 
-				<div className='dashboard__account-info-container d-flex justify-content-center align-items-center'>
+				<div className='dashboard__account-info-container d-flex justify-content-center'>
 					<div className='dashboard__account-info'>
 						{firstName} {lastName}
 					</div>
@@ -45,20 +55,24 @@ export default function Dashboard() {
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
 					<div className='dashboard__tracking-container'>
 						<div className='dashboard__tracking-label label'>My tracking</div>
-						<div className='dashboard__tracking-wrapper'></div>
+						{filteredTasksData.map((task, index) => (
+							<div className='dashboard__tracking-wrapper' key={index}>
+								<div className='dashboard__task-item'>{task.taskName}</div>
+							</div>
+						))}
 					</div>
 				</div>
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
 					<div className='dashboard__task-container'>
 						<div className='dashboard__task-label label'>
-							Last tasks <span>{"(ILOŚĆ TASKSÓW)"}</span>
+							Last tasks done <span>{"(ILOŚĆ TASKSÓW)"}</span>
 						</div>
 						<div className='dashboard__task-wrapper'></div>
 					</div>
 				</div>
-				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
+				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-block'>
 					<div className='dashboard__calendar-label label'>Calendar</div>
-					<Calendar />
+					<Calendar selectedDate={selectedDate} chooseDate={newDate => setSelectedDate(newDate || dayjs)} />
 				</div>
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
 					<div className='dashboard__motivation-quotes-container'>
