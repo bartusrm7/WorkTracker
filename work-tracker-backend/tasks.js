@@ -56,7 +56,7 @@ router.get("/get-task", authenticateUser, async (req, res) => {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 
-			return res.status(200).json({ message: "Task gotten successfully!", tasks: results });
+			return res.status(200).json({ message: "Task recived successfully!", tasks: results });
 		});
 	} catch (error) {
 		console.error("Error during getting tasks:", error);
@@ -66,42 +66,23 @@ router.get("/get-task", authenticateUser, async (req, res) => {
 
 router.post("/done-task", authenticateUser, async (req, res) => {
 	try {
-		const { taskId, taskDone } = req.body;
+		const { ID } = req.body;
 		const email = req.email;
 
-		if (!taskId) {
+		if (!ID) {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
-		const doneTaskQuery = `UPDATE tasksData SET taskDone = TRUE WHERE ID = ? AND email = ?`;
-		db.query(doneTaskQuery, [taskId, email], (err, results) => {
+		const doneTaskQuery = `UPDATE tasksData SET taskStatus = 'done' WHERE ID = ? AND email = ?`;
+		db.query(doneTaskQuery, [ID, email], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
+
+			return res.status(200).json({ message: "Task made done successfully!" });
 		});
 	} catch (error) {
-		console.error("Error during getting tasks:", error);
-		return res.status(500).json({ error: "Internal server error!" });
-	}
-});
-
-router.post("/edit-task", authenticateUser, async (req, res) => {
-	try {
-		const { taskId, taskName, taskDescription } = req.body;
-		const email = req.email;
-
-		if (!taskId) {
-			return res.status(400).json({ error: "Task ID is required!" });
-		}
-
-		const editTaskQuery = `UPDATE tasksData SET taskName = ?, taskDescription = ? WHERE ID = ? AND email = ?`;
-		db.query(editTaskQuery, [taskId, email], (err, results) => {
-			if (err) {
-				return res.status(500).json({ error: "Database query error", details: err });
-			}
-		});
-	} catch (error) {
-		console.error("Error during getting tasks:", error);
+		console.error("Error during mark done task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });
@@ -127,7 +108,7 @@ router.post("/remove-task", authenticateUser, async (req, res) => {
 			return res.status(200).json({ message: "Task deleted successfully!" });
 		});
 	} catch (error) {
-		console.error("Error during getting tasks:", error);
+		console.error("Error during remove task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });

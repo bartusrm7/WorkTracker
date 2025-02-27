@@ -20,7 +20,8 @@ db.query(`CREATE TABLE IF NOT EXISTS tasksData (
 	email varchar (255) NOT NULL,
 	taskName varchar(255) NOT NULL,
 	taskDate DATE NOT NULL,
-	taskDescription varchar(255)
+	taskDescription varchar(255),
+	taskStatus varchar(255) DEFAULT 'progress'
 )`);
 
 db.connect(error => {
