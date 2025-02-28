@@ -6,6 +6,7 @@ interface Tasks {
 	taskName: string;
 	taskDate: Date;
 	taskDescription: string;
+	taskStatus: string;
 }
 
 interface TasksState {

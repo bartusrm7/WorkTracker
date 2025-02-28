@@ -21,7 +21,7 @@ db.query(`CREATE TABLE IF NOT EXISTS tasksData (
 	taskName varchar(255) NOT NULL,
 	taskDate DATE NOT NULL,
 	taskDescription varchar(255),
-	taskStatus varchar(255) DEFAULT 'progress'
+	taskStatus varchar(255) DEFAULT 'pending'
 )`);
 
 db.connect(error => {

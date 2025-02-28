@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
 import dayjs from "dayjs";
 import TasksActions from "./mini-components/TasksActions";
-import { RemoveTaskAction } from "../../../store/tasksActionsSlice";
+import { DoneTaskAction, RemoveTaskAction } from "../../../store/tasksActionsSlice";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
@@ -23,6 +23,12 @@ export default function MyTasks() {
 	const filteredTaskData = selectedDate
 		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
 		: tasksData;
+
+	const handleDoneTask = (ID: number, email: string, taskStatus: string) => {
+		if (email) {
+			dispatch(DoneTaskAction({ ID, email, taskStatus }));
+		}
+	};
 
 	const handleRemoveTask = (ID: number, email: string) => {
 		if (email) {
@@ -70,11 +76,17 @@ export default function MyTasks() {
 						</div>
 
 						{filteredTaskData.map((task, index) => (
-							<div className='my-tasks__tasks-container tasks-grid-sets' key={index}>
+							<div
+								className={`my-tasks__tasks-container tasks-grid-sets ${task.taskStatus === "done" ? "task-done" : ""}`}
+								key={index}>
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>
 								<div className='my-tasks__task-item'>
-									<TasksActions removeTask={() => handleRemoveTask(task.ID, task.email)} taskId={task.ID} />
+									<TasksActions
+										doneTask={() => handleDoneTask(task.ID, task.email, task.taskStatus)}
+										removeTask={() => handleRemoveTask(task.ID, task.email)}
+										taskId={task.ID}
+									/>
 								</div>
 							</div>
 						))}

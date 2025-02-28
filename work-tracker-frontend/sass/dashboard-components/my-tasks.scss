@@ -31,4 +31,8 @@
 			background-color: $third;
 		}
 	}
+	.task-done {
+		text-decoration: line-through;
+		opacity: 0.5;
+	}
 }

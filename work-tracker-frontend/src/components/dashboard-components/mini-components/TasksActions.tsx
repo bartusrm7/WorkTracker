@@ -5,11 +5,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
 interface TasksActionsProps {
+	doneTask: (taskId: number) => void;
 	removeTask: (taskId: number) => void;
 	taskId: number;
 }
 
-export default function TasksActions({ removeTask, taskId }: TasksActionsProps) {
+export default function TasksActions({ doneTask, removeTask, taskId }: TasksActionsProps) {
 	const [isTasksOpened, setIsTasksOpened] = useState<boolean>(false);
 
 	return (
@@ -17,7 +18,7 @@ export default function TasksActions({ removeTask, taskId }: TasksActionsProps) 
 			<div className='tasks-actions__main-container d-flex'>
 				{isTasksOpened && (
 					<div className='d-flex'>
-						<Button className='tasks-actions__action-btn custom-btn'>
+						<Button className='tasks-actions__action-btn custom-btn' onClick={() => doneTask(taskId)}>
 							<DoneIcon />
 						</Button>
 						<Button className='tasks-actions__action-btn custom-btn'>
