@@ -105,7 +105,8 @@
 			}
 		}
 	}
-	&__task-container {
+	&__task-container,
+	&__tracking-label {
 		span {
 			color: $accent;
 		}
