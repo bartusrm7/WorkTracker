@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import TasksActions from "./mini-components/TasksActions";
 import { DoneTaskAction, RemoveTaskAction } from "../../../store/tasksActionsSlice";
 
@@ -17,7 +17,7 @@ export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
 	const [toggleCreatorContainer, setToggleCreatorContainer] = useState<boolean>(false);
-	const [selectedDate, setSelectedDate] = useState(dayjs());
+	const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
 	const date = new Date().toLocaleDateString();
 
 	const filteredTaskData = selectedDate
