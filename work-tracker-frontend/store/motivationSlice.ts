@@ -8,7 +8,7 @@ const initialState: MotivationState = {
 	motivationQuote: "",
 };
 
-export const GetMotivationQuotes = createAsyncThunk<{ motivationQuote: string }>(
+export const GetMotivationQuotes = createAsyncThunk<string>(
 	"motivation/getMotivationQuotes",
 	async (_, { rejectWithValue }) => {
 		try {
@@ -24,6 +24,7 @@ export const GetMotivationQuotes = createAsyncThunk<{ motivationQuote: string }>
 			}
 			const data = await response.json();
 			console.log(data);
+
 			return data;
 		} catch (error) {
 			return rejectWithValue("Error during marking task as done!");
@@ -36,8 +37,8 @@ export const motivationSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(GetMotivationQuotes.fulfilled, (state, action: PayloadAction<{ motivationQuote: string }>) => {
-			state.motivationQuote = action.payload.motivationQuote;
+		builder.addCase(GetMotivationQuotes.fulfilled, (state, action: PayloadAction<string>) => {
+			state.motivationQuote = action.payload;
 		});
 	},
 });
