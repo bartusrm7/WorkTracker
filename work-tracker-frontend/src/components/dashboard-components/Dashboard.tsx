@@ -7,12 +7,14 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { UserNamesGetFromBackend } from "../../../store/authSlice";
 import dayjs from "dayjs";
 import { GetTask } from "../../../store/tasksSlice";
+import { GetMotivationQuotes } from "../../../store/motivationSlice";
 
 export default function Dashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const firstName = useSelector((state: RootState) => state.auth.firstName);
 	const lastName = useSelector((state: RootState) => state.auth.lastName);
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
+	const motivationQuote = useSelector((state: RootState) => state.motivation.motivationQuote);
 	const [selectedDate, setSelectedDate] = useState(dayjs());
 
 	const filteredTasksData = selectedDate
@@ -24,6 +26,7 @@ export default function Dashboard() {
 	useEffect(() => {
 		dispatch(UserNamesGetFromBackend());
 		dispatch(GetTask());
+		dispatch(GetMotivationQuotes());
 	}, [dispatch, firstName]);
 
 	return (
@@ -84,7 +87,7 @@ export default function Dashboard() {
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
 					<div className='dashboard__motivation-quotes-container'>
 						<div className='dashboard__motivation-quotes-label label'>Motivation quotes</div>
-						<div className='dashboard__motivation-quotes-wrapper'></div>
+						<div className='dashboard__motivation-quotes-wrapper'>{motivationQuote}</div>
 					</div>
 				</div>
 			</div>

@@ -7,15 +7,17 @@ import { GetMotivationQuotes } from "../../../store/motivationSlice";
 export default function Motivations() {
 	const dispatch = useDispatch<AppDispatch>();
 	const motivationQuotes = useSelector((state: RootState) => state.motivation.motivationQuote);
+	
 	useEffect(() => {
 		dispatch(GetMotivationQuotes());
-		console.log(motivationQuotes);
-	});
+	}, [dispatch]);
 
 	return (
 		<>
 			<Navigation />
-			<div className='motivations'>{motivationQuotes}</div>
+			<div className='motivations'>
+				<div className='motivations__motivation-quote'>{motivationQuotes}</div>
+			</div>
 		</>
 	);
 }
