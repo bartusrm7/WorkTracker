@@ -1,4 +1,3 @@
-import { InputGroup, Form, Button, Col } from "react-bootstrap";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Calendar from "./mini-components/Calendar";
 import { useEffect, useState } from "react";
@@ -31,7 +30,7 @@ export default function Dashboard() {
 
 	return (
 		<div className='dashboard m-2'>
-			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-lg-flex justify-content-between'>
+			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-flex'>
 				<div></div>
 
 				<div className='dashboard__account-info-container d-flex justify-content-center'>
@@ -42,17 +41,6 @@ export default function Dashboard() {
 						<AccountCircleOutlinedIcon />
 					</div>
 				</div>
-
-				<Col sm={10} md={9} lg={8} xl={7} xxl={6} className='m-auto'>
-					<div className='dashboard__search-info-container'>
-						<div className='dashboard__search-info'>
-							<InputGroup>
-								<Form.Control placeholder='Search...' />
-								<Button className='custom-btn'>Search</Button>
-							</InputGroup>
-						</div>
-					</div>
-				</Col>
 			</div>
 
 			<div className='big-container'>
