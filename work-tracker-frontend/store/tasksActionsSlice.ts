@@ -44,6 +44,29 @@ export const DoneTaskAction = createAsyncThunk<
 	}
 });
 
+export const EditTaskAction = createAsyncThunk<Tasks, Tasks>(
+	"tasksAction/edit-task",
+	async (task, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/edit-task", {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify(task),
+			});
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue("Error during marking task as done!");
+		}
+	}
+);
+
 export const RemoveTaskAction = createAsyncThunk<{ ID: number; email: string }, { ID: number; email: string }>(
 	"tasksAction/remove-task",
 	async (userData: { ID: number; email: string }, { rejectWithValue }) => {
@@ -86,6 +109,15 @@ const tasksActionSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(DoneTaskAction.rejected, state => {
+				state.loading = false;
+			})
+
+			.addCase(EditTaskAction.fulfilled, (state, action: PayloadAction<Tasks>) => {
+				const updatedTask = action.payload;
+				state.tasks.map(task => (task.ID === updatedTask.ID ? updatedTask : task));
+				state.loading = false;
+			})
+			.addCase(EditTaskAction.rejected, state => {
 				state.loading = false;
 			})
 
