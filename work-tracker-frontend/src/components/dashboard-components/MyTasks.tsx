@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { GetTask } from "../../../store/tasksSlice";
 import dayjs, { Dayjs } from "dayjs";
 import TasksActions from "./mini-components/TasksActions";
-import { DoneTaskAction, RemoveTaskAction } from "../../../store/tasksActionsSlice";
+import { DoneTaskAction, EditTaskAction, RemoveTaskAction } from "../../../store/tasksActionsSlice";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
@@ -27,12 +27,19 @@ export default function MyTasks() {
 	const handleDoneTask = (ID: number, email: string, taskStatus: string) => {
 		if (email) {
 			dispatch(DoneTaskAction({ ID, email, taskStatus }));
+			dispatch(GetTask());
 		}
+	};
+
+	const handleEditTask = (ID: number, taskName: string, taskDescription: string, email: string) => {
+		dispatch(EditTaskAction({ ID, taskName, taskDescription, email }));
+		dispatch(GetTask());
 	};
 
 	const handleRemoveTask = (ID: number, email: string) => {
 		if (email) {
 			dispatch(RemoveTaskAction({ ID, email }));
+			dispatch(GetTask());
 		}
 	};
 
@@ -77,15 +84,20 @@ export default function MyTasks() {
 
 						{filteredTaskData.map((task, index) => (
 							<div
-								className={`my-tasks__tasks-container tasks-grid-sets ${task.taskStatus === "done" ? "task-done" : ""}`}
+								className={`my-tasks__tasks-container tasks-grid-sets ${task.taskStatus === "done" ? "task-done" : "task-progress"}`}
 								key={index}>
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>
 								<div className='my-tasks__task-item'>
 									<TasksActions
 										doneTask={() => handleDoneTask(task.ID, task.email, task.taskStatus)}
+										editTask={(ID, taskName, taskDescription) =>
+											handleEditTask(ID, taskName, taskDescription, task.email)
+										}
 										removeTask={() => handleRemoveTask(task.ID, task.email)}
 										taskId={task.ID}
+										editTaskName={task.taskName}
+										editTaskDescription={task.taskDescription}
 									/>
 								</div>
 							</div>

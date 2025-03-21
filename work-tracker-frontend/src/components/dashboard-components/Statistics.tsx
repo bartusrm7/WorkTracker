@@ -23,8 +23,6 @@ export default function Statistics() {
 	const tasksAmountDone = filteredTasksData.filter(task => task.taskStatus === "done");
 	const tasksAmountNotDone = filteredTasksData.filter(task => task.taskStatus !== "done");
 
-	console.log((tasksAmountNotDone.length / filteredTasksData.length) * 100);
-
 	useEffect(() => {
 		dispatch(GetTask());
 	}, [dispatch]);

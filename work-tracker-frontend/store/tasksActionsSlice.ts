@@ -5,7 +5,7 @@ interface Tasks {
 	ID: number;
 	email: string;
 	taskName: string;
-	taskDate: Date;
+	taskDate?: Date;
 	taskDescription: string;
 	taskStatus?: string;
 }
@@ -54,6 +54,7 @@ export const EditTaskAction = createAsyncThunk<Tasks, Tasks>(
 					"Content-type": "application/json",
 				},
 				body: JSON.stringify(task),
+				credentials: "include",
 			});
 			if (!response.ok) {
 				const errorText = await response.text();

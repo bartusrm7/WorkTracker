@@ -89,19 +89,19 @@ router.post("/done-task", authenticateUser, async (req, res) => {
 
 router.post("/edit-task", authenticateUser, async (req, res) => {
 	try {
-		const { ID, taskName, taskDate, taskDescription } = req.body;
+		const { ID, taskName, taskDescription } = req.body;
 		const email = req.email;
 
 		if (!ID) {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
-		if (!taskName && !taskDate && !taskDescription) {
+		if (!taskName && !taskDescription) {
 			return res.status(400).json({ error: "At least one field must be completed!" });
 		}
 
-		const editTaskQuery = `UPDATE tasksData SET taskName = ?, taskDate = ?, taskDescription = ? WHERE ID = ? AND email = ?`;
-		db.query(editTaskQuery, [taskName, taskDate, taskDescription, ID, email], err => {
+		const editTaskQuery = `UPDATE tasksData SET taskName = ?, taskDescription = ? WHERE ID = ? AND email = ?`;
+		db.query(editTaskQuery, [taskName, taskDescription, ID, email], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
