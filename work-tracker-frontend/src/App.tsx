@@ -15,14 +15,16 @@ import Motivations from "./components/dashboard-components/Motivations";
 
 export default function App() {
 	const dispatch = useDispatch<AppDispatch>();
-	const refreshToken = Cookies.get("refreshToken");
-	const accessToken = Cookies.get("accessToken");
 
 	useEffect(() => {
-		if (refreshToken && !accessToken) {
-			dispatch(RefreshAccessTokenAfterExpired(refreshToken));
-		}
-	}, [dispatch, refreshToken, accessToken]);
+		const refreshInterval = setInterval(() => {
+			const currentRefreshInterval = Cookies.get("refreshToken");
+			if (currentRefreshInterval) {
+				dispatch(RefreshAccessTokenAfterExpired(currentRefreshInterval));
+			}
+		}, 14 * 60 * 1000);
+		return () => clearInterval(refreshInterval);
+	}, [dispatch]);
 
 	return (
 		<BrowserRouter>
