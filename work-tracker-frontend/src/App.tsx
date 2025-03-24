@@ -56,14 +56,14 @@ export default function App() {
 						</ProtectedRoute>
 					}
 				/>
-				<Route
+				{/* <Route
 					path='/motivations'
 					element={
 						<ProtectedRoute>
 							<Motivations />
 						</ProtectedRoute>
 					}
-				/>
+				/> */}
 			</Routes>
 		</BrowserRouter>
 	);
