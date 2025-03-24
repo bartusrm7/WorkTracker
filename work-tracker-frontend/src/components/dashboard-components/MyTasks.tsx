@@ -84,7 +84,9 @@ export default function MyTasks() {
 
 						{filteredTaskData.map((task, index) => (
 							<div
-								className={`my-tasks__tasks-container tasks-grid-sets ${task.taskStatus === "done" ? "task-done" : "task-progress"}`}
+								className={`my-tasks__tasks-container tasks-grid-sets ${
+									task.taskStatus === "done" ? "task-done" : "task-progress"
+								}`}
 								key={index}>
 								<div className='my-tasks__task-item'>{task.taskName}</div>
 								<div className='my-tasks__task-item'>{task.taskDescription}</div>

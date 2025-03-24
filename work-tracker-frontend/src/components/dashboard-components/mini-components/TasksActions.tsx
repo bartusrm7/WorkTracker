@@ -5,6 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { GetTask } from "../../../../store/tasksSlice";
 
 interface TasksActionsProps {
 	doneTask: (taskId: number) => void;
@@ -23,6 +26,9 @@ export default function TasksActions({
 	editTaskName,
 	editTaskDescription,
 }: TasksActionsProps) {
+	const dispatch = useDispatch<AppDispatch>();
+	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
+	const taskDone = tasksData.find(task => task.ID === taskId);
 	const [isEditTaskWindowOpened, setIsEditTaskWindowOpened] = useState<boolean>(false);
 	const [isTasksOpened, setIsTasksOpened] = useState<boolean>(false);
 	const [isTaskDone, setIsTaskDone] = useState<boolean>(false);
@@ -32,6 +38,7 @@ export default function TasksActions({
 	const handleIsTaskDone = () => {
 		setIsTaskDone(!isTaskDone);
 		doneTask(taskId);
+		dispatch(GetTask());
 	};
 
 	const handleSaveEditedTask = () => {
@@ -42,7 +49,10 @@ export default function TasksActions({
 	useEffect(() => {
 		setEditInputTaskName(editTaskName);
 		setEditInputTaskDescription(editTaskDescription);
-	}, [isTaskDone, editTaskName, editTaskDescription]);
+		if (taskDone) {
+			setIsTaskDone(taskDone.taskStatus === "done");
+		}
+	}, [dispatch, taskDone, isTaskDone, editTaskName, editTaskDescription]);
 
 	return (
 		<div className='tasks-actions'>

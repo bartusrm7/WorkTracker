@@ -73,13 +73,22 @@ router.post("/done-task", authenticateUser, async (req, res) => {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
-		const doneTaskQuery = `UPDATE tasksData SET taskStatus = 'done' WHERE ID = ? AND email = ?`;
-		db.query(doneTaskQuery, [ID, email], err => {
+		const taskStatusFromDatabase = `SELECT taskStatus FROM tasksData WHERE ID = ? AND email = ?`;
+		db.query(taskStatusFromDatabase, [ID, email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
+			const currentStatus = results[0].taskStatus;
+			const newStatus = currentStatus === "pending" ? "done" : "pending";
 
-			return res.status(200).json({ message: "Task made done successfully!" });
+			const doneTaskQuery = `UPDATE tasksData SET taskStatus = ? WHERE ID = ? AND email = ?`;
+			db.query(doneTaskQuery, [newStatus, ID, email], err => {
+				if (err) {
+					return res.status(500).json({ error: "Database query error", details: err });
+				}
+
+				return res.status(200).json({ message: `New task status ${newStatus} changed successfully!`, newStatus, ID });
+			});
 		});
 	} catch (error) {
 		console.error("Error during mark done task:", error);
