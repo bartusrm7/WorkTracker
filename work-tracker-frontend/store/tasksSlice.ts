@@ -6,6 +6,7 @@ interface Tasks {
 	taskName: string;
 	taskDate: Date;
 	taskDescription: string;
+	taskStatus?: any;
 }
 
 interface TasksState {
@@ -33,7 +34,6 @@ export const CreateTask = createAsyncThunk<Tasks, Tasks>("tasks/create-task", as
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
-		console.log(taskData);
 		return data;
 	} catch (error) {
 		return rejectWithValue("Error during creating task!");

@@ -56,7 +56,7 @@ router.get("/get-task", authenticateUser, async (req, res) => {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 
-			return res.status(200).json({ message: "Task gotten successfully!", tasks: results });
+			return res.status(200).json({ message: "Task recived successfully!", tasks: results });
 		});
 	} catch (error) {
 		console.error("Error during getting tasks:", error);
@@ -66,42 +66,59 @@ router.get("/get-task", authenticateUser, async (req, res) => {
 
 router.post("/done-task", authenticateUser, async (req, res) => {
 	try {
-		const { taskId, taskDone } = req.body;
+		const { ID } = req.body;
 		const email = req.email;
 
-		if (!taskId) {
+		if (!ID) {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
-		const doneTaskQuery = `UPDATE tasksData SET taskDone = TRUE WHERE ID = ? AND email = ?`;
-		db.query(doneTaskQuery, [taskId, email], (err, results) => {
+		const taskStatusFromDatabase = `SELECT taskStatus FROM tasksData WHERE ID = ? AND email = ?`;
+		db.query(taskStatusFromDatabase, [ID, email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
+			const currentStatus = results[0].taskStatus;
+			const newStatus = currentStatus === "pending" ? "done" : "pending";
+
+			const doneTaskQuery = `UPDATE tasksData SET taskStatus = ? WHERE ID = ? AND email = ?`;
+			db.query(doneTaskQuery, [newStatus, ID, email], err => {
+				if (err) {
+					return res.status(500).json({ error: "Database query error", details: err });
+				}
+
+				return res.status(200).json({ message: `New task status ${newStatus} changed successfully!`, newStatus, ID });
+			});
 		});
 	} catch (error) {
-		console.error("Error during getting tasks:", error);
+		console.error("Error during mark done task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });
 
 router.post("/edit-task", authenticateUser, async (req, res) => {
 	try {
-		const { taskId, taskName, taskDescription } = req.body;
+		const { ID, taskName, taskDescription } = req.body;
 		const email = req.email;
 
-		if (!taskId) {
+		if (!ID) {
 			return res.status(400).json({ error: "Task ID is required!" });
 		}
 
+		if (!taskName && !taskDescription) {
+			return res.status(400).json({ error: "At least one field must be completed!" });
+		}
+
 		const editTaskQuery = `UPDATE tasksData SET taskName = ?, taskDescription = ? WHERE ID = ? AND email = ?`;
-		db.query(editTaskQuery, [taskId, email], (err, results) => {
+		db.query(editTaskQuery, [taskName, taskDescription, ID, email], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
+
+			return res.status(200).json({ message: "Task edit successfully!" });
 		});
 	} catch (error) {
-		console.error("Error during getting tasks:", error);
+		console.error("Error during edit task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });
@@ -127,7 +144,7 @@ router.post("/remove-task", authenticateUser, async (req, res) => {
 			return res.status(200).json({ message: "Task deleted successfully!" });
 		});
 	} catch (error) {
-		console.error("Error during getting tasks:", error);
+		console.error("Error during remove task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });

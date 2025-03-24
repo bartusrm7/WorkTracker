@@ -16,6 +16,9 @@ export default function SignUp() {
 	const dispatch = useDispatch<AppDispatch>();
 	const registrationStatus = useSelector((state: RootState) => state.user.status);
 	const [userData, setUserData] = useState<UserRegisterData>({ firstName: "", lastName: "", email: "", password: "" });
+	const isUserEmailExists = useSelector((state: RootState) =>
+		state.user.user.some(user => user.email === userData.email)
+	);
 	const [isUserRegistered, setIsUserRegistered] = useState<boolean>(false);
 	const [validationError, setValidationError] = useState<{
 		firstName?: string;
@@ -51,6 +54,8 @@ export default function SignUp() {
 			errors.email = "Email is required!";
 		} else if (!/\S+@\S+\.\S+/.test(userData.email)) {
 			errors.email = "Invalid email format!";
+		} else if (isUserEmailExists) {
+			errors.email = "User with this email already exists!";
 		}
 
 		if (!userData.password) {
@@ -110,7 +115,7 @@ export default function SignUp() {
 										value={userData.firstName}
 										type='text'
 									/>
-									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
+									<Form.Control.Feedback type='invalid'>{validationError.firstName}</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Last Name</Form.Label>

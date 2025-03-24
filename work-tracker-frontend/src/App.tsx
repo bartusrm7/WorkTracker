@@ -10,16 +10,21 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { RefreshAccessTokenAfterExpired } from "../store/authSlice";
 import Cookies from "js-cookie";
+import Statistics from "./components/dashboard-components/Statistics";
+import Motivations from "./components/dashboard-components/Motivations";
 
 export default function App() {
 	const dispatch = useDispatch<AppDispatch>();
-	const refreshToken = Cookies.get("refreshToken");
 
 	useEffect(() => {
-		if (refreshToken) {
-			dispatch(RefreshAccessTokenAfterExpired(refreshToken));
-		}
-	}, [refreshToken]);
+		const refreshInterval = setInterval(() => {
+			const currentRefreshInterval = Cookies.get("refreshToken");
+			if (currentRefreshInterval) {
+				dispatch(RefreshAccessTokenAfterExpired(currentRefreshInterval));
+			}
+		}, 14 * 60 * 1000);
+		return () => clearInterval(refreshInterval);
+	}, [dispatch]);
 
 	return (
 		<BrowserRouter>
@@ -43,6 +48,22 @@ export default function App() {
 						</ProtectedRoute>
 					}
 				/>
+				<Route
+					path='/statistics'
+					element={
+						<ProtectedRoute>
+							<Statistics />
+						</ProtectedRoute>
+					}
+				/>
+				{/* <Route
+					path='/motivations'
+					element={
+						<ProtectedRoute>
+							<Motivations />
+						</ProtectedRoute>
+					}
+				/> */}
 			</Routes>
 		</BrowserRouter>
 	);

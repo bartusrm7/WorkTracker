@@ -16,7 +16,6 @@ export default function Navigation() {
 		{ location: "/dashboard", label: "Dashboard" },
 		{ location: "/my-tasks", label: "My Tasks" },
 		{ location: "/statistics", label: "Statistics" },
-		{ location: "/calendar", label: "Calendar" },
 		{ location: "/notifications", label: "Notifications" },
 		{ location: "/settings", label: "Settings" },
 	];

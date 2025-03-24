@@ -41,7 +41,7 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 	};
 
 	const handleCreateNewTask = () => {
-		if (!taskData.taskName) {
+		if (!taskData.taskName || !taskData.taskDate) {
 			return;
 		}
 		dispatch(CreateTask(taskData));
@@ -70,7 +70,7 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 								<DemoContainer components={["DatePicker"]}>
 									<DatePicker
 										value={dayjs(taskData.taskDate)}
-										onChange={(e: any) => handleCreateNewTaskInputs("taskDate", e.target.value)}
+										onChange={(newValue: any) => handleCreateNewTaskInputs("taskDate", newValue)}
 									/>
 								</DemoContainer>
 							</LocalizationProvider>
