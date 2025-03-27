@@ -3,6 +3,7 @@
 
 .tasks-creator {
 	position: relative;
+	z-index: 10;
 	&__main-container {
 		position: fixed;
 		width: 100vw;

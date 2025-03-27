@@ -11,8 +11,32 @@
 		background-color: $text;
 		color: $background;
 		border-radius: 8px;
+		overflow: hidden;
 	}
 	.tasks-container {
 		min-height: 300px;
+	}
+	.tasks-grid-sets {
+		display: grid;
+		grid-template-columns: 4fr 6fr 1fr;
+	}
+	&__tasks-items-big-container {
+		padding: 0.5em;
+		background-color: $secondary;
+		color: $text;
+	}
+	&__tasks-container {
+		padding: 0.25em 0.5em;
+		&:nth-child(odd) {
+			background-color: $third;
+		}
+	}
+	.task-done {
+		text-decoration: line-through;
+		opacity: 0.5;
+	}
+	.task-progress {
+		text-decoration: none;
+		opacity: 1;
 	}
 }

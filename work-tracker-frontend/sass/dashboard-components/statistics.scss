@@ -1,0 +1,27 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.statistics {
+	&__big-main-container {
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.statistics-container {
+		min-height: 300px;
+	}
+	&__stats-container {
+		margin: 1em;
+	}
+	&__stats-name {
+	}
+	&__circle-stats {
+		height: 20vh;
+	}
+}

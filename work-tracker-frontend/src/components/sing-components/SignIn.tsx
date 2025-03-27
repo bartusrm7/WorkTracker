@@ -16,6 +16,9 @@ export default function SignIn() {
 	const dispatch = useDispatch<AppDispatch>();
 	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
 	const [userData, setUserData] = useState<UserLoginData>({ email: "", password: "", isLogged: false });
+	const isUserExists = useSelector((state: RootState) =>
+		state.user.user.some(user => user.email === userData.email && user.password === userData.password)
+	);
 	const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
 	const [validationError, setValidationError] = useState<{ email?: string; password?: string }>({
 		email: "",
@@ -45,6 +48,14 @@ export default function SignIn() {
 			errors.password = "Password must be at least 8 characters";
 		}
 
+		if (!isUserExists) {
+			setValidationError({
+				email: "User does not exist or data are incorrect!",
+				password: "User does not exist or data are incorrect!",
+			});
+			return true;
+		}
+
 		setValidationError(errors);
 		return Object.keys(errors).length === 0;
 	};
@@ -57,7 +68,6 @@ export default function SignIn() {
 
 	useEffect(() => {
 		if (isUserLogged) {
-			console.log(isUserLogged);
 			setIsLoadingPage(!isLoadingPage);
 			setTimeout(() => {
 				navigate("/dashboard");

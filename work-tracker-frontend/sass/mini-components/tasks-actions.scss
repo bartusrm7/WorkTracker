@@ -1,0 +1,56 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.tasks-actions {
+	position: relative;
+	&__main-container {
+		position: absolute;
+		right: 0;
+	}
+	&__replacement-field {
+		padding: 0 0.35em;
+	}
+	&__action-btn {
+		padding: 0;
+	}
+	&__edit-task-big-window {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.7);
+		z-index: 10;
+	}
+	&__edit-task-window {
+		position: relative;
+		padding: 0 1em;
+		height: 300px;
+		border-radius: 8px;
+		background-color: $primary;
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__close-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 0.25em;
+		margin: 0.75em;
+	}
+	&__edit-task-name {
+		color: $text;
+	}
+	&__edit-task-input {
+		width: 90vw;
+		border-radius: 8px;
+		span {
+			color: $secondary;
+		}
+		@include rwd-min-width(576px) {
+			width: 80vw;
+			max-width: 600px;
+		}
+	}
+}
