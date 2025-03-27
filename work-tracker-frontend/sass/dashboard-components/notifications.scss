@@ -1,0 +1,63 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.notifications {
+	&__big-main-container {
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__notifications-items-big-container {
+		width: 100%;
+	}
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	&__notification-item {
+	}
+	&__notification-description {
+		opacity: 0.5;
+	}
+	&__switch-btn {
+		position: relative;
+		height: 28px;
+		width: 50px;
+		background-color: $primary;
+		border: none;
+		border-radius: 20px;
+		&:hover {
+			background-color: $primary;
+		}
+	}
+	.thumb {
+		position: absolute;
+		top: 50%;
+		left: 5px;
+		width: 20px;
+		height: 20px;
+		background-color: #fff;
+		border-radius: 50%;
+		transform: translateY(-50%);
+		transition: 0.3s ease;
+	}
+	.not-marked {
+		&:focus {
+			background-color: $primary;
+		}
+	}
+	.marked {
+		background-color: $secondary;
+		&:focus {
+			background-color: $secondary;
+		}
+	}
+	&__switch-btn.marked .thumb {
+		left: calc(50px - 25px);
+	}
+	.last-notifications {
+		min-height: 300px;
+	}
+}

@@ -11,7 +11,7 @@ import { AppDispatch } from "../store/store";
 import { RefreshAccessTokenAfterExpired } from "../store/authSlice";
 import Cookies from "js-cookie";
 import Statistics from "./components/dashboard-components/Statistics";
-import Motivations from "./components/dashboard-components/Motivations";
+import Notifications from "./components/dashboard-components/Notifications";
 
 export default function App() {
 	const dispatch = useDispatch<AppDispatch>();
@@ -56,14 +56,14 @@ export default function App() {
 						</ProtectedRoute>
 					}
 				/>
-				{/* <Route
-					path='/motivations'
+				<Route
+					path='/notifications'
 					element={
 						<ProtectedRoute>
-							<Motivations />
+							<Notifications />
 						</ProtectedRoute>
 					}
-				/> */}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
