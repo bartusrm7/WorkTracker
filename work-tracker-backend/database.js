@@ -29,13 +29,14 @@ db.query(`CREATE TABLE IF NOT EXISTS tasksData (
 	email varchar (255) NOT NULL,
 	taskName varchar(255),
 	taskData varchar(255),
-	taskDescription varchar(255),
+	taskDescription varchar(255)
 )`);
 
 db.query(`CREATE TABLE IF NOT EXISTS notificationsData (
 	ID int PRIMARY KEY AUTO_INCREMENT,
 	email varchar (255) NOT NULL,
-	notificationName (255) NOT NULL
+	notificationsAccess TINYINT (1) DEFAULT 0,
+	notificationName varchar (255) NOT NULL
 )`);
 
 db.connect(error => {

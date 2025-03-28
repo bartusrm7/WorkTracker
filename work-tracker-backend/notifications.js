@@ -35,7 +35,17 @@ function authenticateUser(req, res, next) {
 
 router.post("/notifications", authenticateUser, async (req, res) => {
 	try {
+		const { notificationsAccess, notificationName } = req.body;
 		const email = req.email;
+
+		const createNewNotificationQuery = `INSERT INTO notificationsData (notificationsAccess, notificationName) VALUES (?, ?)`;
+		db.query(createNewNotificationQuery, [email, notificationsAccess, notificationName], err => {
+			if (err) {
+				return res.status(500).json({ error: "Database query error", details: err });
+			}
+
+			return res.status(200).json({ message: "New notification created successfully!" });
+		});
 	} catch (error) {
 		console.error("Error during adding notification:", error);
 		return res.status(500).json({ error: "Internal server error!" });
