@@ -35,7 +35,7 @@ export const AccessForGettingNotifications = createAsyncThunk<
 });
 
 export const CreateNotification = createAsyncThunk<{ notificationName: string }, { notificationName: string }>(
-	"notifications/create-notifications",
+	"notifications/create-notification",
 	async (_, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/create-notification", {

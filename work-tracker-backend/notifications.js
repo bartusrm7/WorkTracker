@@ -33,13 +33,44 @@ function authenticateUser(req, res, next) {
 	}
 }
 
-router.post("/notifications", authenticateUser, async (req, res) => {
+router.post("/access-notifications", authenticateUser, async (req, res) => {
 	try {
-		const { notificationsAccess, notificationName } = req.body;
+		const { notificationAccess } = req.body;
 		const email = req.email;
 
-		const createNewNotificationQuery = `INSERT INTO notificationsData (notificationsAccess, notificationName) VALUES (?, ?)`;
-		db.query(createNewNotificationQuery, [email, notificationsAccess, notificationName], err => {
+		const notificationStatusFromDatabase = `SELECT notificationAccess FROM notificationsData WHERE email = ?`;
+		db.query(notificationStatusFromDatabase, [email], (err, results) => {
+			if (err) {
+				return res.status(500).json({ error: "Database query error", details: err });
+			}
+			const currentStatus = results[0].notificationAccess;
+			const newStatus = currentStatus === "0" ? "1" : "0";
+
+			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationAccess = ? WHERE email = ?`;
+			db.query(getAccessNotificationsQuery, [newStatus, email, notificationAccess], err => {
+				if (err) {
+					return res.status(500).json({ error: "Database query error", details: err });
+				}
+
+				return res.status(200).json({ message: "Got access for getting notifications successfully!", newStatus });
+			});
+		});
+	} catch (error) {
+		console.error("Error during adding notification:", error);
+		return res.status(500).json({ error: "Internal server error!" });
+	}
+});
+router.post("/create-notification", authenticateUser, async (req, res) => {
+	try {
+		const { notificationName } = req.body;
+		const email = req.email;
+
+		if (!notificationName) {
+			return res.status(400).json({ error: "Noitifaction name is required!" });
+		}
+
+		const createNewNotificationQuery = `INSERT INTO notificationsData (notificationName) VALUES (?)`;
+		db.query(createNewNotificationQuery, [email, notificationName], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
