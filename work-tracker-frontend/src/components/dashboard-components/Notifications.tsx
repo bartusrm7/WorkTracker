@@ -14,6 +14,8 @@ export default function Notifications() {
 	const dispatch = useDispatch<AppDispatch>();
 	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
 	const [isMarkedNotifications, setIsMarkedNotifications] = useState<boolean>(false);
+	const notificationAccess = useSelector((state: RootState) => state.notification.notificationAccess);
+	console.log("Current notificationAccess state in UI:", notificationAccess);
 
 	const handleToggleNotificationsBtn = () => {
 		setIsMarkedNotifications(!isMarkedNotifications);

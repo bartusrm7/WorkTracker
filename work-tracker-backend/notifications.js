@@ -43,14 +43,13 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 			const currentStatus = results[0].notificationsAccess;
-			const newStatus = currentStatus === "0" ? "1" : "0";
-
+			const newStatus = currentStatus === 0 ? 1 : 0;
+			
 			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationsAccess = ? WHERE email = ?`;
 			db.query(getAccessNotificationsQuery, [newStatus, email], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
-
 				return res.status(200).json({ message: "Got access for getting notifications successfully!", newStatus });
 			});
 		});
