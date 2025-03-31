@@ -39,6 +39,7 @@ router.post("/create-task", authenticateUser, async (req, res) => {
 
 			const createNewNotificationQuery = `INSERT INTO notificationsData (email, notificationName) VALUES (?, ?)`;
 			const notificationMessage = `New task added: ${taskName}.`;
+			console.log(notificationMessage);
 			db.query(createNewNotificationQuery, [email, notificationMessage], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });

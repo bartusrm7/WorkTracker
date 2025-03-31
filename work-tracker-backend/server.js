@@ -7,7 +7,7 @@ const loginRoutes = require("./login");
 const logoutRoutes = require("./logout");
 const tasksRoutes = require("./tasks");
 const motivationRoutes = require("./motivation");
-const notificationRoutes = require("./notification");
+const notificationsRoutes = require("./notifications");
 
 const app = express();
 const port = 5174;
@@ -26,7 +26,7 @@ app.use("/", loginRoutes);
 app.use("/", logoutRoutes);
 app.use("/", tasksRoutes);
 app.use("/", motivationRoutes);
-app.use("/", notificationRoutes);
+app.use("/", notificationsRoutes);
 
 app.listen(port, () => {
 	console.log(`Server working at: http://localhost:${port}`);

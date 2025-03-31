@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const db = require("./database");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
-const router = express.Router;
+const router = express.Router();
 
 const transporter = nodemailer.createTransport({
 	host: "smtp.ethereal.email",
@@ -20,12 +20,12 @@ function authenticateUser(req, res, next) {
 		if (!accessToken) {
 			return res.status(401).json({ error: "No token provided!" });
 		}
+
 		jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
 			if (err) {
 				return res.status(403).json({ error: "Invalid token!" });
 			}
 			req.email = decoded.email;
-
 			next();
 		});
 	} catch (error) {
@@ -38,8 +38,7 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 		const { notificationAccess } = req.body;
 		const email = req.email;
 
-		const notificationStatusFromDatabase = `SELECT notificationAccess FROM notificationsData WHERE email = ?`;
-
+		const notificationStatusFromDatabase = `SELECT notificationsAccess FROM notificationsData WHERE email = ?`;
 		db.query(notificationStatusFromDatabase, [email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
@@ -47,13 +46,13 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 			const currentStatus = results[0].notificationAccess;
 			const newStatus = currentStatus === "0" ? "1" : "0";
 
-			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationAccess = ? WHERE email = ?`;
+			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationsAccess = ? WHERE email = ?`;
 			db.query(getAccessNotificationsQuery, [newStatus, email, notificationAccess], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
 
-				return res.status(200).json({ message: "Got access for getting notifications successfully!" });
+				return res.status(200).json({ message: "Got access for getting notifications successfully!", newStatus });
 			});
 		});
 	} catch (error) {
@@ -73,7 +72,7 @@ router.get("/display-notification", authenticateUser, async (req, res) => {
 			}
 
 			if (results[0].notificationAccess === 1) {
-				const getNotificationsQuery = `SELECT * FROM notificationsData WHERE email = ?`;
+				const getNotificationsQuery = `SELECT notificationName FROM notificationsData WHERE email = ?`;
 				db.query(getNotificationsQuery, [email], err => {
 					if (err) {
 						return res.status(500).json({ error: "Database query error", details: err });

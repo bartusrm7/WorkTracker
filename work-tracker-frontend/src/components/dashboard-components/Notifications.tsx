@@ -3,13 +3,30 @@ import Navigation from "../navigation-components/Navigation";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import { AccessForGettingNotifications, DisplayNotification } from "../../../store/notificationsSlice";
 
 export default function Notifications() {
+	const dispatch = useDispatch<AppDispatch>();
+	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
 	const [isMarkedNotifications, setIsMarkedNotifications] = useState<boolean>(false);
-	const [notificationsData, setNotificationsData] = useState([]);
+
+	const handleToggleNotificationsBtn = () => {
+		setIsMarkedNotifications(!isMarkedNotifications);
+	};
+
+	useEffect(() => {
+		if (isMarkedNotifications) {
+			dispatch(AccessForGettingNotifications());
+			setTimeout(() => {
+				dispatch(DisplayNotification());
+			}, 100);
+		}
+	}, [dispatch, isMarkedNotifications]);
 
 	return (
 		<>
@@ -31,7 +48,7 @@ export default function Notifications() {
 								<div className='notifications__notification-action-status'>
 									<Button
 										className={`notifications__switch-btn ${isMarkedNotifications ? "marked" : "not-marked"}`}
-										onClick={() => setIsMarkedNotifications(!isMarkedNotifications)}>
+										onClick={handleToggleNotificationsBtn}>
 										<div className='thumb'></div>
 									</Button>
 								</div>
@@ -54,7 +71,7 @@ export default function Notifications() {
 					</div>
 					<div className='notifications__main-container big-separate-container last-notifications p-2 mb-2'>
 						<div className='notifications__notification-name'>Last nofitications</div>
-						{notificationsData.length === 0 && <div>Notifications are not founded.</div>}
+						{allNotificationsName.length === 0 && <div>Notifications are not founded.</div>}
 					</div>
 				</div>
 			</div>
