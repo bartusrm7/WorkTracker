@@ -26,7 +26,7 @@ export const DoneTaskAction = createAsyncThunk<
 >("tasksAction/done-task", async (userData: { ID: number; email: string; taskStatus: string }, { rejectWithValue }) => {
 	try {
 		const response = await fetch("http://localhost:5174/done-task", {
-			method: "POST",
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -49,7 +49,7 @@ export const EditTaskAction = createAsyncThunk<Tasks, Tasks>(
 	async (task, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/edit-task", {
-				method: "POST",
+				method: "PUT",
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -73,7 +73,7 @@ export const RemoveTaskAction = createAsyncThunk<{ ID: number; email: string }, 
 	async (userData: { ID: number; email: string }, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/remove-task", {
-				method: "POST",
+				method: "DELETE",
 				headers: {
 					"Content-type": "application/json",
 				},

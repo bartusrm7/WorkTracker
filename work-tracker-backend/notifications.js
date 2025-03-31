@@ -35,7 +35,6 @@ function authenticateUser(req, res, next) {
 
 router.put("/access-notifications", authenticateUser, async (req, res) => {
 	try {
-		const { notificationAccess } = req.body;
 		const email = req.email;
 
 		const notificationStatusFromDatabase = `SELECT notificationsAccess FROM notificationsData WHERE email = ?`;
@@ -43,11 +42,11 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-			const currentStatus = results[0].notificationAccess;
+			const currentStatus = results[0].notificationsAccess;
 			const newStatus = currentStatus === "0" ? "1" : "0";
 
 			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationsAccess = ? WHERE email = ?`;
-			db.query(getAccessNotificationsQuery, [newStatus, email, notificationAccess], err => {
+			db.query(getAccessNotificationsQuery, [newStatus, email], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
@@ -70,8 +69,7 @@ router.get("/display-notification", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-
-			if (results[0].notificationAccess === 1) {
+			if (results[0].notificationAccess) {
 				const getNotificationsQuery = `SELECT notificationName FROM notificationsData WHERE email = ?`;
 				db.query(getNotificationsQuery, [email], err => {
 					if (err) {
@@ -86,6 +84,28 @@ router.get("/display-notification", authenticateUser, async (req, res) => {
 		});
 	} catch (error) {
 		console.error("Error during adding notification:", error);
+		return res.status(500).json({ error: "Internal server error!" });
+	}
+});
+
+router.delete("/remove-notification", authenticateUser, async (req, res) => {
+	try {
+		const { ID } = req.body;
+		const email = req.email;
+
+		const removeNotificationQuery = `DELETE FROM notificationsData WHERE ID = ? AND email = ?`;
+		db.query(removeNotificationQuery, [ID, email], (err, results) => {
+			if (err) {
+				return res.status(500).json({ error: "Database query error", details: err });
+			}
+			if (results.affectedRows === 0) {
+				return res.status(404).json({ error: "Notification not found!" });
+			}
+
+			return res.status(200).json({ message: "Notification deleted successfully!" });
+		});
+	} catch (error) {
+		console.error("Error during remove task:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });

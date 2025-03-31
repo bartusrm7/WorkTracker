@@ -38,9 +38,7 @@ router.post("/create-task", authenticateUser, async (req, res) => {
 			}
 
 			const createNewNotificationQuery = `INSERT INTO notificationsData (email, notificationName) VALUES (?, ?)`;
-			const notificationMessage = `New task added: ${taskName}.`;
-			console.log(notificationMessage);
-			db.query(createNewNotificationQuery, [email, notificationMessage], err => {
+			db.query(createNewNotificationQuery, [email, taskName], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
@@ -72,7 +70,7 @@ router.get("/get-task", authenticateUser, async (req, res) => {
 	}
 });
 
-router.post("/done-task", authenticateUser, async (req, res) => {
+router.put("/done-task", authenticateUser, async (req, res) => {
 	try {
 		const { ID } = req.body;
 		const email = req.email;
@@ -104,7 +102,7 @@ router.post("/done-task", authenticateUser, async (req, res) => {
 	}
 });
 
-router.post("/edit-task", authenticateUser, async (req, res) => {
+router.put("/edit-task", authenticateUser, async (req, res) => {
 	try {
 		const { ID, taskName, taskDescription } = req.body;
 		const email = req.email;
@@ -131,7 +129,7 @@ router.post("/edit-task", authenticateUser, async (req, res) => {
 	}
 });
 
-router.post("/remove-task", authenticateUser, async (req, res) => {
+router.delete("/remove-task", authenticateUser, async (req, res) => {
 	try {
 		const { ID } = req.body;
 		const email = req.email;
