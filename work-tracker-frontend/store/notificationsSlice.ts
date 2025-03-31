@@ -34,12 +34,12 @@ export const AccessForGettingNotifications = createAsyncThunk<
 	}
 });
 
-export const CreateNotification = createAsyncThunk<{ notificationName: string }, { notificationName: string }>(
-	"notifications/create-notification",
+export const DisplayNotification = createAsyncThunk<{ notificationName: string }, { notificationName: string }>(
+	"notifications/display-notification",
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/create-notification", {
-				method: "POST",
+			const response = await fetch("http://localhost:5174/display-notification", {
+				method: "GET",
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -74,11 +74,11 @@ const notificationSlice = createSlice({
 				console.error(action.payload);
 			})
 
-			.addCase(CreateNotification.fulfilled, (state, action: PayloadAction<{ notificationName: string }>) => {
+			.addCase(DisplayNotification.fulfilled, (state, action: PayloadAction<{ notificationName: string }>) => {
 				state.notificationName = action.payload.notificationName;
 				state.loading = false;
 			})
-			.addCase(CreateNotification.rejected, (state, action) => {
+			.addCase(DisplayNotification.rejected, (state, action) => {
 				state.loading = false;
 				console.error(action.payload);
 			});
