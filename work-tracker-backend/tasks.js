@@ -32,13 +32,20 @@ router.post("/create-task", authenticateUser, async (req, res) => {
 		}
 
 		const createNewTasksQuery = `INSERT INTO tasksData (email, taskName, taskDate, taskDescription) VALUES (?, ?, ?, ?)`;
-
-		db.query(createNewTasksQuery, [email, taskName, taskDate, taskDescription], (err, data) => {
+		db.query(createNewTasksQuery, [email, taskName, taskDate, taskDescription], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 
-			return res.status(201).json({ message: "Task added successfully!", data });
+			const createNewNotificationQuery = `INSERT INTO notificationsData (email, notificationName) VALUES (?, ?)`;
+			const notificationMessage = `New task added: ${taskName}.`;
+			db.query(createNewNotificationQuery, [email, notificationMessage], err => {
+				if (err) {
+					return res.status(500).json({ error: "Database query error", details: err });
+				}
+
+				return res.status(201).json({ message: "Task and notification added successfully!" });
+			});
 		});
 	} catch (error) {
 		console.error("Error during adding task:", error);

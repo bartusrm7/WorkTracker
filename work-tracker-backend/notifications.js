@@ -26,19 +26,20 @@ function authenticateUser(req, res, next) {
 			}
 			req.email = decoded.email;
 
-			return next;
+			next();
 		});
 	} catch (error) {
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 }
 
-router.post("/access-notifications", authenticateUser, async (req, res) => {
+router.put("/access-notifications", authenticateUser, async (req, res) => {
 	try {
 		const { notificationAccess } = req.body;
 		const email = req.email;
 
 		const notificationStatusFromDatabase = `SELECT notificationAccess FROM notificationsData WHERE email = ?`;
+
 		db.query(notificationStatusFromDatabase, [email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
@@ -52,7 +53,7 @@ router.post("/access-notifications", authenticateUser, async (req, res) => {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
 
-				return res.status(200).json({ message: "Got access for getting notifications successfully!", newStatus });
+				return res.status(200).json({ message: "Got access for getting notifications successfully!" });
 			});
 		});
 	} catch (error) {
@@ -60,22 +61,29 @@ router.post("/access-notifications", authenticateUser, async (req, res) => {
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });
-router.post("/create-notification", authenticateUser, async (req, res) => {
+
+router.get("/display-notification", authenticateUser, async (req, res) => {
 	try {
-		const { notificationName } = req.body;
 		const email = req.email;
 
-		if (!notificationName) {
-			return res.status(400).json({ error: "Noitifaction name is required!" });
-		}
-
-		const createNewNotificationQuery = `INSERT INTO notificationsData (notificationName) VALUES (?)`;
-		db.query(createNewNotificationQuery, [email, notificationName], err => {
+		const isUserAllowedForGetNotificationsQuery = `SELECT notificationsAccess FROM notificationsData WHERE email = ?`;
+		db.query(isUserAllowedForGetNotificationsQuery, [email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 
-			return res.status(200).json({ message: "New notification created successfully!" });
+			if (results[0].notificationAccess === 1) {
+				const getNotificationsQuery = `SELECT * FROM notificationsData WHERE email = ?`;
+				db.query(getNotificationsQuery, [email], err => {
+					if (err) {
+						return res.status(500).json({ error: "Database query error", details: err });
+					}
+
+					return res.status(200).json({ message: "New notification created successfully!" });
+				});
+			} else {
+				return res.status(403).json({ message: "Notifications are not available for this user." });
+			}
 		});
 	} catch (error) {
 		console.error("Error during adding notification:", error);
