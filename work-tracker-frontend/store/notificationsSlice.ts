@@ -1,39 +1,39 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NotificationState {
-	notificationAccess: boolean;
+	notificationsAccess: number;
 	notificationName: string;
 	loading: boolean;
 }
 
 const initialState: NotificationState = {
-	notificationAccess: false,
+	notificationsAccess: 0,
 	notificationName: "",
 	loading: false,
 };
 
-export const AccessForGettingNotifications = createAsyncThunk<{ notificationAccess: boolean }>(
-	"notifications/access-notifications",
-	async (_, { rejectWithValue }) => {
-		try {
-			const response = await fetch("http://localhost:5174/access-notifications", {
-				method: "PUT",
-				headers: {
-					"Content-type": "application/json",
-				},
-				credentials: "include",
-			});
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Error ${response.status}: ${errorText}`);
-			}
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			return rejectWithValue("Error during getting access for notifications!");
+export const AccessForGettingNotifications = createAsyncThunk<
+	{ notificationsAccess: number },
+	{ notificationsAccess: number }
+>("notifications/access-notifications", async (_, { rejectWithValue }) => {
+	try {
+		const response = await fetch("http://localhost:5174/access-notifications", {
+			method: "PUT",
+			headers: {
+				"Content-type": "application/json",
+			},
+			credentials: "include",
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		return rejectWithValue("Error during getting access for notifications!");
 	}
-);
+});
 
 export const DisplayNotification = createAsyncThunk<{ notificationName: string }>(
 	"notifications/display-notification",
@@ -66,21 +66,20 @@ const notificationSlice = createSlice({
 		builder
 			.addCase(
 				AccessForGettingNotifications.fulfilled,
-				(state, action: PayloadAction<{ notificationAccess: boolean }>) => {
-					state.notificationAccess = action.payload.notificationAccess;
+				(state, action: PayloadAction<{ notificationsAccess: number }>) => {
+					state.notificationsAccess = action.payload.notificationsAccess;
 					state.loading = false;
 				}
 			)
-			.addCase(AccessForGettingNotifications.rejected, (state, action) => {
+			.addCase(AccessForGettingNotifications.rejected, state => {
 				state.loading = false;
-				console.error(action.payload);
 			})
 
 			.addCase(DisplayNotification.fulfilled, (state, action: PayloadAction<{ notificationName: string }>) => {
 				state.notificationName = action.payload.notificationName;
 				state.loading = false;
 			})
-			.addCase(DisplayNotification.rejected, (state, action) => {
+			.addCase(DisplayNotification.rejected, state => {
 				state.loading = false;
 			});
 	},

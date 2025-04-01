@@ -44,13 +44,15 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 			}
 			const currentStatus = results[0].notificationsAccess;
 			const newStatus = currentStatus === 0 ? 1 : 0;
-			
+
 			const getAccessNotificationsQuery = `UPDATE notificationsData SET notificationsAccess = ? WHERE email = ?`;
 			db.query(getAccessNotificationsQuery, [newStatus, email], err => {
 				if (err) {
 					return res.status(500).json({ error: "Database query error", details: err });
 				}
-				return res.status(200).json({ message: "Got access for getting notifications successfully!", newStatus });
+				return res
+					.status(200)
+					.json({ message: "Got access for getting notifications successfully!", notificationsAccess: newStatus });
 			});
 		});
 	} catch (error) {
@@ -68,14 +70,14 @@ router.get("/display-notification", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-			if (results[0].notificationAccess) {
+			if (results[0].notificationsAccess) {
 				const getNotificationsQuery = `SELECT notificationName FROM notificationsData WHERE email = ?`;
-				db.query(getNotificationsQuery, [email], err => {
+				db.query(getNotificationsQuery, [email], (err, data) => {
 					if (err) {
 						return res.status(500).json({ error: "Database query error", details: err });
 					}
 
-					return res.status(200).json({ message: "New notification created successfully!" });
+					return res.status(200).json({ message: "Notifications are showed successfully!", notifications: data });
 				});
 			} else {
 				return res.status(403).json({ message: "Notifications are not available for this user." });

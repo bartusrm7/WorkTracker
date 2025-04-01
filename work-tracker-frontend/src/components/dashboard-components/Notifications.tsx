@@ -13,22 +13,20 @@ import { AccessForGettingNotifications, DisplayNotification } from "../../../sto
 export default function Notifications() {
 	const dispatch = useDispatch<AppDispatch>();
 	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
+	const notificationsAccess = useSelector((state: RootState) => state.notification.notificationsAccess);
 	const [isMarkedNotifications, setIsMarkedNotifications] = useState<boolean>(false);
-	const notificationAccess = useSelector((state: RootState) => state.notification.notificationAccess);
-	console.log("Current notificationAccess state in UI:", notificationAccess);
 
 	const handleToggleNotificationsBtn = () => {
+		const newStatus = notificationsAccess === 0 ? 1 : 0;
+
+		dispatch(AccessForGettingNotifications({ notificationsAccess: newStatus }));
+		dispatch(DisplayNotification());
 		setIsMarkedNotifications(!isMarkedNotifications);
+
+		console.log(allNotificationsName);
 	};
 
-	useEffect(() => {
-		if (isMarkedNotifications) {
-			dispatch(AccessForGettingNotifications());
-			setTimeout(() => {
-				dispatch(DisplayNotification());
-			}, 100);
-		}
-	}, [dispatch, isMarkedNotifications]);
+	useEffect(() => {}, [dispatch]);
 
 	return (
 		<>
@@ -73,7 +71,8 @@ export default function Notifications() {
 					</div>
 					<div className='notifications__main-container big-separate-container last-notifications p-2 mb-2'>
 						<div className='notifications__notification-name'>Last nofitications</div>
-						{allNotificationsName.length === 0 && <div>Notifications are not founded.</div>}
+						{/* {allNotificationsName.length === 0 && <div>Notifications are not founded.</div>} */}
+						{allNotificationsName}
 					</div>
 				</div>
 			</div>
