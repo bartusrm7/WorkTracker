@@ -51,7 +51,11 @@ export const DisplayNotification = createAsyncThunk<{ notificationName: string }
 				throw new Error(`Error ${response.status}: ${errorText}`);
 			}
 			const data = await response.json();
-			return data;
+			const notifications = data.notifications;
+			const notificationNames = notifications.map(
+				(notification: { notificationName: string }) => notification.notificationName
+			);
+			return notificationNames;
 		} catch (error) {
 			return rejectWithValue("Error during creating notification!");
 		}
