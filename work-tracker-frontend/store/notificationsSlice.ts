@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NotificationState {
 	notificationsAccess: number;
-	notificationName: string;
+	notificationName: string[];
 	loading: boolean;
 }
 
 const initialState: NotificationState = {
 	notificationsAccess: 0,
-	notificationName: "",
+	notificationName: [],
 	loading: false,
 };
 
@@ -35,7 +35,7 @@ export const AccessForGettingNotifications = createAsyncThunk<
 	}
 });
 
-export const DisplayNotification = createAsyncThunk<{ notificationName: string }>(
+export const DisplayNotification = createAsyncThunk<string[]>(
 	"notifications/display-notification",
 	async (_, { rejectWithValue }) => {
 		try {
@@ -79,8 +79,8 @@ const notificationSlice = createSlice({
 				state.loading = false;
 			})
 
-			.addCase(DisplayNotification.fulfilled, (state, action: PayloadAction<{ notificationName: string }>) => {
-				state.notificationName = action.payload.notificationName;
+			.addCase(DisplayNotification.fulfilled, (state, action: PayloadAction<string[]>) => {
+				state.notificationName = action.payload;
 				state.loading = false;
 			})
 			.addCase(DisplayNotification.rejected, state => {

@@ -12,8 +12,8 @@ import { AccessForGettingNotifications, DisplayNotification } from "../../../sto
 
 export default function Notifications() {
 	const dispatch = useDispatch<AppDispatch>();
-	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
 	const notificationsAccess = useSelector((state: RootState) => state.notification.notificationsAccess);
+	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
 	const [isMarkedNotifications, setIsMarkedNotifications] = useState<boolean>(false);
 
 	const handleToggleNotificationsBtn = () => {
@@ -22,8 +22,6 @@ export default function Notifications() {
 		dispatch(AccessForGettingNotifications({ notificationsAccess: newStatus }));
 		dispatch(DisplayNotification());
 		setIsMarkedNotifications(!isMarkedNotifications);
-
-		console.log(allNotificationsName);
 	};
 
 	useEffect(() => {}, [dispatch]);
@@ -69,10 +67,19 @@ export default function Notifications() {
 							</div>
 						</div>
 					</div>
-					<div className='notifications__main-container big-separate-container last-notifications p-2 mb-2'>
-						<div className='notifications__notification-name'>Last nofitications</div>
-						{/* {allNotificationsName.length === 0 && <div>Notifications are not founded.</div>} */}
-						{allNotificationsName}
+					<div className='notifications__main-container big-separate-container last-notifications'>
+						<div className='notifications__notification-array-name p-2'>Last nofitications</div>
+						{allNotificationsName.length === 0 || notificationsAccess === 0 ? (
+							<div className='p-2'>Notifications are not founded.</div>
+						) : (
+							<div>
+								{allNotificationsName.map((notification, index) => (
+									<div className='notifications__notification-names-item' key={index}>
+										<div>{notification}</div>
+									</div>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
