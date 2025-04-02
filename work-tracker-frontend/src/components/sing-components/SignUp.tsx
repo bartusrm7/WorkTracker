@@ -64,6 +64,12 @@ export default function SignUp() {
 			errors.password = "Password must be at least 8 characters";
 		}
 
+		if (!isUserEmailExists) {
+			setValidationError({
+				email: "User does not exist or data are incorrect!",
+			});
+		}
+
 		setValidationError(errors);
 		return Object.keys(errors).length === 0;
 	};

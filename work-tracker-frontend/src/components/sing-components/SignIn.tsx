@@ -55,7 +55,6 @@ export default function SignIn() {
 			});
 			return true;
 		}
-
 		setValidationError(errors);
 		return Object.keys(errors).length === 0;
 	};
@@ -63,15 +62,14 @@ export default function SignIn() {
 	const handleAcceptUserLogin = () => {
 		if (handleValidationForm()) {
 			dispatch(UserLogin(userData));
+			setValidationError({ email: "", password: "" });
 		}
 	};
 
 	useEffect(() => {
 		if (isUserLogged) {
 			setIsLoadingPage(!isLoadingPage);
-			setTimeout(() => {
-				navigate("/dashboard");
-			}, 2000);
+			navigate("/dashboard");
 		}
 	}, [isUserLogged]);
 
