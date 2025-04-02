@@ -3,7 +3,7 @@ import Navigation from "../navigation-components/Navigation";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,17 +14,16 @@ export default function Notifications() {
 	const dispatch = useDispatch<AppDispatch>();
 	const notificationsAccess = useSelector((state: RootState) => state.notification.notificationsAccess);
 	const allNotificationsName = useSelector((state: RootState) => state.notification.notificationName);
-	const [isMarkedNotifications, setIsMarkedNotifications] = useState<boolean>(false);
 
-	const handleToggleNotificationsBtn = () => {
+	const handleToggleNotificationsBtn = async () => {
 		const newStatus = notificationsAccess === 0 ? 1 : 0;
-
 		dispatch(AccessForGettingNotifications({ notificationsAccess: newStatus }));
-		dispatch(DisplayNotification());
-		setIsMarkedNotifications(!isMarkedNotifications);
 	};
 
-	useEffect(() => {}, [dispatch]);
+	useEffect(() => {
+		dispatch(AccessForGettingNotifications({ notificationsAccess }));
+		dispatch(DisplayNotification());
+	}, [dispatch]);
 
 	return (
 		<>
@@ -45,7 +44,7 @@ export default function Notifications() {
 								</div>
 								<div className='notifications__notification-action-status'>
 									<Button
-										className={`notifications__switch-btn ${isMarkedNotifications ? "marked" : "not-marked"}`}
+										className={`notifications__switch-btn ${notificationsAccess === 1 ? "marked" : "not-marked"}`}
 										onClick={handleToggleNotificationsBtn}>
 										<div className='thumb'></div>
 									</Button>
