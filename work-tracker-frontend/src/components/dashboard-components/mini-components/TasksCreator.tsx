@@ -40,12 +40,12 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 		}));
 	};
 
-	const handleCreateNewTask = () => {
+	const handleCreateNewTask = async () => {
 		if (!taskData.taskName || !taskData.taskDate) {
 			return;
 		}
-		dispatch(CreateTask(taskData));
-		dispatch(GetTask());
+		await dispatch(CreateTask(taskData));
+		await dispatch(GetTask());
 		toggleContainer();
 	};
 

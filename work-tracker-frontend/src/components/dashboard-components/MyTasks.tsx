@@ -24,22 +24,22 @@ export default function MyTasks() {
 		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
 		: tasksData;
 
-	const handleDoneTask = (ID: number, email: string, taskStatus: string) => {
+	const handleDoneTask = async (ID: number, email: string, taskStatus: string) => {
 		if (email) {
-			dispatch(DoneTaskAction({ ID, email, taskStatus }));
-			dispatch(GetTask());
+			await dispatch(DoneTaskAction({ ID, email, taskStatus }));
+			await dispatch(GetTask());
 		}
 	};
 
-	const handleEditTask = (ID: number, taskName: string, taskDescription: string, email: string) => {
-		dispatch(EditTaskAction({ ID, taskName, taskDescription, email }));
-		dispatch(GetTask());
+	const handleEditTask = async (ID: number, taskName: string, taskDescription: string, email: string) => {
+		await dispatch(EditTaskAction({ ID, taskName, taskDescription, email }));
+		await dispatch(GetTask());
 	};
 
-	const handleRemoveTask = (ID: number, email: string) => {
+	const handleRemoveTask = async (ID: number, email: string) => {
 		if (email) {
-			dispatch(RemoveTaskAction({ ID, email }));
-			dispatch(GetTask());
+			await dispatch(RemoveTaskAction({ ID, email }));
+			await dispatch(GetTask());
 		}
 	};
 
