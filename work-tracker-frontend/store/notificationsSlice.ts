@@ -58,7 +58,7 @@ export const DisplayNotification = createAsyncThunk<string[]>(
 			);
 			return notificationNames;
 		} catch (error) {
-			return rejectWithValue("Error during creating notification!");
+			return rejectWithValue("Error during displaying notifications!");
 		}
 	}
 );
