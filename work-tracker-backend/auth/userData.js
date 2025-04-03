@@ -34,7 +34,7 @@ router.get("/user-data", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-			const { firstName, lastName, email } = results[0];
+			const { firstName, lastName, email, userImage} = results[0];
 			const userData = { firstName, lastName, email };
 
 			return res.status(200).json({ message: "User data got successfully!", userData });
