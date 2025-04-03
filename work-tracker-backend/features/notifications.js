@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const db = require("./database");
+const db = require("../database");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const router = express.Router();

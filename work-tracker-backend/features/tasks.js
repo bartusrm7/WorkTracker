@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const db = require("./database");
+const db = require("../database");
 const router = express.Router();
 
 function authenticateUser(req, res, next) {

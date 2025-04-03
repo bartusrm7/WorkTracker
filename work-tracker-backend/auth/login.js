@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("./database");
+const db = require("../database");
 const router = express.Router();
 
 function authenticateToken(req, res, next) {
@@ -15,7 +15,7 @@ function authenticateToken(req, res, next) {
 
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
 		if (err) {
-			return res.status(403).send({ message: "Invalid token!" });
+			return res.status(403).json({ message: "Invalid token!" });
 		}
 		req.user = user;
 		next();
