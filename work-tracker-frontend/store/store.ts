@@ -5,6 +5,7 @@ import tasksSlice from "./tasksSlice";
 import tasksActionsSlice from "./tasksActionsSlice";
 import motivationSlice from "./motivationSlice";
 import notificationsSlice from "./notificationsSlice";
+import userDataSlice from "./userDataSlice";
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
 		tasksAction: tasksActionsSlice,
 		motivation: motivationSlice,
 		notification: notificationsSlice,
+		userData: userDataSlice,
 	},
 });
 
