@@ -43,6 +43,26 @@ export const UserRegister = createAsyncThunk<User, User>(
 	}
 );
 
+export const GetUserData = createAsyncThunk<User>("user/user-data", async (_, { rejectWithValue }) => {
+	try {
+		const response = await fetch("http://localhost:5174/user-data", {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json",
+			},
+			credentials: "include",
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			throw new Error(`Error ${response.status}: ${errorText}`);
+		}
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		return rejectWithValue("Error during get user data from database!");
+	}
+});
+
 const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -59,6 +79,14 @@ const userSlice = createSlice({
 				state.status = "success";
 			})
 			.addCase(UserRegister.rejected, state => {
+				state.loading = false;
+			})
+
+			.addCase(GetUserData.fulfilled, (state, action: PayloadAction<User>) => {
+				state.user.push(action.payload);
+				state.loading = false;
+			})
+			.addCase(GetUserData.rejected, state => {
 				state.loading = false;
 			});
 	},
