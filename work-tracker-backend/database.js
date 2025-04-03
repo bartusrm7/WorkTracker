@@ -13,7 +13,7 @@ db.query(`CREATE TABLE IF NOT EXISTS userData (
 	lastName varchar(255) NOT NULL,
 	email varchar (255) NOT NULL,
 	password varchar(255) NOT NULL,
-	userImage varchar(255)
+	userImage varchar(255) DEFAULT ''
 )`);
 
 db.query(`CREATE TABLE IF NOT EXISTS tasksData (

@@ -34,10 +34,29 @@ router.get("/user-data", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-			const { firstName, lastName, email, userImage} = results[0];
-			const userData = { firstName, lastName, email };
+			const { firstName, lastName, email, userImage } = results[0];
+			const userData = { firstName, lastName, email, userImage };
 
 			return res.status(200).json({ message: "User data got successfully!", userData });
+		});
+	} catch (error) {
+		console.error("Error during registration:", error);
+		return res.status(500).json({ error: "Internal server error!" });
+	}
+});
+
+router.put("/change-user-data", authenticateUser, (req, res) => {
+	try {
+		const { firstName, lastName, userImage } = req.body;
+		const email = req.email;
+
+		const changeUserDataQuery = `UPDATE userData SET firstName = ?, lastName = ?, userImage = ? WHERE email = ?`;
+		db.query(changeUserDataQuery, [firstName, lastName, email, userImage], err => {
+			if (err) {
+				return res.status(500).json({ error: "Database query error!", details: err });
+			}
+
+			return res.status(200).json({ message: "User data changed successfully!" });
 		});
 	} catch (error) {
 		console.error("Error during registration:", error);
