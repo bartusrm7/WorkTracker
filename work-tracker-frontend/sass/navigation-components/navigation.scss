@@ -50,20 +50,6 @@
 		@include rwd-min-max-width(576px, 992px) {
 			width: 300px;
 		}
-		&:hover {
-			background-color: $accent;
-			color: $background;
-			border: 1px solid $accent;
-		}
-		&:active {
-			background-color: $accent !important;
-			color: $background !important;
-			border: 1px solid $accent !important;
-		}
-		a {
-			color: $text;
-			text-decoration: none;
-		}
 	}
 	p {
 		height: 100%;

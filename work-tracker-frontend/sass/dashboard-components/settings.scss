@@ -1,0 +1,32 @@
+@import "../global.scss";
+@import "../mixins.scss";
+
+.settings {
+	&__big-main-container {
+		@include rwd-min-width(992px) {
+			margin-left: 250px;
+		}
+	}
+	&__main-container {
+		background-color: $text;
+		color: $background;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.settings-container {
+		min-height: 300px;
+	}
+	&__setting-name-data {
+		padding: 0.1em 0.5em;
+		button {
+			padding: 0.1em 0.5em;
+		}
+		@include rwd-min-width(568px) {
+			width: 40vw;
+			max-width: 350px;
+		}
+	}
+	&__setting-name {
+		padding: 0.1em 0;
+	}
+}

@@ -29,7 +29,6 @@ export const AccessForGettingNotifications = createAsyncThunk<
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
-		console.log(data);
 		return data;
 	} catch (error) {
 		return rejectWithValue("Error during getting access for notifications!");
@@ -74,7 +73,6 @@ const notificationSlice = createSlice({
 				(state, action: PayloadAction<{ notificationsAccess: number }>) => {
 					state.notificationsAccess = action.payload.notificationsAccess;
 					state.loading = false;
-					console.log(state.notificationsAccess);
 				}
 			)
 			.addCase(AccessForGettingNotifications.rejected, state => {

@@ -35,13 +35,13 @@ export default function Navigation() {
 				<div className='navigation__nav-container mt-5 text-center d-flex flex-column justify-content-lg-between'>
 					{navLocation.map((item, index) => (
 						<Link to={item.location} key={index}>
-							<Button className='navigation__nav-btn mb-3 mt-3 mb-lg-0 mt-lg-0'>{item.label}</Button>
+							<Button className='navigation__nav-btn custom-btn mb-3 mt-3 mb-lg-0 mt-lg-0'>{item.label}</Button>
 						</Link>
 					))}
 				</div>
 				<p></p>
 				<div className='navigation__logout-container mb-5 d-flex justify-content-center'>
-					<SignOut extraClass='navigation__nav-btn' userAccountLogout={handleUserAccountLogout} />
+					<SignOut extraClass='navigation__nav-btn custom-btn' userAccountLogout={handleUserAccountLogout} />
 				</div>
 			</nav>
 		</div>

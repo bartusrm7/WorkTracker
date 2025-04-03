@@ -60,7 +60,7 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 						<Form.Group>
 							<Form.Label>Task name</Form.Label>
 							<Form.Control
-								value={taskData.taskName}
+								value={taskData.taskName.charAt(0).toUpperCase() + taskData.taskName.slice(1)}
 								onChange={(e: any) => handleCreateNewTaskInputs("taskName", e.target.value)}
 							/>
 						</Form.Group>
@@ -80,7 +80,7 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 								Task description <span>(optional)</span>
 							</Form.Label>
 							<Form.Control
-								value={taskData.taskDescription}
+								value={taskData.taskDescription.charAt(0).toUpperCase() + taskData.taskDescription.slice(1)}
 								onChange={(e: any) => handleCreateNewTaskInputs("taskDescription", e.target.value)}
 								as='textarea'
 								rows={3}

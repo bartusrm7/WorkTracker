@@ -38,6 +38,7 @@ body {
 		background-color: $accent;
 		color: $background;
 		border: 1px solid $accent;
+		box-shadow: 0 1px 7px black;
 	}
 	&:active {
 		background-color: $accent !important;
