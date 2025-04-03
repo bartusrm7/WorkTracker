@@ -26,17 +26,23 @@ router.get("/user-data", authenticateUser, async (req, res) => {
 	try {
 		const email = req.email;
 
+		if (!email) {
+			return res.status(404).json({ error: "User not found!" });
+		}
 		const getUserDataFromDatabaseQuery = `SELECT * FROM userData WHERE email = ?`;
-		db.query(getUserDataFromDatabaseQuery, [email], err => {
+		db.query(getUserDataFromDatabaseQuery, [email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
+			const { firstName, lastName, email } = results[0];
+			const userData = { firstName, lastName, email };
 
-			return res.status(200).json({ message: "User data got successfully!" });
+			return res.status(200).json({ message: "User data got successfully!", userData });
 		});
 	} catch (error) {
-        
-    }
+		console.error("Error during registration:", error);
+		return res.status(500).json({ error: "Internal server error!" });
+	}
 });
 
 module.exports = router;

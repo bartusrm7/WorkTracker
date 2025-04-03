@@ -3,37 +3,35 @@ import Navigation from "../navigation-components/Navigation";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useEffect, useState } from "react";
 import { FormControl, Form, FormGroup, Button } from "react-bootstrap";
+import { GetUserData } from "../../../store/userSlice";
 
 interface ChangeInputs {
 	firstNameInput: string;
 	lastNameInput: string;
+	emailInput: string;
 }
 
 export default function Settings() {
 	const dispatch = useDispatch<AppDispatch>();
-	const userFirstName = useSelector((state: RootState) => state.auth.firstName);
-	const userLastName = useSelector((state: RootState) => state.auth.lastName);
-	const userEmail = useSelector((state: RootState) => state.user.user.map(user => user.email));
-	const userPassword = useSelector((state: RootState) => state.user.user.map(user => user.password));
-
-	const [isShowedPassword, setIsShowedPassword] = useState<boolean>(false);
+	const firstName = useSelector((state: RootState) => state.user.user.map(user => user.firstName));
 
 	const [userNames, setUserNames] = useState<ChangeInputs>({
-		firstNameInput: userFirstName,
-		lastNameInput: userLastName,
+		firstNameInput: firstName,
+		lastNameInput: firstName,
+		emailInput: firstName,
 	});
-
-	const handleTogglePassword = () => {
-		setIsShowedPassword(!isShowedPassword);
-	};
 
 	const handleInputUserData = (key: string, value: string) => {
 		setUserNames(prevState => ({ ...prevState, [key]: value }));
 	};
 
-	const handleSaveUserData = () => {};
+	const handleSaveUserData = () => {
+		console.log(firstName);
+	};
 
-	useEffect(() => {}, [dispatch]);
+	useEffect(() => {
+		dispatch(GetUserData());
+	}, [dispatch]);
 
 	return (
 		<>
@@ -63,22 +61,7 @@ export default function Settings() {
 							</FormGroup>
 							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Email:</FormGroup>
-								<div className='settings__setting-name-data d-flex justify-content-end'>{userEmail} </div>
-							</FormGroup>
-							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
-								<FormGroup className='settings__setting-name'>Password:</FormGroup>
-								<div className='settings__setting-name-data d-flex justify-content-end'>
-									{isShowedPassword ? (
-										<Button className='custom-btn' onClick={handleTogglePassword}>
-											Hide
-										</Button>
-									) : (
-										<Button className='custom-btn' onClick={handleTogglePassword}>
-											Show
-										</Button>
-									)}
-									{userPassword}
-								</div>
+								<div className='settings__setting-name-data d-flex justify-content-end'>{userNames.emailInput}</div>
 							</FormGroup>
 							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Profile photo:</FormGroup>
