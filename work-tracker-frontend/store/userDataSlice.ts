@@ -1,17 +1,21 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserDataState {
+interface UserData {
 	firstName: string;
 	lastName: string;
 	email: string;
 	userImage: File | string;
+	loading: boolean;
+}
+
+interface UserDataState {
+	userData: UserData[];
+	loading: boolean;
 }
 
 const initialState: UserDataState = {
-	firstName: "",
-	lastName: "",
-	email: "",
-	userImage: "",
+	userData: [],
+	loading: false,
 };
 
 export const GetUserData = createAsyncThunk<UserDataState>("user/user-data", async (_, { rejectWithValue }) => {
@@ -34,17 +38,50 @@ export const GetUserData = createAsyncThunk<UserDataState>("user/user-data", asy
 	}
 });
 
+export const EditUserData = createAsyncThunk<UserDataState, UserDataState>(
+	"user/edit-user-data",
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/edit-user-data", {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
+			}
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue("Error during edit user data!");
+		}
+	}
+);
+
 const userDataSlice = createSlice({
 	name: "userData",
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(GetUserData.fulfilled, (state, action: PayloadAction<UserDataState>) => {
-			state.firstName = action.payload.firstName;
-			state.lastName = action.payload.lastName;
-			state.email = action.payload.email;
-			state.userImage = action.payload.userImage;
-		});
+		builder
+			.addCase(GetUserData.fulfilled, (state, action: PayloadAction<UserDataState>) => {
+				state.userData = action.payload.userData;
+				state.loading = false;
+			})
+			.addCase(GetUserData.rejected, state => {
+				state.loading = false;
+			})
+
+			.addCase(EditUserData.fulfilled, (state, action: PayloadAction<UserDataState>) => {
+				state.userData.findIndex(data => data.email === action.payload.userData[0].email);
+				state.loading = false;
+			})
+			.addCase(EditUserData.rejected, state => {
+				state.loading = false;
+			});
 	},
 });
 
