@@ -36,6 +36,7 @@ router.get("/user-data", authenticateUser, async (req, res) => {
 			}
 			const { firstName, lastName, email, userImage } = results[0];
 			const userData = { firstName, lastName, email, userImage };
+			console.log(userData);
 
 			return res.status(200).json({ message: "User data got successfully!", userData });
 		});

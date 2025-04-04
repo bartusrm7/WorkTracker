@@ -3,22 +3,24 @@ import Navigation from "../navigation-components/Navigation";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useEffect, useState } from "react";
 import { FormControl, Form, FormGroup, Button } from "react-bootstrap";
-import { GetUserData } from "../../../store/userDataSlice";
+import { EditUserData, GetUserData } from "../../../store/userDataSlice";
 
 interface ChangeInputs {
-	firstNameInput: string[];
-	lastNameInput: string[];
-	emailInput: string[];
+	firstNameInput: string;
+	lastNameInput: string;
+	emailInput: string;
+	userImageInput: string | File;
 }
 
 export default function Settings() {
 	const dispatch = useDispatch<AppDispatch>();
-	const firstName = useSelector((state: RootState) => state.userData.userData[0]);
+	const userData = useSelector((state: RootState) => state.userData.userData);
 
 	const [userNames, setUserNames] = useState<ChangeInputs>({
-		firstNameInput: firstName,
-		lastNameInput: firstName,
-		emailInput: firstName,
+		firstNameInput: "",
+		lastNameInput: "",
+		emailInput: "",
+		userImageInput: "",
 	});
 
 	const handleInputUserData = (key: string, value: string) => {
@@ -26,12 +28,23 @@ export default function Settings() {
 	};
 
 	const handleSaveUserData = () => {
-		console.log(firstName);
+		// dispatch(EditUserData());
 	};
 
 	useEffect(() => {
 		dispatch(GetUserData());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (userData && userData.length > 0) {
+			setUserNames({
+				firstNameInput: userData[0].firstName || "",
+				lastNameInput: userData[0].lastName || "",
+				emailInput: userData[0].email || "",
+				userImageInput: userData[0].userImage || "",
+			});
+		}
+	}, [userData]);
 
 	return (
 		<>

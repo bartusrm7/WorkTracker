@@ -4,8 +4,7 @@ interface UserData {
 	firstName: string;
 	lastName: string;
 	email: string;
-	userImage: File | string;
-	loading: boolean;
+	userImage?: File | string;
 }
 
 interface UserDataState {
@@ -18,7 +17,7 @@ const initialState: UserDataState = {
 	loading: false,
 };
 
-export const GetUserData = createAsyncThunk<UserDataState>("user/user-data", async (_, { rejectWithValue }) => {
+export const GetUserData = createAsyncThunk<UserData>("user/user-data", async (_, { rejectWithValue }) => {
 	try {
 		const response = await fetch("http://localhost:5174/user-data", {
 			method: "GET",
@@ -32,7 +31,7 @@ export const GetUserData = createAsyncThunk<UserDataState>("user/user-data", asy
 			throw new Error(`Error ${response.status}: ${errorText}`);
 		}
 		const data = await response.json();
-		return data;
+		return data.userData;
 	} catch (error) {
 		return rejectWithValue("Error during get user data from database!");
 	}
@@ -67,8 +66,8 @@ const userDataSlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder
-			.addCase(GetUserData.fulfilled, (state, action: PayloadAction<UserDataState>) => {
-				state.userData = action.payload.userData;
+			.addCase(GetUserData.fulfilled, (state, action: PayloadAction<UserData>) => {
+				state.userData = [action.payload];
 				state.loading = false;
 			})
 			.addCase(GetUserData.rejected, state => {
