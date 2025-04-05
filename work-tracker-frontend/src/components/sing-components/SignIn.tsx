@@ -15,10 +15,8 @@ interface UserLoginData {
 export default function SignIn() {
 	const dispatch = useDispatch<AppDispatch>();
 	const isUserLogged = useSelector((state: RootState) => state.auth.isLogged);
+	const errorsMessages = useSelector((state: RootState) => state.auth.errorMessage);
 	const [userData, setUserData] = useState<UserLoginData>({ email: "", password: "", isLogged: false });
-	const isUserExists = useSelector((state: RootState) =>
-		state.user.user.some(user => user.email === userData.email && user.password === userData.password)
-	);
 	const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
 	const [validationError, setValidationError] = useState<{ email?: string; password?: string }>({
 		email: "",
@@ -48,13 +46,6 @@ export default function SignIn() {
 			errors.password = "Password must be at least 8 characters";
 		}
 
-		if (!isUserExists) {
-			setValidationError({
-				email: "User does not exist or data are incorrect!",
-				password: "User does not exist or data are incorrect!",
-			});
-			return true;
-		}
 		setValidationError(errors);
 		return Object.keys(errors).length === 0;
 	};
@@ -62,7 +53,6 @@ export default function SignIn() {
 	const handleAcceptUserLogin = () => {
 		if (handleValidationForm()) {
 			dispatch(UserLogin(userData));
-			setValidationError({ email: "", password: "" });
 		}
 	};
 
@@ -95,7 +85,6 @@ export default function SignIn() {
 										isInvalid={!!validationError.email}
 										value={userData.email}
 										type='email'
-										required
 									/>
 									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
 								</Form.Group>
@@ -106,14 +95,13 @@ export default function SignIn() {
 										isInvalid={!!validationError.password}
 										value={userData.password}
 										type='password'
-										required
 									/>
 									<Form.Control.Feedback type='invalid'>{validationError.password}</Form.Control.Feedback>
 								</Form.Group>
 							</Form>
 							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserLogin}>
 								Login
-							</Button>
+							</Button>{" "}
 							<Link to='/register'>
 								<Button className='custom-btn w-100 mt-4'>Create new account</Button>
 							</Link>

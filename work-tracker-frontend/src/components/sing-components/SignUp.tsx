@@ -54,8 +54,6 @@ export default function SignUp() {
 			errors.email = "Email is required!";
 		} else if (!/\S+@\S+\.\S+/.test(userData.email)) {
 			errors.email = "Invalid email format!";
-		} else if (isUserEmailExists) {
-			errors.email = "User with this email already exists!";
 		}
 
 		if (!userData.password) {
@@ -64,10 +62,10 @@ export default function SignUp() {
 			errors.password = "Password must be at least 8 characters";
 		}
 
-		if (!isUserEmailExists) {
-			setValidationError({
-				email: "User does not exist or data are incorrect!",
-			});
+		if (isUserEmailExists) {
+			errors.email = "User with this email already exists!";
+		} else if (!isUserEmailExists) {
+			return true;
 		}
 
 		setValidationError(errors);

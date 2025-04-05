@@ -6,6 +6,7 @@ interface LogUserData {
 	accessToken: string;
 	firstName: string;
 	lastName: string;
+	errorMessage: string;
 }
 
 const initialState: LogUserData = {
@@ -14,31 +15,36 @@ const initialState: LogUserData = {
 	accessToken: "",
 	firstName: "",
 	lastName: "",
+	errorMessage: "",
 };
 
 export const UserLogin = createAsyncThunk<
-	{ email: string; password: string; isLogged: boolean },
-	{ email: string; password: string; isLogged: boolean }
->("user/user-login", async (userData: { email: string; password: string }, { rejectWithValue }) => {
-	try {
-		const response = await fetch("http://localhost:5174/login", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(userData),
-			credentials: "include",
-		});
-		if (!response.ok) {
-			const errorText = await response.text();
-			throw new Error(`Error ${response.status}: ${errorText}`);
+	{ email: string; password: string; isLogged: boolean; errorMessage?: string },
+	{ email: string; password: string; isLogged: boolean; errorMessage?: string }
+>(
+	"user/user-login",
+	async (userData: { email: string; password: string; errorMessage?: string }, { rejectWithValue }) => {
+		try {
+			const response = await fetch("http://localhost:5174/login", {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify(userData),
+				credentials: "include",
+			});
+			if (!response.ok) {
+				const errorText = await response.text();
+				throw new Error(`Error ${response.status}: ${errorText}`);
+			}
+
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			return rejectWithValue("Error during login!");
 		}
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		return rejectWithValue("Error during login!");
 	}
-});
+);
 
 export const UserAuthorization = createAsyncThunk<{ accessToken: string }, string>(
 	"user/authorization",
@@ -145,8 +151,9 @@ const authSlice = createSlice({
 				state.isLogged = action.payload.isLogged;
 				state.loading = false;
 			})
-			.addCase(UserLogin.rejected, state => {
+			.addCase(UserLogin.rejected, (state, action) => {
 				state.loading = false;
+				state.errorMessage = action.payload as string;
 			})
 
 			.addCase(UserAuthorization.fulfilled, (state, action) => {
