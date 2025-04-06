@@ -37,15 +37,16 @@ export const GetUserData = createAsyncThunk<UserData>("user/user-data", async (_
 	}
 });
 
-export const EditUserData = createAsyncThunk<UserDataState, UserDataState>(
+export const EditUserData = createAsyncThunk<UserData, UserData>(
 	"user/edit-user-data",
-	async (_, { rejectWithValue }) => {
+	async (userData, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:5174/edit-user-data", {
 				method: "PUT",
 				headers: {
 					"Content-type": "application/json",
 				},
+				body: JSON.stringify(userData),
 				credentials: "include",
 			});
 			if (!response.ok) {
@@ -74,8 +75,8 @@ const userDataSlice = createSlice({
 				state.loading = false;
 			})
 
-			.addCase(EditUserData.fulfilled, (state, action: PayloadAction<UserDataState>) => {
-				state.userData.findIndex(data => data.email === action.payload.userData[0].email);
+			.addCase(EditUserData.fulfilled, (state, action: PayloadAction<UserData>) => {
+				state.userData.findIndex(data => data.email === action.payload.email);
 				state.loading = false;
 			})
 			.addCase(EditUserData.rejected, state => {

@@ -52,11 +52,10 @@ router.put("/edit-user-data", authenticateUser, (req, res) => {
 		const email = req.email;
 
 		const editUserDataQuery = `UPDATE userData SET firstName = ?, lastName = ?, userImage = ? WHERE email = ?`;
-		db.query(editUserDataQuery, [firstName, lastName, email, userImage], err => {
+		db.query(editUserDataQuery, [firstName, lastName, userImage, email], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error!", details: err });
 			}
-
 			return res.status(200).json({ message: "User data edited successfully!" });
 		});
 	} catch (error) {

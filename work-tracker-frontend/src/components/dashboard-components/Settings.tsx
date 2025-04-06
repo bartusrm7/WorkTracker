@@ -6,10 +6,10 @@ import { FormControl, Form, FormGroup, Button } from "react-bootstrap";
 import { EditUserData, GetUserData } from "../../../store/userDataSlice";
 
 interface ChangeInputs {
-	firstNameInput: string;
-	lastNameInput: string;
-	emailInput: string;
-	userImageInput: string | File;
+	firstName: string;
+	lastName: string;
+	userImage: File | string;
+	email: string;
 }
 
 export default function Settings() {
@@ -17,18 +17,19 @@ export default function Settings() {
 	const userData = useSelector((state: RootState) => state.userData.userData);
 
 	const [userNames, setUserNames] = useState<ChangeInputs>({
-		firstNameInput: "",
-		lastNameInput: "",
-		emailInput: "",
-		userImageInput: "",
+		firstName: "",
+		lastName: "",
+		userImage: "",
+		email: "",
 	});
 
-	const handleInputUserData = (key: string, value: string) => {
+	const handleInputUserData = (key: string, value: string | File) => {
 		setUserNames(prevState => ({ ...prevState, [key]: value }));
 	};
 
 	const handleSaveUserData = () => {
-		// dispatch(EditUserData());
+		dispatch(EditUserData(userNames));
+		console.log(userNames);
 	};
 
 	useEffect(() => {
@@ -38,10 +39,10 @@ export default function Settings() {
 	useEffect(() => {
 		if (userData && userData.length > 0) {
 			setUserNames({
-				firstNameInput: userData[0].firstName || "",
-				lastNameInput: userData[0].lastName || "",
-				emailInput: userData[0].email || "",
-				userImageInput: userData[0].userImage || "",
+				firstName: userData[0].firstName || "",
+				lastName: userData[0].lastName || "",
+				email: userData[0].email || "",
+				userImage: userData[0].userImage || "",
 			});
 		}
 	}, [userData]);
@@ -60,28 +61,29 @@ export default function Settings() {
 								<FormGroup className='settings__setting-name'>First name:</FormGroup>
 								<Form.Control
 									className='settings__setting-name-data d-flex justify-content-end'
-									value={userNames.firstNameInput}
-									onChange={(e: any) => handleInputUserData("firstNameInput", e.target.value)}
+									value={userNames.firstName}
+									onChange={(e: any) => handleInputUserData("firstName", e.target.value)}
 								/>
 							</FormGroup>
 							<FormGroup className='mb-1 d-sm-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Last name:</FormGroup>
 								<FormControl
 									className='settings__setting-name-data d-flex justify-content-end'
-									value={userNames.lastNameInput}
-									onChange={(e: any) => handleInputUserData("lastNameInput", e.target.value)}
+									value={userNames.lastName}
+									onChange={(e: any) => handleInputUserData("lastName", e.target.value)}
 								/>
 							</FormGroup>
 							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Email:</FormGroup>
-								<div className='settings__setting-name-data d-flex justify-content-end'>{userNames.emailInput}</div>
+								<div className='settings__setting-name-data d-flex justify-content-end'>{userNames.email}</div>
 							</FormGroup>
 							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Profile photo:</FormGroup>
 								<FormControl
 									className='settings__setting-name-data d-flex justify-content-end'
 									type='file'
-									accept='image'
+									accept='image/*'
+									onChange={(e: any) => handleInputUserData("userImage", e.target.files[0].name)}
 								/>
 							</FormGroup>
 						</Form>
