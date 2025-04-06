@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
 				return res.status(500).json({ error: "Internal server error" });
 			}
 			if (data.length > 0) {
-				return res.status(409).json({ error: "User with this email address is already exists!" });
+				return res.status(409).json({ errors: "User with this email address is already exists!" });
 			}
 
 			const salt = bcrypt.genSaltSync(8);

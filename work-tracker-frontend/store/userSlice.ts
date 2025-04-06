@@ -11,12 +11,14 @@ interface UserState {
 	user: User[];
 	loading: boolean;
 	status: string;
+	errorMessage: string;
 }
 
 const initialState: UserState = {
 	user: [],
 	loading: false,
 	status: "",
+	errorMessage: "",
 };
 
 export const UserRegister = createAsyncThunk<User, User>(
@@ -32,13 +34,14 @@ export const UserRegister = createAsyncThunk<User, User>(
 				credentials: "include",
 			});
 			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Error ${response.status}: ${errorText}`);
+				if (response.status === 409) {
+					throw new Error("User with this email address is already exists!");
+				}
 			}
 			const data = await response.json();
 			return data;
 		} catch (error) {
-			return rejectWithValue("Error during registration!");
+			return rejectWithValue(error instanceof Error ? error.message : "Error during registration!");
 		}
 	}
 );
@@ -53,13 +56,19 @@ const userSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
+			.addCase(UserRegister.pending, state => {
+				state.loading = true;
+				state.errorMessage = "";
+			})
 			.addCase(UserRegister.fulfilled, (state, action: PayloadAction<User>) => {
 				state.user.push(action.payload);
 				state.loading = false;
 				state.status = "success";
 			})
-			.addCase(UserRegister.rejected, state => {
+			.addCase(UserRegister.rejected, (state, action) => {
 				state.loading = false;
+				state.errorMessage = action.payload as string;
+				console.log(state.errorMessage);
 			});
 	},
 });

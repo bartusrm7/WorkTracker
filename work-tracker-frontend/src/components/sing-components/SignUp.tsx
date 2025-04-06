@@ -15,6 +15,7 @@ interface UserRegisterData {
 export default function SignUp() {
 	const dispatch = useDispatch<AppDispatch>();
 	const registrationStatus = useSelector((state: RootState) => state.user.status);
+	const errorsMessages = useSelector((state: RootState) => state.user.errorMessage);
 	const [userData, setUserData] = useState<UserRegisterData>({ firstName: "", lastName: "", email: "", password: "" });
 	const isUserEmailExists = useSelector((state: RootState) =>
 		state.user.user.some(user => user.email === userData.email)
@@ -40,7 +41,7 @@ export default function SignUp() {
 	};
 
 	const handleValidationForm = () => {
-		const errors: { firstName?: string; lastName?: string; email?: string; password?: string } = {};
+		let errors: { firstName?: string; lastName?: string; email?: string; password?: string } = {};
 
 		if (!userData.firstName) {
 			errors.firstName = "First name is required!";
@@ -65,7 +66,6 @@ export default function SignUp() {
 		if (isUserEmailExists) {
 			errors.email = "User with this email already exists!";
 		} else if (!isUserEmailExists) {
-			return true;
 		}
 
 		setValidationError(errors);
@@ -135,11 +135,13 @@ export default function SignUp() {
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
-										isInvalid={!!validationError.email}
+										isInvalid={!!validationError.email || !!errorsMessages}
 										value={userData.email}
 										type='email'
 									/>
-									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
+									<Form.Control.Feedback type='invalid'>
+										{validationError.email || errorsMessages}
+									</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Password</Form.Label>

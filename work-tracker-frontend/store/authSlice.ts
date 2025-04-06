@@ -20,31 +20,30 @@ const initialState: LogUserData = {
 
 export const UserLogin = createAsyncThunk<
 	{ email: string; password: string; isLogged: boolean; errorMessage?: string },
-	{ email: string; password: string; isLogged: boolean; errorMessage?: string }
->(
-	"user/user-login",
-	async (userData: { email: string; password: string; errorMessage?: string }, { rejectWithValue }) => {
-		try {
-			const response = await fetch("http://localhost:5174/login", {
-				method: "POST",
-				headers: {
-					"Content-type": "application/json",
-				},
-				body: JSON.stringify(userData),
-				credentials: "include",
-			});
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Error ${response.status}: ${errorText}`);
+	{ email: string; password: string }
+>("user/user-login", async (userData, { rejectWithValue }) => {
+	try {
+		const response = await fetch("http://localhost:5174/login", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(userData),
+			credentials: "include",
+		});
+		if (!response.ok) {
+			if (response.status === 404) {
+				throw new Error("User with this email is not found!");
+			} else if (response.status === 401) {
+				throw new Error("Password is incorrect!");
 			}
-
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			return rejectWithValue("Error during login!");
 		}
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		return rejectWithValue(error instanceof Error ? error.message : "Error during login!");
 	}
-);
+});
 
 export const UserAuthorization = createAsyncThunk<{ accessToken: string }, string>(
 	"user/authorization",
@@ -146,6 +145,7 @@ const authSlice = createSlice({
 		builder
 			.addCase(UserLogin.pending, state => {
 				state.loading = true;
+				state.errorMessage = "";
 			})
 			.addCase(UserLogin.fulfilled, (state, action: PayloadAction<{ isLogged: boolean }>) => {
 				state.isLogged = action.payload.isLogged;

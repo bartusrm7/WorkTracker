@@ -58,13 +58,13 @@ router.post("/login", async (req, res) => {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
 			if (data.length === 0) {
-				return res.status(404).json({ error: "User not found!" });
+				return res.status(404).json({ errors: "User with this email is not found!" });
 			}
 
 			const user = data[0];
 			const isPasswordValid = await bcrypt.compare(password, user.password);
 			if (!isPasswordValid) {
-				return res.status(401).json({ error: "Password is not correct!" });
+				return res.status(401).json({ errors: "Password is incorrect!" });
 			}
 
 			const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {

@@ -82,26 +82,31 @@ export default function SignIn() {
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("email", e.target.value)}
-										isInvalid={!!validationError.email}
+										isInvalid={!!validationError.email || !!errorsMessages}
 										value={userData.email}
 										type='email'
 									/>
-									<Form.Control.Feedback type='invalid'>{validationError.email}</Form.Control.Feedback>
+									<Form.Control.Feedback type='invalid'>
+										{validationError.email || errorsMessages}
+									</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group>
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										onChange={e => handleInputOnChangeData("password", e.target.value)}
-										isInvalid={!!validationError.password}
+										isInvalid={!!validationError.password || !!errorsMessages}
 										value={userData.password}
 										type='password'
 									/>
-									<Form.Control.Feedback type='invalid'>{validationError.password}</Form.Control.Feedback>
+									<Form.Control.Feedback type='invalid'>
+										{validationError.password || errorsMessages}
+									</Form.Control.Feedback>
 								</Form.Group>
 							</Form>
 							<Button className='custom-btn w-100 mt-4 mb-4' onClick={handleAcceptUserLogin}>
 								Login
-							</Button>{" "}
+							</Button>
+
 							<Link to='/register'>
 								<Button className='custom-btn w-100 mt-4'>Create new account</Button>
 							</Link>
