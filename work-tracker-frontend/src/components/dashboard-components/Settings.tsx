@@ -8,7 +8,7 @@ import { EditUserData, GetUserData } from "../../../store/userDataSlice";
 interface ChangeInputs {
 	firstName: string;
 	lastName: string;
-	userImage: File | string;
+	userImage: string | File;
 	email: string;
 }
 
@@ -83,7 +83,7 @@ export default function Settings() {
 									className='settings__setting-name-data d-flex justify-content-end'
 									type='file'
 									accept='image/*'
-									onChange={(e: any) => handleInputUserData("userImage", e.target.files[0].name)}
+									onChange={(e: any) => handleInputUserData("userImage", e.target.files[0])}
 								/>
 							</FormGroup>
 						</Form>

@@ -7,14 +7,17 @@ import { UserNamesGetFromBackend } from "../../../store/authSlice";
 import dayjs from "dayjs";
 import { GetTask } from "../../../store/tasksSlice";
 import { GetMotivationQuotes } from "../../../store/motivationSlice";
+import { GetUserData } from "../../../store/userDataSlice";
 
 export default function Dashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const firstName = useSelector((state: RootState) => state.auth.firstName);
 	const lastName = useSelector((state: RootState) => state.auth.lastName);
+	const userProfilePhoto = useSelector((state: RootState) => state.userData.userData[0]?.userImage as File);
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
 	const motivationQuote = useSelector((state: RootState) => state.motivation.motivationQuote);
 	const [selectedDate, setSelectedDate] = useState(dayjs());
+	const [isUserChoosenProfilePhoto, setIsUserChoosenProfilePhoto] = useState<string | File>("");
 
 	const filteredTasksData = selectedDate
 		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
@@ -22,24 +25,32 @@ export default function Dashboard() {
 
 	const tasksAmount = filteredTasksData.filter(task => task.taskStatus === "done");
 
+	const handleChoosenProfilePhotoByUser = () => {
+		const userImageURL = `http://localhost:5174/user-data/${userProfilePhoto}`;
+		setIsUserChoosenProfilePhoto(userImageURL);
+	};
+
 	useEffect(() => {
+		console.log(isUserChoosenProfilePhoto);
 		dispatch(UserNamesGetFromBackend());
 		dispatch(GetTask());
+		dispatch(GetUserData());
 		dispatch(GetMotivationQuotes());
-	}, [dispatch, firstName]);
+		handleChoosenProfilePhotoByUser();
+	}, [dispatch, userProfilePhoto, isUserChoosenProfilePhoto]);
 
 	return (
 		<div className='dashboard m-2'>
 			<div className='dashboard__main-container account-info-big-container p-2 mb-2 d-flex'>
-				<div></div>
-
 				<div className='dashboard__account-info-container d-flex justify-content-center'>
 					<div className='dashboard__account-info'>
 						{firstName} {lastName}
 					</div>
-					<div className='dashboard__account-photo'>
+					{userProfilePhoto ? (
+						<img className='dashboard__account-photo' src={isUserChoosenProfilePhoto} alt='User profile' />
+					) : (
 						<AccountCircleOutlinedIcon />
-					</div>
+					)}
 				</div>
 			</div>
 
