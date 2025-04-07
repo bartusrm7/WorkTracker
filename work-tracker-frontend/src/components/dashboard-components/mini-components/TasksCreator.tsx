@@ -10,6 +10,7 @@ import { AppDispatch } from "../../../../store/store";
 import { useState } from "react";
 import { CreateTask, GetTask } from "../../../../store/tasksSlice";
 import dayjs from "dayjs";
+import { SendCreateTaskNotification } from "../../../../store/notificationsSlice";
 
 interface toggleContainerProps {
 	toggleContainer: () => void;
@@ -46,6 +47,7 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 		}
 		await dispatch(CreateTask(taskData));
 		await dispatch(GetTask());
+		await dispatch(SendCreateTaskNotification({ notificationName: [taskData.taskName] }));
 		toggleContainer();
 	};
 

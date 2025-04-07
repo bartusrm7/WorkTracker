@@ -2,15 +2,14 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const db = require("../database");
 const nodemailer = require("nodemailer");
-const cron = require("node-cron");
 const router = express.Router();
 
 const transporter = nodemailer.createTransport({
 	host: "smtp.ethereal.email",
 	port: 587,
 	auth: {
-		user: "elody.abbott32@ethereal.email",
-		pass: "MA5wQTv28YEWzhwAQV",
+		user: "neil30@ethereal.email",
+		pass: "xX77THeXkF2A4WWErC",
 	},
 });
 
@@ -94,6 +93,10 @@ router.post("/send-create-task-notification", authenticateUser, async (req, res)
 		const { taskName } = req.body;
 		const email = req.email;
 
+		if (!taskName) {
+			return res.status(400).json({ error: "Task name is required!" });
+		}
+
 		const sendNotificationToEmail = {
 			from: "elody.abbott32@ethereal.email",
 			to: email,
@@ -118,6 +121,10 @@ router.post("/send-done-task", authenticateUser, async (req, res) => {
 		const { taskName } = req.body;
 		const email = req.email;
 
+		if (!taskName) {
+			return res.status(400).json({ error: "Task name is required!" });
+		}
+
 		const sendNotificationToEmail = {
 			from: "elody.abbott32@ethereal.email",
 			to: email,
@@ -129,7 +136,7 @@ router.post("/send-done-task", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Failed to send email!" });
 			}
-			return res.status(200).json({ message: "Email was sent successfully!" });
+			return res.status(200).json({ message: "Email was sent successfully!", taskName });
 		});
 	} catch (error) {
 		console.error("Error during make task done:", error);

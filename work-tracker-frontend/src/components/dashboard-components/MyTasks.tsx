@@ -12,6 +12,7 @@ import { GetTask } from "../../../store/tasksSlice";
 import dayjs, { Dayjs } from "dayjs";
 import TasksActions from "./mini-components/TasksActions";
 import { DoneTaskAction, EditTaskAction, RemoveTaskAction } from "../../../store/tasksActionsSlice";
+import { SendDoneTask } from "../../../store/notificationsSlice";
 
 export default function MyTasks() {
 	const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +29,11 @@ export default function MyTasks() {
 		if (email) {
 			await dispatch(DoneTaskAction({ ID, email, taskStatus }));
 			await dispatch(GetTask());
+
+			const currentTask = tasksData.find(task => task.ID === ID);
+			if (currentTask) {
+				await dispatch(SendDoneTask({ notificationName: [currentTask.taskName] }));
+			}
 		}
 	};
 
