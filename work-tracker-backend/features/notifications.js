@@ -89,24 +89,50 @@ router.get("/display-notification", authenticateUser, async (req, res) => {
 	}
 });
 
-router.delete("/remove-notification", authenticateUser, async (req, res) => {
+router.post("/send-create-task-notification", authenticateUser, async (req, res) => {
 	try {
-		const { ID } = req.body;
+		const { taskName } = req.body;
 		const email = req.email;
 
-		const removeNotificationQuery = `DELETE FROM notificationsData WHERE ID = ? AND email = ?`;
-		db.query(removeNotificationQuery, [ID, email], (err, results) => {
-			if (err) {
-				return res.status(500).json({ error: "Database query error", details: err });
-			}
-			if (results.affectedRows === 0) {
-				return res.status(404).json({ error: "Notification not found!" });
-			}
+		const sendNotificationToEmail = {
+			from: "elody.abbott32@ethereal.email",
+			to: email,
+			subject: "Task created",
+			text: `New task "${taskName}" was created! Try to make it done! Good luck!`,
+		};
 
-			return res.status(200).json({ message: "Notification deleted successfully!" });
+		transporter.sendMail(sendNotificationToEmail, err => {
+			if (err) {
+				return res.status(500).json({ error: "Failed to send email!" });
+			}
+			return res.status(200).json({ message: "Email was sent successfully!" });
 		});
 	} catch (error) {
-		console.error("Error during remove task:", error);
+		console.error("Error during create new task notification:", error);
+		return res.status(500).json({ error: "Internal server error!" });
+	}
+});
+
+router.post("/send-done-task", authenticateUser, async (req, res) => {
+	try {
+		const { taskName } = req.body;
+		const email = req.email;
+
+		const sendNotificationToEmail = {
+			from: "elody.abbott32@ethereal.email",
+			to: email,
+			subject: "Task completed",
+			text: `Task "${taskName}" was completed! Congrats and keep going to finish another task!`,
+		};
+
+		transporter.sendMail(sendNotificationToEmail, err => {
+			if (err) {
+				return res.status(500).json({ error: "Failed to send email!" });
+			}
+			return res.status(200).json({ message: "Email was sent successfully!" });
+		});
+	} catch (error) {
+		console.error("Error during make task done:", error);
 		return res.status(500).json({ error: "Internal server error!" });
 	}
 });
