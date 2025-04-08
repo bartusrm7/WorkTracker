@@ -1,11 +1,6 @@
 import { Button } from "react-bootstrap";
 import Navigation from "../navigation-components/Navigation";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useEffect } from "react";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { AccessForGettingNotifications, DisplayNotification } from "../../../store/notificationsSlice";
@@ -17,7 +12,7 @@ export default function Notifications() {
 
 	const handleToggleNotificationsBtn = async () => {
 		const newStatus = notificationsAccess === 0 ? 1 : 0;
-		dispatch(AccessForGettingNotifications({ notificationsAccess: newStatus }));
+		await dispatch(AccessForGettingNotifications({ notificationsAccess: newStatus }));
 	};
 
 	useEffect(() => {

@@ -136,7 +136,7 @@ const notificationSlice = createSlice({
 			})
 
 			.addCase(SendCreateTaskNotification.fulfilled, (state, action: PayloadAction<{ notificationName: string[] }>) => {
-				state.notificationName = action.payload.notificationName;
+				state.notificationName = action.payload.notificationName || [];
 				state.loading = false;
 			})
 			.addCase(SendCreateTaskNotification.rejected, state => {
@@ -144,7 +144,7 @@ const notificationSlice = createSlice({
 			})
 
 			.addCase(SendDoneTask.fulfilled, (state, action: PayloadAction<{ notificationName: string[] }>) => {
-				state.notificationName = action.payload.notificationName;
+				state.notificationName = action.payload.notificationName || [];
 				state.loading = false;
 			})
 			.addCase(SendDoneTask.rejected, state => {

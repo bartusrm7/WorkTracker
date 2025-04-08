@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
 	host: "smtp.ethereal.email",
 	port: 587,
 	auth: {
-		user: "neil30@ethereal.email",
-		pass: "xX77THeXkF2A4WWErC",
+		user: "myron96@ethereal.email",
+		pass: "KDRpTsGgqM9NHNHmwa",
 	},
 });
 
@@ -98,7 +98,7 @@ router.post("/send-create-task-notification", authenticateUser, async (req, res)
 		}
 
 		const sendNotificationToEmail = {
-			from: "elody.abbott32@ethereal.email",
+			from: "myron96@ethereal.email",
 			to: email,
 			subject: "Task created",
 			text: `New task "${taskName}" was created! Try to make it done! Good luck!`,
@@ -126,7 +126,7 @@ router.post("/send-done-task", authenticateUser, async (req, res) => {
 		}
 
 		const sendNotificationToEmail = {
-			from: "elody.abbott32@ethereal.email",
+			from: "myron96@ethereal.email",
 			to: email,
 			subject: "Task completed",
 			text: `Task "${taskName}" was completed! Congrats and keep going to finish another task!`,
