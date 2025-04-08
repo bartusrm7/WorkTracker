@@ -39,7 +39,7 @@ export default function Notifications() {
 								<div className='mb-2'>
 									<div className='notifications__notification-name'>Email notification</div>
 									<div className='notifications__notification-description'>
-										Receive nofitications on your adress email
+										Allow for display your last notifications
 									</div>
 								</div>
 								<div className='notifications__notification-action-status'>
@@ -48,20 +48,6 @@ export default function Notifications() {
 										onClick={handleToggleNotificationsBtn}>
 										<div className='thumb'></div>
 									</Button>
-								</div>
-							</div>
-
-							<div className='notifications__notification-item d-flex justify-content-between align-items-center'>
-								<div className='mb-2'>
-									<div className='notifications__notification-name'>Notification hours</div>
-									<div className='notifications__notification-description'>Set reminder hours for notification</div>
-								</div>
-								<div className='notifications__notification-action-status'>
-									<LocalizationProvider dateAdapter={AdapterDayjs}>
-										<DemoContainer components={["TimePicker"]}>
-											<TimePicker defaultValue={dayjs("2022-04-17T06:30")} ampm={false} />
-										</DemoContainer>
-									</LocalizationProvider>
 								</div>
 							</div>
 						</div>
