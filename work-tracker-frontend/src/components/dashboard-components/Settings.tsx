@@ -29,7 +29,6 @@ export default function Settings() {
 
 	const handleSaveUserData = () => {
 		dispatch(EditUserData(userNames));
-		console.log(userNames);
 	};
 
 	useEffect(() => {
