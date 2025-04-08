@@ -51,26 +51,11 @@ export default function Statistics() {
 					</div>
 
 					<div className='statistics__main-container big-separate-container statistics-container p-2 mb-2 d-flex flex-wrap justify-content-evenly align-items-center'>
-						{/* <div className='statistics__stats-container text-center'>
-							<div className='statistics__stats-name mb-2'>Tasks</div>
-							<Circle
-								className='statistics__circle-stats'
-								percent={100}
-								trailWidth={10}
-								strokeWidth={10}
-								strokeColor='#b83adf'
-								trailColor='#5c1891'
-								gapDegree={20}
-							/>
-							<div className='statistics__tasks-amount mb-2'>
-								{filteredTasksData.length}/{filteredTasksData.length}
-							</div>
-						</div> */}
 						<div className='statistics__stats-container text-center'>
 							<div className='statistics__stats-name mb-2'>Done</div>
 							<Circle
 								className='statistics__circle-stats'
-								percent={(tasksAmountDone.length / filteredTasksData.length) * 100}
+								percent={(tasksAmountDone.length / filteredTasksData.length) * 100 || 0}
 								trailWidth={10}
 								strokeWidth={10}
 								strokeColor='#b83adf'
@@ -85,7 +70,7 @@ export default function Statistics() {
 							<div className='statistics__stats-name mb-2'>In progress</div>
 							<Circle
 								className='statistics__circle-stats'
-								percent={(tasksAmountNotDone.length / filteredTasksData.length) * 100}
+								percent={(tasksAmountNotDone.length / filteredTasksData.length) * 100 || 0}
 								trailWidth={10}
 								strokeWidth={10}
 								strokeColor='#b83adf'
