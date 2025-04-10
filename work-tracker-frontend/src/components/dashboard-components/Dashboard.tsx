@@ -13,11 +13,9 @@ export default function Dashboard() {
 	const dispatch = useDispatch<AppDispatch>();
 	const firstName = useSelector((state: RootState) => state.auth.firstName);
 	const lastName = useSelector((state: RootState) => state.auth.lastName);
-	const userProfilePhoto = useSelector((state: RootState) => state.userData.userData[0]?.userImage as File);
 	const tasksData = useSelector((state: RootState) => state.tasks.tasks);
-	const motivationQuote = useSelector((state: RootState) => state.motivation.motivationQuote);
+	const motivationQuote = useSelector((state: RootState) => state.motivation.motivation);
 	const [selectedDate, setSelectedDate] = useState(dayjs());
-	const [isUserChoosenProfilePhoto, setIsUserChoosenProfilePhoto] = useState<string | File>("");
 
 	const filteredTasksData = selectedDate
 		? tasksData.filter(task => dayjs(task.taskDate).isSame(selectedDate, "day"))
@@ -25,19 +23,12 @@ export default function Dashboard() {
 
 	const tasksAmount = filteredTasksData.filter(task => task.taskStatus === "done");
 
-	const handleChoosenProfilePhotoByUser = () => {
-		const userImageURL = `http://localhost:5174/user-data/${userProfilePhoto}`;
-		setIsUserChoosenProfilePhoto(userImageURL);
-	};
-
 	useEffect(() => {
-		console.log(isUserChoosenProfilePhoto);
 		dispatch(UserNamesGetFromBackend());
 		dispatch(GetTask());
 		dispatch(GetUserData());
 		dispatch(GetMotivationQuotes());
-		handleChoosenProfilePhotoByUser();
-	}, [dispatch, userProfilePhoto, isUserChoosenProfilePhoto]);
+	}, [dispatch]);
 
 	return (
 		<div className='dashboard m-2'>
@@ -46,11 +37,7 @@ export default function Dashboard() {
 					<div className='dashboard__account-info'>
 						{firstName} {lastName}
 					</div>
-					{userProfilePhoto ? (
-						<img className='dashboard__account-photo' src={isUserChoosenProfilePhoto} alt='User profile' />
-					) : (
-						<AccountCircleOutlinedIcon />
-					)}
+					<AccountCircleOutlinedIcon />
 				</div>
 			</div>
 
@@ -86,7 +73,20 @@ export default function Dashboard() {
 				<div className='dashboard__main-container big-separate-container p-2 mb-2 d-lg-flex flex-column justify-content-between'>
 					<div className='dashboard__motivation-quotes-container'>
 						<div className='dashboard__motivation-quotes-label label'>Motivation quotes</div>
-						<div className='dashboard__motivation-quotes-wrapper'>{motivationQuote}</div>
+						<div className='dashboard__motivation-quotes-wrapper'>
+							{!motivationQuote?.author || !motivationQuote.quote ? (
+								<div></div>
+							) : (
+								<div>
+									<span>
+										<b>
+											<i>{motivationQuote?.author}</i>
+										</b>
+									</span>
+									<span> - </span> {motivationQuote?.quote}
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
