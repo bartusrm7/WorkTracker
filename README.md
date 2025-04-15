@@ -15,7 +15,17 @@ This projects includes registration, login and more features needed to tracking 
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
 
 ## Screens:
-### Sign in/up
+#### Sign In/Up
+
+#### Dashboard
+
+#### My Tasks
+
+#### Statistics
+
+#### Notifications
+
+#### Settings
 
 ## Technologies:
 * React + vite
