@@ -4,7 +4,7 @@
 
 This projects includes registration, login and more features needed to tracking user tasks. The project provides solutions for managing users daily tasks, allowing users to efficiently organize and monitoring their work.
 
-### Features:
+## Features:
 * Task Management:
   - creating new tasks,
   - editing existing tasks,
@@ -14,10 +14,10 @@ This projects includes registration, login and more features needed to tracking 
 * User Authentication: Register and log in to securely store and manage your tasks.
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
 
-### Screens:
+## Screens:
 
 
-### Technologies:
+## Technologies:
 * React + vite
 * TypeScript
 * NodeJS
@@ -26,7 +26,7 @@ This projects includes registration, login and more features needed to tracking 
 * SASS
 * Bootstrap
   
-### Installation:
+## Installation:
 To run the project locally follow for these steps:
 
 
