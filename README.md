@@ -16,6 +16,7 @@ This projects includes registration, login and more features needed to tracking 
 
 ### Installation:
 To run the project locally follow for these steps:
+
 1.
 ```bash
 git clone git@github.com:bartusrm7/WorkTracker.git
