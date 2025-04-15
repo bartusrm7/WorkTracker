@@ -16,11 +16,11 @@ This projects includes registration, login and more features needed to tracking 
 
 ### Installation:
 To run the project locally follow for these steps:
-1. Clone the repo
+1.
 ```bash
 git clone git@github.com:bartusrm7/WorkTracker.git
 ```
-2. 
+2.
 ```bash
 docker-compose up --build
 ```
