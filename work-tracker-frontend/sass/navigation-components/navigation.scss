@@ -1,5 +1,5 @@
-@import "../global.scss";
-@import "../mixins";
+@use "../global.scss" as *;
+@use "../mixins.scss" as *;
 
 .navigation {
 	top: 0;

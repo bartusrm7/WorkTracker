@@ -1,0 +1,41 @@
+services:
+  frontend:
+    build:
+      dockerfile: frontend.Dockerfile
+      context: ./work-tracker-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./work-tracker-frontend:/work-tracker
+      - /work-tracker/node_modules
+    depends_on:
+      - backend
+  backend:
+    build:
+      dockerfile: backend.Dockerfile
+      context: ./work-tracker-backend
+    ports:
+      - "5174:5174"
+    depends_on:
+      - database
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=monkeyking
+      - DB_NAME=work_tracker
+    volumes:
+      - ./work-tracker-backend:/work-tracker
+      - ./work-tracker-database:/work-tracker-database
+  database:
+    image: mysql
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: monkeyking
+      MYSQL_DATABASE: work_tracker
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data: {}

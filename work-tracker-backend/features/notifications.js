@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const db = require("../database");
+const db = require("../../work-tracker-database/database");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 
@@ -35,11 +35,14 @@ function authenticateUser(req, res, next) {
 router.put("/access-notifications", authenticateUser, async (req, res) => {
 	try {
 		const email = req.email;
-
 		const notificationStatusFromDatabase = `SELECT notificationsAccess FROM notificationsData WHERE email = ?`;
 		db.query(notificationStatusFromDatabase, [email], (err, results) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
+			}
+			console.log("Query Results:", results);
+			if (results.length === 0) {
+				return res.status(404).json({ error: "No notifications data found for this user" });
 			}
 			const currentStatus = results[0].notificationsAccess;
 			const newStatus = currentStatus === 0 ? 1 : 0;

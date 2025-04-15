@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const db = require("../database");
+const db = require("../../work-tracker-database/database");
 const router = express.Router();
 
 function authenticateUser(req, res, next) {
@@ -47,11 +47,11 @@ router.get("/user-data", authenticateUser, async (req, res) => {
 
 router.put("/edit-user-data", authenticateUser, (req, res) => {
 	try {
-		const { firstName, lastName, userImage } = req.body;
+		const { firstName, lastName } = req.body;
 		const email = req.email;
 
-		const editUserDataQuery = `UPDATE userData SET firstName = ?, lastName = ?, userImage = ? WHERE email = ?`;
-		db.query(editUserDataQuery, [firstName, lastName, userImage, email], err => {
+		const editUserDataQuery = `UPDATE userData SET firstName = ?, lastName = ? WHERE email = ?`;
+		db.query(editUserDataQuery, [firstName, lastName, email], err => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error!", details: err });
 			}

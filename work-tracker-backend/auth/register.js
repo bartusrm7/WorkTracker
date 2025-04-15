@@ -1,6 +1,6 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const db = require("../database");
+const bcrypt = require("bcryptjs");
+const db = require("../../work-tracker-database/database");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {

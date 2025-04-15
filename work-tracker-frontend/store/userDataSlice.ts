@@ -4,7 +4,6 @@ interface UserData {
 	firstName: string;
 	lastName: string;
 	email: string;
-	userImage?: string | File;
 }
 
 interface UserDataState {

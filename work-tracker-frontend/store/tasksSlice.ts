@@ -4,7 +4,7 @@ interface Tasks {
 	ID: number;
 	email: string;
 	taskName: string;
-	taskDate: Date;
+	taskDate: Date | string;
 	taskDescription: string;
 	taskStatus?: any;
 }

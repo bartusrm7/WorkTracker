@@ -1,5 +1,5 @@
-@import "../global.scss";
-@import "../mixins.scss";
+@use "../global.scss" as *;
+@use "../mixins.scss" as *;
 
 .settings {
 	&__big-main-container {

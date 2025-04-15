@@ -7,4 +7,8 @@ export default defineConfig({
 	optimizeDeps: {
 		include: ["@mui/x-date-pickers"],
 	},
+	server: {
+		host: "0.0.0.0",
+		port: 5173,
+	},
 });

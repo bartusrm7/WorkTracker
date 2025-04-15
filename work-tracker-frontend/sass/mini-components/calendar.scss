@@ -1,5 +1,5 @@
-@import "../global.scss";
-@import "../mixins.scss";
+@use "../global.scss" as *;
+@use "../mixins.scss" as *;
 
 .calendar {
 	.css-5wchs2-MuiDateCalendar-root {

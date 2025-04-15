@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../database");
+const db = require("../../work-tracker-database/database");
 const router = express.Router();
 
 function authenticateToken(req, res, next) {

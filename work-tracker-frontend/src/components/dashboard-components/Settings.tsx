@@ -8,7 +8,6 @@ import { EditUserData, GetUserData } from "../../../store/userDataSlice";
 interface ChangeInputs {
 	firstName: string;
 	lastName: string;
-	userImage: string | File;
 	email: string;
 }
 
@@ -19,11 +18,10 @@ export default function Settings() {
 	const [userNames, setUserNames] = useState<ChangeInputs>({
 		firstName: "",
 		lastName: "",
-		userImage: "",
 		email: "",
 	});
 
-	const handleInputUserData = (key: string, value: string | File) => {
+	const handleInputUserData = (key: string, value: string) => {
 		setUserNames(prevState => ({ ...prevState, [key]: value }));
 	};
 
@@ -41,7 +39,6 @@ export default function Settings() {
 				firstName: userData[0].firstName || "",
 				lastName: userData[0].lastName || "",
 				email: userData[0].email || "",
-				userImage: userData[0].userImage || "",
 			});
 		}
 	}, [userData]);
@@ -75,15 +72,6 @@ export default function Settings() {
 							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
 								<FormGroup className='settings__setting-name'>Email:</FormGroup>
 								<div className='settings__setting-name-data d-flex justify-content-end'>{userNames.email}</div>
-							</FormGroup>
-							<FormGroup className='mb-1 d-flex justify-content-between align-items-center'>
-								<FormGroup className='settings__setting-name'>Profile photo:</FormGroup>
-								<FormControl
-									className='settings__setting-name-data d-flex justify-content-end'
-									type='file'
-									accept='image/*'
-									onChange={(e: any) => handleInputUserData("userImage", e.target.files[0])}
-								/>
 							</FormGroup>
 						</Form>
 						<Button className='mt-3 custom-btn' onClick={handleSaveUserData}>

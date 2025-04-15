@@ -20,7 +20,7 @@ interface UserTaskData {
 	ID: number;
 	email: string;
 	taskName: string;
-	taskDate: Date;
+	taskDate: Date | string;
 	taskDescription: string;
 }
 
@@ -45,7 +45,11 @@ export default function TasksCreator({ toggleContainer }: toggleContainerProps) 
 		if (!taskData.taskName || !taskData.taskDate) {
 			return;
 		}
-		await dispatch(CreateTask(taskData));
+		const formattedTaskData = {
+			...taskData,
+			taskDate: dayjs(taskData.taskDate).format("YYYY-MM-DD HH:mm:ss"),
+		};
+		await dispatch(CreateTask(formattedTaskData));
 		await dispatch(GetTask());
 		await dispatch(SendCreateTaskNotification({ notificationName: [taskData.taskName] }));
 		toggleContainer();
