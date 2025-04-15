@@ -14,6 +14,18 @@ This projects includes registration, login and more features needed to tracking 
 * User Authentication: Register and log in to securely store and manage your tasks.
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
 
+### Screens:
+
+
+### Technologies:
+* React + vite
+* TypeScript
+* NodeJS
+* Redux
+* MySQL
+* SASS
+* Bootstrap
+  
 ### Installation:
 To run the project locally follow for these steps:
 
