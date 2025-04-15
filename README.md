@@ -6,10 +6,10 @@ This projects includes registration, login and more features needed to tracking 
 
 ### Features:
 * Task Management:
-- add,
-- edit,
-- mark as completed,
-- remove.
+  - add,
+  - edit,
+  - mark as completed,
+  - remove.
 * Progress Tracking: Monitor the status of tasks and track progress daily.
 * User Authentication: Register and log in to securely store and manage your tasks.
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
