@@ -35,14 +35,13 @@ After logged users can explore their accounts starting with the dashboard. This 
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
 
 ### My Tasks
-#### 5. Create task
+#### 5. Manage tasks
 On this page users can create, edit, mark as complete and remove their tasks.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091924.png" width="100%" />
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092039.png" width="100%" />
 
-
 ### Statistics
-
+#### 6. 
 
 ### Notifications
 
