@@ -41,12 +41,19 @@ On this page users can create, edit, mark as complete and remove their tasks.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092039.png" width="100%" />
 
 ### Statistics
-#### 6. 
+#### 6. Monitoring progress
+Here users can display their progress by date. Includes tasks as "Done" and also "In progress"
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
 
 ### Notifications
+#### 7. Diplay notifications
 
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
 
 ### Settings
+#### 8. Edit user data
+
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
 
 
 ## Technologies:
