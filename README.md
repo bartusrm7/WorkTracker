@@ -32,7 +32,6 @@ This is the login page where users can securely login to their accounts. Include
 ### Dashboard
 #### 4. Dashboard main page
 After logged users can explore their accounts starting with the dashboard. This page includes the most important informations.
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092118.png" width="100%" />
 
 ### My Tasks
@@ -46,16 +45,16 @@ On this page users can create, edit, mark as complete and remove their tasks.
 #### 6. Monitoring progress
 Here users can display their progress by date. Includes tasks as "Done" and also "In progress"
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092227.png"  />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092227.png" />
 
 ### Notifications
 #### 7. Diplay notifications
-
+At this page after click the switch button users are ability to display their last notifications abouts created tasks.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092057.png" width="100%" />
 
 ### Settings
 #### 8. Edit user data
-
+Last item from navigation where users can update their user names.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092103.png" width="100%" />
 
 
