@@ -15,23 +15,23 @@ This projects includes registration, login and more features needed to tracking 
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
 
 ## Screens:
-#### Sign In/Up
+### Sign In/Up
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091724.png" width="100%" /> <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091718.png" width="100%" /> <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091752.png" width="100%" /> 
 
 
 #### Dashboard
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
 
-#### My Tasks
+### My Tasks
 
 
-#### Statistics
+### Statistics
 
 
-#### Notifications
+### Notifications
 
 
-#### Settings
+### Settings
 
 
 ## Technologies:
