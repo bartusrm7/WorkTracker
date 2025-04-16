@@ -16,7 +16,7 @@ This projects includes registration, login and more features needed to tracking 
 
 ## Screens:
 #### Sign In/Up
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 104717.png" width="150" height="250" /> 
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 104717.png" width="250" height="350" /> 
 
 #### Dashboard
 
