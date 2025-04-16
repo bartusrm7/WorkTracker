@@ -40,7 +40,6 @@ router.put("/access-notifications", authenticateUser, async (req, res) => {
 			if (err) {
 				return res.status(500).json({ error: "Database query error", details: err });
 			}
-			console.log("Query Results:", results);
 			if (results.length === 0) {
 				return res.status(404).json({ error: "No notifications data found for this user" });
 			}
