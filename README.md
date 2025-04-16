@@ -26,7 +26,7 @@ Register page allows new users to create an account.
 
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091718.png" width="100%" /> 
 
-#### 1. Login
+##### 1. Login
 This is the login page where users can securely login to their accounts.
 
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091752.png" width="100%" /> 
