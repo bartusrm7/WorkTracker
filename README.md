@@ -33,27 +33,30 @@ This is the login page where users can securely login to their accounts. Include
 #### 4. Dashboard main page
 After logged users can explore their accounts starting with the dashboard. This page includes the most important informations.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092118.png" width="100%" />
 
 ### My Tasks
 #### 5. Manage tasks
 On this page users can create, edit, mark as complete and remove their tasks.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091924.png" width="100%" />
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092039.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092322.png" />
 
 ### Statistics
 #### 6. Monitoring progress
 Here users can display their progress by date. Includes tasks as "Done" and also "In progress"
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092227.png"  />
 
 ### Notifications
 #### 7. Diplay notifications
 
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092057.png" width="100%" />
 
 ### Settings
 #### 8. Edit user data
 
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092103.png" width="100%" />
 
 
 ## Technologies:
