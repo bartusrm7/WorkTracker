@@ -49,12 +49,12 @@ Here users can display their progress by date. Includes tasks as "Done" and also
 
 ### Notifications
 #### 7. Diplay notifications
-At this page after click the switch button users are ability to display their last notifications abouts created tasks.
+At this page by click the switch button users can display their last notifications abouts created tasks.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092057.png" width="100%" />
 
 ### Settings
 #### 8. Edit user data
-Last item from navigation where users can update their user names.
+The final navigation item allows users to update their username.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092103.png" width="100%" />
 
 
