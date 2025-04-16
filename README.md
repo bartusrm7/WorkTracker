@@ -66,6 +66,8 @@ The final navigation item allows users to update their username.
 * MySQL
 * SASS
 * Bootstrap
+* JWT
+* Material UI
   
 ## Installation:
 To run the project locally follow for these steps:
