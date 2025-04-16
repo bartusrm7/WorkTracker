@@ -20,16 +20,18 @@ This projects includes registration, login and more features needed to tracking 
 The welcome page that users see before logging in, introducing them to the application.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091724.png" width="100%" /> 
 
-#### 1. Register
+#### 2. Register
 Register page allows new users to create an account.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091718.png" width="100%" /> 
 
-#### 1. Login
+#### 3. Login
 This is the login page where users can securely login to their accounts. Includes an errors validations.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091752.png" width="100%" /> 
 
 
 ### Dashboard
+#### 4. Dashboard main page
+After logged user can explore an account by started dashboard page which includes to most important informations.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
 
 ### My Tasks
