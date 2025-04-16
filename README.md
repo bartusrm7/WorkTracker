@@ -31,7 +31,7 @@ This is the login page where users can securely login to their accounts. Include
 
 ### Dashboard
 #### 4. Dashboard main page
-After logged user can explore an account by started dashboard page which includes to most important informations.
+After logged users can explore their accounts starting with the dashboard. This page includes the most important informations.
 <img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091813.png" width="100%" />
 
 ### My Tasks
