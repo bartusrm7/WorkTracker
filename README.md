@@ -64,7 +64,7 @@ The final navigation item allows users to update their username.
 * NodeJS
 * Redux
 * MySQL
-* SASS
+* SCSS
 * Bootstrap
 * JWT
 * Material UI
