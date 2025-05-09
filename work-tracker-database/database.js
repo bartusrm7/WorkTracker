@@ -1,11 +1,7 @@
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-	host: "database",
-	user: "root",
-	password: "monkeyking",
-	database: "work_tracker",
-	port: 3306,
+	uri: "mysql://root:XigQEPzGiHXpfoeGVSXcAtrFfoGTiGyS@ballast.proxy.rlwy.net:23368/railway",
 });
 
 db.query(`CREATE TABLE IF NOT EXISTS userData (
