@@ -16,7 +16,7 @@ export default function Motivations() {
 		<>
 			<Navigation />
 			<div className='motivations'>
-				<div className='motivations__motivation-quote'>{motivationQuotes}</div>
+				<div className='motivations__motivation-quote'>{motivationQuotes?.quote}</div>
 			</div>
 		</>
 	);
