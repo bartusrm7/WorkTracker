@@ -16,7 +16,7 @@ const port = process.env.PORT | 5174;
 app.use(express.json());
 app.use(
 	cors({
-		origin: ["https://worktrackerfrontend.onrender.com"],
+		origin: ["https://worktracker-m311.onrender.com"],
 		credentials: true,
 	})
 );
@@ -31,5 +31,5 @@ app.use("/", motivationRoutes);
 app.use("/", notificationsRoutes);
 
 app.listen(port, () => {
-	console.log(`Server working at: "https://worktrackerfrontend.onrender.com${port}`);
+	console.log(`Server working at: "https://worktracker-m311.onrender.com${port}`);
 });
