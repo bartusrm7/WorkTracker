@@ -34,38 +34,10 @@ export default function App() {
 				<Route path='/register' element={<SignUp />} />
 				<Route path='/login' element={<SignIn />} />
 				<Route path='/dashboard' element={<MainContainer />} />
-				<Route
-					path='/my-tasks'
-					element={
-						<ProtectedRoute>
-							<MyTasks />
-						</ProtectedRoute>
-					}
-				/>
-				<Route
-					path='/statistics'
-					element={
-						<ProtectedRoute>
-							<Statistics />
-						</ProtectedRoute>
-					}
-				/>
-				<Route
-					path='/notifications'
-					element={
-						<ProtectedRoute>
-							<Notifications />
-						</ProtectedRoute>
-					}
-				/>
-				<Route
-					path='/settings'
-					element={
-						<ProtectedRoute>
-							<Settings />
-						</ProtectedRoute>
-					}
-				/>
+				<Route path='/my-tasks' element={<MyTasks />} />
+				<Route path='/statistics' element={<Statistics />} />
+				<Route path='/notifications' element={<Notifications />} />
+				<Route path='/settings' element={<Settings />} />
 			</Routes>
 		</BrowserRouter>
 	);
