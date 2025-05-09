@@ -17,7 +17,7 @@ export const AccessForGettingNotifications = createAsyncThunk<
 	{ notificationsAccess: number }
 >("notifications/access-notifications", async (_, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/access-notifications", {
+		const response = await fetch("https://worktrackerserver.onrender.com/access-notifications", {
 			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
@@ -39,7 +39,7 @@ export const DisplayNotification = createAsyncThunk<string[]>(
 	"notifications/display-notification",
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/display-notification", {
+			const response = await fetch("https://worktrackerserver.onrender.com/display-notification", {
 				method: "GET",
 				headers: {
 					"Content-type": "application/json",
@@ -67,7 +67,7 @@ export const SendCreateTaskNotification = createAsyncThunk<
 	{ notificationName: string[] }
 >("notifications/send-create-task-notification", async (taskName, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/send-create-task-notification", {
+		const response = await fetch("https://worktrackerserver.onrender.com/send-create-task-notification", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -90,7 +90,7 @@ export const SendDoneTask = createAsyncThunk<{ notificationName: string[] }, { n
 	"notifications/send-done-task",
 	async (taskName, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/send-done-task", {
+			const response = await fetch("https://worktrackerserver.onrender.com/send-done-task", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",

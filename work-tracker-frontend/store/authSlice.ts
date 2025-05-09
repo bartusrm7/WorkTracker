@@ -23,7 +23,7 @@ export const UserLogin = createAsyncThunk<
 	{ email: string; password: string }
 >("user/user-login", async (userData, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/login", {
+		const response = await fetch("https://worktrackerserver.onrender.com/login", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -49,7 +49,7 @@ export const UserAuthorization = createAsyncThunk<{ accessToken: string }, strin
 	"user/authorization",
 	async (accessToken, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/authorization", {
+			const response = await fetch("https://worktrackerserver.onrender.com/authorization", {
 				method: "POST",
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
@@ -72,7 +72,7 @@ export const UserNamesGetFromBackend = createAsyncThunk<{ firstName: string; las
 	"user/user-names",
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/user-names", {
+			const response = await fetch("https://worktrackerserver.onrender.com/user-names", {
 				method: "GET",
 				headers: {
 					"Content-type": "application/json",
@@ -95,7 +95,7 @@ export const RefreshAccessTokenAfterExpired = createAsyncThunk<{ accessToken: st
 	"user/refresh-token",
 	async (accessToken, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/refresh-token", {
+			const response = await fetch("https://worktrackerserver.onrender.com/refresh-token", {
 				method: "POST",
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
@@ -118,7 +118,7 @@ export const UserLogout = createAsyncThunk<{ isLogged: boolean }>(
 	"user/user-logout",
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/logout", {
+			const response = await fetch("https://worktrackerserver.onrender.com/logout", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",

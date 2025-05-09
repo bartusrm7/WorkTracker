@@ -21,7 +21,7 @@ export const initialState: TasksState = {
 
 export const CreateTask = createAsyncThunk<Tasks, Tasks>("tasks/create-task", async (taskData, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/create-task", {
+		const response = await fetch("https://worktrackerserver.onrender.com/create-task", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -42,7 +42,7 @@ export const CreateTask = createAsyncThunk<Tasks, Tasks>("tasks/create-task", as
 
 export const GetTask = createAsyncThunk<Tasks[]>("tasks/get-task", async (_, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/get-task", {
+		const response = await fetch("https://worktrackerserver.onrender.com/get-task", {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json",

@@ -17,7 +17,7 @@ export const GetMotivationQuotes = createAsyncThunk<Motivation>(
 	"motivation/getMotivationQuotes",
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/motivation", {
+			const response = await fetch("https://worktrackerserver.onrender.com/motivation", {
 				method: "GET",
 				headers: {
 					"Content-type": "application/json",

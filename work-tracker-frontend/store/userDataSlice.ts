@@ -18,7 +18,7 @@ const initialState: UserDataState = {
 
 export const GetUserData = createAsyncThunk<UserData>("user/user-data", async (_, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/user-data", {
+		const response = await fetch("https://worktrackerserver.onrender.com/user-data", {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json",
@@ -40,7 +40,7 @@ export const EditUserData = createAsyncThunk<UserData, UserData>(
 	"user/edit-user-data",
 	async (userData, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/edit-user-data", {
+			const response = await fetch("https://worktrackerserver.onrender.com/edit-user-data", {
 				method: "PUT",
 				headers: {
 					"Content-type": "application/json",

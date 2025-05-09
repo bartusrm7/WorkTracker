@@ -25,7 +25,7 @@ export const DoneTaskAction = createAsyncThunk<
 	{ ID: number; email: string; taskStatus: string }
 >("tasksAction/done-task", async (userData: { ID: number; email: string; taskStatus: string }, { rejectWithValue }) => {
 	try {
-		const response = await fetch("http://localhost:5174/done-task", {
+		const response = await fetch("https://worktrackerserver.onrender.com/done-task", {
 			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
@@ -48,7 +48,7 @@ export const EditTaskAction = createAsyncThunk<Tasks, Tasks>(
 	"tasksAction/edit-task",
 	async (task, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/edit-task", {
+			const response = await fetch("https://worktrackerserver.onrender.com/edit-task", {
 				method: "PUT",
 				headers: {
 					"Content-type": "application/json",
@@ -72,7 +72,7 @@ export const RemoveTaskAction = createAsyncThunk<{ ID: number; email: string }, 
 	"tasksAction/remove-task",
 	async (userData: { ID: number; email: string }, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/remove-task", {
+			const response = await fetch("https://worktrackerserver.onrender.com/remove-task", {
 				method: "DELETE",
 				headers: {
 					"Content-type": "application/json",
