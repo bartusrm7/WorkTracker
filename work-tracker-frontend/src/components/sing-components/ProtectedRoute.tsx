@@ -9,9 +9,7 @@ export default function ProtectedRoute({ children }: ProtectRoute) {
 	const token = Cookies.get("accessToken");
 
 	if (!token) {
-		setTimeout(() => {
-			return <Navigate to='/' replace />;
-		});
+		return <Navigate to='/' replace />;
 	}
 	return children;
 }
