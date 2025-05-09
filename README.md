@@ -15,18 +15,48 @@ This projects includes registration, login and more features needed to tracking 
 * Responsive Design: Fully responsive and optimized for both desktop and mobile devices.
 
 ## Screens:
-#### Sign In/Up
-<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091524.png" width="150" height="250" /> 
+### Sign In/Up
+#### 1. Welcome page
+The welcome page that users see before logging in, introducing them to the application.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091724.png" width="100%" /> 
 
-#### Dashboard
+#### 2. Register
+Register page allows new users to create an account.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091718.png" width="100%" /> 
 
-#### My Tasks
+#### 3. Login
+This is the login page where users can securely login to their accounts. Includes an errors validations.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091752.png" width="100%" /> 
 
-#### Statistics
 
-#### Notifications
+### Dashboard
+#### 4. Dashboard main page
+After logged users can explore their accounts starting with the dashboard. This page includes the most important informations.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092118.png" width="100%" />
 
-#### Settings
+### My Tasks
+#### 5. Manage tasks
+On this page users can create, edit, mark as complete and remove their tasks.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 091924.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092039.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092322.png" />
+
+### Statistics
+#### 6. Monitoring progress
+Here users can display their progress by date. Includes tasks as "Done" and also "In progress"
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092049.png" width="100%" />
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092227.png" />
+
+### Notifications
+#### 7. Diplay notifications
+At this page by click the switch button users can display their last notifications abouts created tasks.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092057.png" width="100%" />
+
+### Settings
+#### 8. Edit user data
+The final navigation item allows users to update their username.
+<img src="/work-tracker-frontend/src/assets/Zrzut ekranu 2025-04-16 092103.png" width="100%" />
+
 
 ## Technologies:
 * React + vite
@@ -34,8 +64,10 @@ This projects includes registration, login and more features needed to tracking 
 * NodeJS
 * Redux
 * MySQL
-* SASS
+* SCSS
 * Bootstrap
+* JWT
+* Material UI
   
 ## Installation:
 To run the project locally follow for these steps:
