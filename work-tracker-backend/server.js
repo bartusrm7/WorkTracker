@@ -16,7 +16,7 @@ const port = process.env.PORT | 5174;
 app.use(express.json());
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin: ["http://localhost:5173", "https://worktrackerfrontend.onrender.com"],
 		credentials: true,
 	})
 );

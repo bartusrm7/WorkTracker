@@ -25,7 +25,7 @@ export const UserRegister = createAsyncThunk<User, User>(
 	"user/user-register",
 	async (userData, { rejectWithValue }) => {
 		try {
-			const response = await fetch("http://localhost:5174/register", {
+			const response = await fetch("https://worktrackerserver.onrender.com/register", {
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",
