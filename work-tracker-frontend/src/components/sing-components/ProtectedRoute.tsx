@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children }: ProtectRoute) {
 	if (!token) {
 		setTimeout(() => {
 			return <Navigate to='/' replace />;
-		}, 1000);
+		});
 	}
 	return children;
 }
