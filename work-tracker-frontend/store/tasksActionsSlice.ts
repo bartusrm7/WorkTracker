@@ -5,7 +5,7 @@ interface Tasks {
 	ID: number;
 	email: string;
 	taskName: string;
-	taskDate?: Date;
+	taskDate?: string | Date;
 	taskDescription: string;
 	taskStatus?: string;
 }
@@ -99,7 +99,10 @@ const tasksActionSlice = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(GetTask.fulfilled, (state, action: PayloadAction<Tasks[]>) => {
-				state.tasks = action.payload;
+				state.tasks = action.payload.map(task => ({
+					...task,
+					taskDate: task.taskDate ? new Date(task.taskDate) : undefined,
+				}));
 				state.loading = false;
 			})
 
