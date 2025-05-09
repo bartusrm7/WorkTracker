@@ -57,10 +57,10 @@ export default function SignIn() {
 	};
 
 	useEffect(() => {
-		// if (isUserLogged) {
-		setIsLoadingPage(!isLoadingPage);
-		navigate("/dashboard");
-		// }
+		if (isUserLogged) {
+			setIsLoadingPage(!isLoadingPage);
+			navigate("/dashboard");
+		}
 	}, [isUserLogged]);
 
 	return (
