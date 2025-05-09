@@ -33,14 +33,7 @@ export default function App() {
 				<Route path='/' element={<SignInUpSwitcher />} />
 				<Route path='/register' element={<SignUp />} />
 				<Route path='/login' element={<SignIn />} />
-				<Route
-					path='/dashboard'
-					element={
-						<ProtectedRoute>
-							<MainContainer />
-						</ProtectedRoute>
-					}
-				/>
+				<Route path='/dashboard' element={<MainContainer />} />
 				<Route
 					path='/my-tasks'
 					element={
