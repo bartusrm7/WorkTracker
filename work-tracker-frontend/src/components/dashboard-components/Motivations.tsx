@@ -6,7 +6,7 @@ import { GetMotivationQuotes } from "../../../store/motivationSlice";
 
 export default function Motivations() {
 	const dispatch = useDispatch<AppDispatch>();
-	const motivationQuotes = useSelector((state: RootState) => state.motivation.motivationQuote);
+	const motivationQuotes = useSelector((state: RootState) => state.motivation.motivation);
 	
 	useEffect(() => {
 		dispatch(GetMotivationQuotes());
