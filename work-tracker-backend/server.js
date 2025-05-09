@@ -11,7 +11,7 @@ const motivationRoutes = require("./features/motivation");
 const notificationsRoutes = require("./features/notifications");
 
 const app = express();
-const port = 5174;
+const port = process.env.PORT | 5174;
 
 app.use(express.json());
 app.use(
